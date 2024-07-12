@@ -105,3 +105,12 @@ a {
     color-scheme: dark;
   }
 }
+
+#live2d-canvas {
+  position: fixed;
+  bottom: -25%;
+  left: 0;
+  z-index: 1000;
+  height: 70%;
+  overflow: hidden;
+}

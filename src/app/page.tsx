@@ -1,9 +1,11 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Live2d from "@/components/live2d";
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <Live2d />
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;

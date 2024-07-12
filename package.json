@@ -1,5 +1,5 @@
 {
-  "name": "tmp",
+  "name": "xryuseix.github.io",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "preview": "yarn run pages:build && wrangler pages dev",
-    "deploy": "yarn run pages:build && wrangler pages deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
+    "build:live2d": "pushd ./CubismWebSamples && yarn build && popd && cp -r ./CubismWebSamples/dist/assets/index-*.js ./public/bundle.js",
+    "build:pages": "npx @cloudflare/next-on-pages",
+    "preview": "yarn run build:pages && yarn wrangler pages dev",
+    "deploy": "yarn run build:pages && yarn wrangler pages deploy",
+    "cf-typegen": "yarn wrangler types --env-interface CloudflareEnv env.d.ts"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.2",
