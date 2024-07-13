@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "live2d:build": "pushd ./CubismWebSamples && yarn build && popd",
+    "live2d:build": "pushd ./CubismWebSamples && yarn build && popd && yarn live2d:copy",
     "live2d:copy": "cp -r ./CubismWebSamples/dist/assets/index-*.js ./public/bundle.js",
     "build:pages": "npx @cloudflare/next-on-pages",
     "preview": "yarn run build:pages && yarn wrangler pages dev",
