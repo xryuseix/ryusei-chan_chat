@@ -1,7 +1,7 @@
 export const MessageBox = () => {
   return (
     <div>
-      <input></input>
+      <input />
     </div>
   );
 };

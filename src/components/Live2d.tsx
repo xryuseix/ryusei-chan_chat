@@ -6,7 +6,8 @@ import { MessageBox } from "./MessageBox";
 export default function Live2d() {
   const [iframe, setIframe] = useState<HTMLIFrameElement | null>(null);
   const channel = new MessageChannel();
-  const port = channel.port1;
+  const sendPort = channel.port1;
+  const recvPort = channel.port2;
 
   useEffect(() => {
     const iframe = document.getElementById("live2d");
@@ -18,31 +19,36 @@ export default function Live2d() {
   useEffect(() => {
     if (!iframe) return;
     const SendMsgToDomainB = () => {
-      var sendData = { message: "Hello from parent" };
+      const sendData = { message: "Hello from parent" };
       console.log(iframe, iframe?.contentWindow);
-      if (iframe && iframe.contentWindow) {
-        console.log("Sending message to iframe", channel.port1);
-        iframe.contentWindow.postMessage("init", "*", [channel.port2]);
-        port.postMessage(sendData);
-        port.onmessage = (e) => {
+      if (iframe?.contentWindow) {
+        console.log("Sending message to iframe");
+        iframe.contentWindow.postMessage("init", "*", [recvPort]);
+        sendPort.postMessage(sendData);
+        sendPort.onmessage = (e) => {
           console.log("Message received from Iframe:", e.data);
-        }
+        };
       }
     };
     SendMsgToDomainB();
-  }, [iframe]);
+  }, [iframe, sendPort, recvPort]);
 
   return (
     <div style={styles.live2d}>
       <MessageBox />
-      <iframe id="live2d" src="/live2d.html" style={styles.iframe}></iframe>
+      <iframe
+        id="live2d"
+        title="live2d"
+        src="/live2d.html"
+        style={styles.iframe}
+      />
     </div>
   );
 }
 
 const styles = {
   live2d: {
-    position: "fixed" as "fixed",
+    position: "fixed" as const,
     bottom: "-25%",
     left: 0,
     zIndex: 1000,
@@ -56,5 +62,5 @@ const styles = {
     overflow: "hidden",
     border: "none",
     backgroundColor: "transparent",
-  }
+  },
 };
