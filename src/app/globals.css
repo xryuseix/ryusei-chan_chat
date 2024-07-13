@@ -100,17 +100,9 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+/* transparent background of iframe is not working */
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
-
-#live2d-canvas {
-  position: fixed;
-  bottom: -25%;
-  left: 0;
-  z-index: 1000;
-  height: 70%;
-  overflow: hidden;
-}
+} */
