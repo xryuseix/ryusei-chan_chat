@@ -34,31 +34,29 @@ export default function Live2d() {
   }, [iframe, sendPort, recvPort]);
 
   return (
-    <div style={styles.live2d}>
-      <MessageBox />
+    <div>
       <iframe
         id="live2d"
         title="live2d"
         src="/live2d.html"
-        style={styles.iframe}
+        style={Object.assign({}, styles.live2d, styles.live2dBox)}
       />
+      <MessageBox boxStyle={styles.live2dBox} />
     </div>
   );
 }
 
 const styles = {
-  live2d: {
+  live2dBox: {
     position: "fixed" as const,
-    bottom: "-25%",
-    left: 0,
-    zIndex: 1000,
     maxWidth: "300px",
     width: "40%",
-    height: "70%",
   },
-  iframe: {
-    width: "100%",
-    height: "100%",
+  live2d: {
+    height: "70%",
+    bottom: "-25%",
+    left: 0,
+    zIndex: 100,
     overflow: "hidden",
     border: "none",
     backgroundColor: "transparent",
