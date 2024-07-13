@@ -1,0 +1,25 @@
+name: Lint
+on:
+  push:
+    paths:
+      - 'src/**/*'
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        with:
+          path: .cache/yarn
+          key: ${{ runner.os }}-yarn-cache-v1
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Lint
+        run: yarn lint
