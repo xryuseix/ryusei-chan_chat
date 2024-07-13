@@ -17,11 +17,20 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.2",
+    "@rewind-ui/core": "^0.19.11",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.13",
+    "autoprefixer": "^10.4.19",
+    "class-variance-authority": "^0.7.0",
     "hono": "^4.4.13",
     "next": "14.1.0",
+    "postcss": "^8.4.39",
     "react": "^18",
     "react-dom": "^18",
     "swr": "^2.2.5",
+    "tailwind-merge": "^2.4.0",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -32,7 +41,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "typescript": "^5",
-    "vercel": "^34.3.1",
     "wrangler": "^3.64.0"
   }
 }
