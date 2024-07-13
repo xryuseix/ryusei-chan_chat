@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import Live2d from "@/components/live2d";
+import Live2d from "@/components/Live2d";
 
 export default function Home() {
   return (
