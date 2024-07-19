@@ -1,4 +1,5 @@
 "use client";
+
 import { initialPrompt } from "./ryuseiChan";
 
 type Session = {
@@ -50,10 +51,10 @@ class ChatWithRyuseiChan {
 
   initChat = async () => {
     this.session = await (window as AI).ai.createTextSession();
-    if(!this.session) {
+    if (!this.session) {
       throw new Error("Failed to create text session");
     }
-    const res = await this.chat("こんにちは")//this.initialPrompt);
+    const res = await this.chat("こんにちは"); //this.initialPrompt);
     console.debug(res);
   };
 
@@ -73,7 +74,9 @@ class ChatWithRyuseiChan {
   chat = async (text?: string) => {
     const inputText = text ?? this.defaultText;
     if (!this.available || !this.session) {
-      throw new Error(`Gemini Nano is not available. available: ${this.available}, session: ${this.session}`);
+      throw new Error(
+        `Gemini Nano is not available. available: ${this.available}, session: ${this.session}`,
+      );
     }
     return await this.session.prompt(inputText);
   };

@@ -1,17 +1,14 @@
-"use client";
+import { getServerSession } from "next-auth/next";
+import { signIn } from "@/lib/auth";
 
-import { useEffect, useState } from "react";
-import { client } from "@api/client";
-
-export default function AdminPage() {
-  const [name, setName] = useState<string>();
-
-  useEffect(() => {
-    client.api.hello
-      .$get()
-      .then((res) => res.json())
-      .then((json) => setName(json.name));
-  }, []);
-
-  return <p>{typeof name !== "undefined" ? `Hello ${name}!` : "Loading..."}</p>;
+export default async function AdminPage() {
+  const session = await getServerSession();
+  if (!session?.user) {
+    signIn();
+  }
+  return (
+    <>
+      <pre>{JSON.stringify(session || "{}", null, 2)}</pre>
+    </>
+  );
 }

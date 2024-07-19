@@ -1,3 +1,5 @@
+"use client";
+
 import { InputGroup } from "@rewind-ui/core";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
 import ChatWithRyuseiChan from "../lib/Chat";
@@ -32,7 +34,7 @@ export const MessageBox = ({ boxStyle }: Props) => {
           withRing={false}
           disabled={!ryuseiChan.current?.available}
           onClick={async () => {
-            if(!ryuseiChan.current) return;
+            if (!ryuseiChan.current) return;
             const result = await ryuseiChan.current.chat(text);
             console.log(result);
           }}

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
 
-const hono = new Hono()
+const hono = new Hono();
 
-export default hono
+export default hono;
