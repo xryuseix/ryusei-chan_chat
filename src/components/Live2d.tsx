@@ -1,26 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { MessageBox } from "./MessageBox";
 
 export default function Live2d() {
-  const [iframe, setIframe] = useState<HTMLIFrameElement | null>(null);
+  const [iframe, setIframe] = React.useState<HTMLIFrameElement | null>(null);
   const channel = new MessageChannel();
   const sendPort = channel.port1;
   const recvPort = channel.port2;
 
-  useEffect(() => {
+  React.useEffect(() => {
     const iframe = document.getElementById("live2d");
     if (iframe && iframe instanceof HTMLIFrameElement) {
       setIframe(iframe);
     }
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!iframe) return;
     const SendMsgToDomainB = () => {
       const sendData = { message: "Hello from parent" };
-      console.log(iframe, iframe?.contentWindow);
       if (iframe?.contentWindow) {
         console.log("Sending message to iframe");
         iframe.contentWindow.postMessage("init", "*", [recvPort]);
