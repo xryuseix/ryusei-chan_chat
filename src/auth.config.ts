@@ -19,7 +19,8 @@ export const handler = NextAuth({
           login: string;
           id: number;
         };
-        const role = uid === Number(process.env.XRYUSEIX_USERID) ? "admin" : "user";
+        const role =
+          uid === Number(process.env.XRYUSEIX_USER_ID) ? "admin" : "user";
         Object.assign(token, { username, uid: uid, role });
       }
       return token;
