@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { client } from "@api/client";
 import ChatLog, { type MessageWithId } from "@/components/chat/ChatLog";
 import ChatForm from "@/components/chat/ChatForm";
+import Live2d from "@/components/Live2d";
 
 const getChunks = (value: Uint8Array) => {
   const decoder = new TextDecoder();
@@ -42,7 +43,7 @@ export default function AdminPage() {
         init: {
           signal: abortControllerRef.current.signal,
         },
-      },
+      }
     );
     const reader = response?.body?.getReader();
     if (!reader) return;
@@ -70,14 +71,17 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="fixed z-10 m-2 bottom-4 left-4 right-4">
-      <ChatLog lastMsg={lastMsg} />
-      <ChatForm
-        message={message}
-        setMsg={setMsg}
-        isGenerating={isGenerating}
-        handleSubmit={handleSubmit}
-      />
+    <div className="h-screen">
+      <Live2d className="h-[150%] w-full mt-16" />
+      <div className="fixed z-10 m-2 bottom-4 left-4 right-4">
+        <ChatLog lastMsg={lastMsg} />
+        <ChatForm
+          message={message}
+          setMsg={setMsg}
+          isGenerating={isGenerating}
+          handleSubmit={handleSubmit}
+        />
+      </div>
     </div>
   );
 }
