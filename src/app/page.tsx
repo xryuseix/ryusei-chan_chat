@@ -1,11 +1,11 @@
-import Live2d from "@/components/Live2d";
+import Live2dAssistant from "@/components/Live2dAssistant";
 import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Live2d />
+      <Live2dAssistant />
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
