@@ -2,7 +2,7 @@
 
 import { InputGroup } from "@rewind-ui/core";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
-import ChatWithRyuseiChan from "../lib/Chat";
+import ChatWithRyuseiChan from "../lib/chat/gemini";
 import React from "react";
 
 type Props = {
