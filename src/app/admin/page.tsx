@@ -39,7 +39,7 @@ export default function AdminPage() {
   const [history, setHistory] = useState<MessageWithId[]>([
     {
       id: 0,
-      role: "assistant",
+      role: "user",
       content:
         "You should use a pretty girl tone of voice in your conversation.",
     },
@@ -85,6 +85,7 @@ export default function AdminPage() {
           ...history,
           { id: history.length, role: "assistant", content: tmpMsg },
         ]);
+        setLastMsg("");
         return;
       }
       if (!value) continue;
@@ -128,7 +129,7 @@ export default function AdminPage() {
       />
       <Live2d className="h-[150%] w-full mt-16" />
       <div className="fixed z-10 m-2 bottom-4 left-4 right-4">
-        <ChatLog lastMsg={lastMsg} />
+        <ChatLog lastMsg={lastMsg} history={history} />
         <ChatForm
           message={message}
           setMsg={setMsg}

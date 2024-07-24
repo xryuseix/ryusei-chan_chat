@@ -5,7 +5,13 @@ import type { Message } from "@api/api/chat";
 
 export type MessageWithId = Message & { id: number };
 
-export default function ChatLog({ lastMsg }: { lastMsg: string }) {
+export default function ChatLog({
+  lastMsg,
+  history,
+}: {
+  lastMsg: string;
+  history: MessageWithId[];
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (scrollRef.current && lastMsg) {
@@ -22,7 +28,22 @@ export default function ChatLog({ lastMsg }: { lastMsg: string }) {
         className="h-48 text-xl overflow-y-scroll hidden-scrollbar text-gray-200"
         ref={scrollRef}
       >
-        <span>{lastMsg}</span>
+        {history.slice(1).map((msg) => (
+          <div key={msg.id} className="mb-2">
+            <span className="text-gray-400 mr-2">
+              [{msg.role === "assistant" ? "Ryusei-Chan" : "You"}]:
+            </span>
+            <span>{msg.content}</span>
+          </div>
+        ))}
+        {
+          lastMsg && (
+            <div>
+              <span className="text-gray-400 mr-2">[Ryusei-Chan]:</span>
+              <span>{lastMsg}</span>
+            </div>
+          )
+        }
       </div>
     </div>
   );
