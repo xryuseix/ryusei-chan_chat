@@ -1,5 +1,5 @@
 import { hc } from "hono/client";
-import type { route } from "./route";
+import type { route } from "./api";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
 if (!APP_URL) {
