@@ -25,3 +25,13 @@ export default function ChatLog({ lastMsg }: { lastMsg: string }) {
     </div>
   );
 }
+
+export const getChunks = (value: Uint8Array) => {
+  const decoder = new TextDecoder();
+  const lines = decoder.decode(value);
+  const chunks = lines
+    .split("data: ")
+    .map((line) => line.replace(/\n\n$/, ""))
+    .filter((s) => s.length);
+  return chunks;
+};
