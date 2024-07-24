@@ -1,5 +1,5 @@
 import { PaperPlaneTilt } from "@phosphor-icons/react";
-import { FormControl, Button, InputGroup } from "@rewind-ui/core";
+import { InputGroup } from "@rewind-ui/core";
 import type { Dispatch, SetStateAction } from "react";
 
 export default function ChatForm({

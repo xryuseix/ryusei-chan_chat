@@ -2,26 +2,45 @@
 
 import { useRef, useState } from "react";
 import { client } from "@api/client";
-import ChatLog, { type MessageWithId } from "@/components/chat/ChatLog";
+import ChatLog, {
+  type MessageWithId,
+  getChunks,
+} from "@/components/chat/ChatLog";
 import ChatForm from "@/components/chat/ChatForm";
 import Live2d from "@/components/Live2d";
+import { ToastContainer, useToast } from "@rewind-ui/core";
 
-const getChunks = (value: Uint8Array) => {
-  const decoder = new TextDecoder();
-  const lines = decoder.decode(value);
-  const chunks = lines
-    .split("data: ")
-    .map((line) => line.trim())
-    .filter((s) => s);
-  return chunks;
-};
+function createErrrorToast(toast: ReturnType<typeof useToast>) {
+  toast.add({
+    id: "unique-id",
+    closeOnClick: false,
+    color: "dark",
+    description: "window.speechSynthesis is not supported in this browser.",
+    duration: 3000,
+    iconType: "warning",
+    pauseOnHover: true,
+    radius: "lg",
+    shadow: "base",
+    shadowColor: "gray",
+    showProgress: true,
+    title: "Speech Functionality Not Supported",
+    tone: "solid",
+  });
+}
 
 export default function AdminPage() {
-  const [message, setMsg] = useState("300字ほどの文章を作ってください");
+  const [message, setMsg] = useState("Please tell me, how about you?");
   const [lastMsg, setLastMsg] = useState("");
-  const [history, setHistory] = useState<MessageWithId[]>([]);
+  const [history, setHistory] = useState<MessageWithId[]>([
+    {
+      id: 0,
+      role: "assistant",
+      content: "You should use a pretty girl tone of voice in your conversation.",
+    },
+  ]);
   const [isGenerating, setIsGenerating] = useState(false);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const toast = useToast();
 
   const handleSubmit = async () => {
     if (message === "") return;
@@ -49,15 +68,16 @@ export default function AdminPage() {
     if (!reader) return;
 
     let tmpMsg = "";
+    let tmpSentence = "";
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
         setIsGenerating(false);
-        console.log({ history, tmpMsg });
         setHistory((history) => [
           ...history,
           { id: history.length, role: "assistant", content: tmpMsg },
         ]);
+        // speakText(tmpMsg);
         return;
       }
       if (!value) continue;
@@ -66,12 +86,32 @@ export default function AdminPage() {
       for (const chunk of chunks) {
         tmpMsg += chunk;
         setLastMsg(tmpMsg);
+        tmpSentence += chunk;
+        if (chunk.endsWith(".") || chunk.endsWith("!") || chunk.endsWith("?")) {
+          speakText(tmpSentence);
+          tmpSentence = "";
+        }
       }
     }
   };
 
+  const speakText = (text: string) => {
+    if (!("speechSynthesis" in window)) {
+      createErrrorToast(toast);
+      return;
+    }
+    const uttr = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find((v) => v.name === "Junior");
+    if (voice) {
+      uttr.voice = voice;
+    }
+    window.speechSynthesis.speak(uttr);
+  };
+
   return (
     <div className="h-screen">
+      <ToastContainer />
       <Live2d className="h-[150%] w-full mt-16" />
       <div className="fixed z-10 m-2 bottom-4 left-4 right-4">
         <ChatLog lastMsg={lastMsg} />
