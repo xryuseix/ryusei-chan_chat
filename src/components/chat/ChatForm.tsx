@@ -20,7 +20,7 @@ export default function ChatForm({
   // FIXME:
   // @ts-ignore
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null,
+    null
   );
 
   useEffect(() => {
@@ -77,8 +77,16 @@ export default function ChatForm({
             withRing={false}
             disabled={isGenerating}
             onClick={() => setIsRecording((prev) => !prev)}
+            className=""
           >
-            {isRecording ? <StopCircle size={16} /> : <Microphone size={16} />}
+            {isRecording ? (
+              <span className="relative flex">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400/70 opacity-75" />
+                <StopCircle size={18} />
+              </span>
+            ) : (
+              <Microphone size={18} />
+            )}
           </InputGroup.Button>
         )}
         <InputGroup.Button
@@ -88,7 +96,7 @@ export default function ChatForm({
           className="border-0 border-l border-gray-400/30"
           style={{ borderRadius: "0 0.5rem 0.5rem 0" }}
         >
-          <PaperPlaneTilt size={16} />
+          <PaperPlaneTilt size={18} />
         </InputGroup.Button>
       </InputGroup>
     </div>
