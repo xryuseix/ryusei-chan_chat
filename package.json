@@ -13,7 +13,8 @@
     "live2d:build": "pushd ./CubismWebSamples && yarn build && popd && yarn live2d:copy",
     "live2d:copy": "cp -r ./CubismWebSamples/dist/assets/index-*.js ./public/bundle.js",
     "preview": "yarn run build:pages && yarn wrangler pages dev",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.2",
@@ -40,10 +41,14 @@
     "@biomejs/biome": "^1.8.3",
     "@cloudflare/next-on-pages": "^1.12.1",
     "@cloudflare/workers-types": "^4.20240701.0",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^4.3.1",
+    "jsdom": "^24.1.1",
     "typescript": "^5",
+    "vitest": "^2.0.4",
     "wrangler": "^3.64.0"
   }
 }

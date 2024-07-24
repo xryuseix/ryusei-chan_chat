@@ -1,12 +1,12 @@
-name: Lint
+name: Lint and Test
 on:
   push:
     paths:
       - 'src/**/*'
 
 jobs:
-  lint:
-    name: lint
+  lint_and_test:
+    name: lint and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,3 +23,6 @@ jobs:
 
       - name: Lint
         run: yarn lint
+      
+      - name: Test
+        run: yarn test
