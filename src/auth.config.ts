@@ -15,13 +15,8 @@ export const handler = NextAuth({
   callbacks: {
     jwt: ({ profile, token }) => {
       if (profile) {
-        const { login: username, id: uid } = profile as {
-          login: string;
-          id: number;
-        };
-        const role =
-          uid === Number(process.env.XRYUSEIX_USER_ID) ? "admin" : "user";
-        Object.assign(token, { username, uid: uid, role });
+        const { login: username, id: uid } = profile;
+        Object.assign(token, { username, uid: uid });
       }
       return token;
     },
@@ -30,10 +25,20 @@ export const handler = NextAuth({
         Object.assign(session.user, {
           uid: token.uid,
           username: token.username,
-          role: token.role,
         });
       }
       return session;
+    },
+    authorized: ({ auth }) => {
+      if (auth?.user?.id && auth?.user?.id === process.env.XRYUSEIX_USER_ID) {
+        return true;
+      }
+      return false;
+    },
+    redirect: async ({ url, baseUrl }) => {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
   },
   events: {},

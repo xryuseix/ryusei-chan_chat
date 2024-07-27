@@ -1,3 +1,6 @@
 import { handler } from "@/auth.config";
 
-export { handler as GET, handler as POST };
+export const runtime = "edge";
+
+export const GET = handler.handlers.GET;
+export const POST = handler.handlers.POST;

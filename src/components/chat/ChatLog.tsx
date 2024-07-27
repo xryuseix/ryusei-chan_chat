@@ -36,14 +36,12 @@ export default function ChatLog({
             <span>{msg.content}</span>
           </div>
         ))}
-        {
-          lastMsg && (
-            <div>
-              <span className="text-gray-400 mr-2">[Ryusei-Chan]:</span>
-              <span>{lastMsg}</span>
-            </div>
-          )
-        }
+        {lastMsg && (
+          <div>
+            <span className="text-gray-400 mr-2">[Ryusei-Chan]:</span>
+            <span>{lastMsg}</span>
+          </div>
+        )}
       </div>
     </div>
   );

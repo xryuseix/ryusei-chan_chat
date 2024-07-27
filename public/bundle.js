@@ -1,4 +1,4 @@
-(() => {
+(function () {
   const t = document.createElement("link").relList;
   if (t && t.supports && t.supports("modulepreload")) return;
   for (const s of document.querySelectorAll('link[rel="modulepreload"]')) i(s);
@@ -125,7 +125,7 @@ const kt = class kt {
   }
 };
 kt.DefaultSize = 10;
-const x = kt,
+let x = kt,
   se = class ve {
     constructor(t, e) {
       (this._vector = t ?? null), (this._index = e ?? 0);
@@ -671,7 +671,7 @@ const Nt = class Nt {
   }
 };
 Nt.DefaultSize = 10;
-const z = Nt;
+let z = Nt;
 class _t {
   constructor(t, e) {
     (this._map = t ?? new z()), (this._index = e ?? 0);
@@ -765,7 +765,7 @@ class ae {
 }
 const ne = "Error: type mismatch",
   Hs = "Error: index out of bounds";
-const O = class K {
+let O = class K {
   constructor() {}
   getRawString(t, e) {
     return this.getString(t, e);
@@ -1105,13 +1105,13 @@ class oe extends O {
   getString(t, e) {
     const i = "\0";
     return (
-      (this._value = Number.parseFloat(i)),
+      (this._value = parseFloat(i)),
       (this._stringBuffer = i),
       this._stringBuffer
     );
   }
   toInt(t = 0) {
-    return Number.parseInt(this._value.toString());
+    return parseInt(this._value.toString());
   }
   toFloat(t = 0) {
     return this._value;
@@ -1263,7 +1263,7 @@ class Rt extends O {
   }
   release() {
     const t = this._map.begin();
-    while (t.notEqual(this._map.end())) {
+    for (; t.notEqual(this._map.end()); ) {
       let e = t.ptr().second;
       e && !e.isStatic() && ((e = void 0), (e = null)), t.preIncrement();
     }
@@ -1294,7 +1294,7 @@ class Rt extends O {
       `{
 `;
     const i = this._map.begin();
-    while (i.notEqual(this._map.end())) {
+    for (; i.notEqual(this._map.end()); ) {
       const s = i.ptr().first,
         a = i.ptr().second;
       (this._stringBuffer +=
@@ -1325,7 +1325,7 @@ class Rt extends O {
     if (!this._keys) {
       this._keys = new x();
       const t = this._map.begin();
-      while (t.notEqual(this._map.end())) {
+      for (; t.notEqual(this._map.end()); ) {
         const e = t.ptr().first;
         this._keys.pushBack(e), t.preIncrement();
       }
@@ -1358,8 +1358,8 @@ function $s(r, t) {
     if (isNaN(n)) break;
     e = s;
   }
-  let i = Number.parseFloat(r);
-  return isNaN(i) && (i = Number.NaN), (t[0] = r.slice(e)), i;
+  let i = parseFloat(r);
+  return isNaN(i) && (i = NaN), (t[0] = r.slice(e)), i;
 }
 let j = !1,
   St = !1,
@@ -1470,7 +1470,7 @@ const Ze = 1,
   ir = 2,
   gs = "../../Resources/",
   sr = "icon_gear.png",
-  be = ["ryusei-chan", "Hiyori"],
+  be = ["ryusei-chan"],
   rr = be.length,
   ar = "Idle",
   nr = "TapBody",
@@ -2084,7 +2084,7 @@ const Ut = class Ut {
   }
 };
 Ut.CloseIfZero = !0;
-const Yt = Ut;
+let Yt = Ut;
 var _s = ((r) => (
     (r[(r.EyeState_First = 0)] = "EyeState_First"),
     (r[(r.EyeState_Interval = 1)] = "EyeState_Interval"),
@@ -2447,8 +2447,8 @@ const bt = class bt {
     const i = Math.atan2(e.y, e.x),
       s = Math.atan2(t.y, t.x);
     let a = i - s;
-    while (a < -Math.PI) a += Math.PI * 2;
-    while (a > Math.PI) a -= Math.PI * 2;
+    for (; a < -Math.PI; ) a += Math.PI * 2;
+    for (; a > Math.PI; ) a -= Math.PI * 2;
     return a;
   }
   static directionToDegrees(t, e) {
@@ -2512,8 +2512,7 @@ const bt = class bt {
   static mod(t, e) {
     if (!isFinite(t) || e === 0 || isNaN(t) || isNaN(e))
       return (
-        console.warn(`divided: ${t}, divisor: ${e} mod() returns 'NaN'.`),
-        Number.NaN
+        console.warn(`divided: ${t}, divisor: ${e} mod() returns 'NaN'.`), NaN
       );
     const i = Math.abs(t),
       s = Math.abs(e);
@@ -2523,7 +2522,7 @@ const bt = class bt {
   constructor() {}
 };
 bt.Epsilon = 1e-5;
-const P = bt;
+let P = bt;
 var fi;
 ((r) => {
   r.CubismMath = P;
@@ -2816,7 +2815,7 @@ const Pr = "FadeInTime",
     }
   };
 (U.DefaultAdditiveValue = 0), (U.DefaultMultiplyValue = 1);
-const nt = U;
+let nt = U;
 var fs = ((r) => (
   (r[(r.Additive = 0)] = "Additive"),
   (r[(r.Multiply = 1)] = "Multiply"),
@@ -3568,7 +3567,7 @@ class ce extends Ft {
       f,
       p = a;
     if (this._isLoop)
-      while (p > this._motionData.duration) p -= this._motionData.duration;
+      for (; p > this._motionData.duration; ) p -= this._motionData.duration;
     const S = this._motionData.curves;
     for (
       c = 0;
@@ -3632,20 +3631,26 @@ class ce extends Ft {
       }
       t.setParameterValueByIndex(f, B, 1);
     }
-    if (n != Number.MAX_VALUE)
-      for (let y = 0; y < this._eyeBlinkParameterIds.getSize() && y < l; ++y) {
-        const B = t.getParameterValueById(this._eyeBlinkParameterIds.at(y));
-        if ((u >> y) & 1) continue;
-        const v = B + (n - B) * i;
-        t.setParameterValueById(this._eyeBlinkParameterIds.at(y), v);
-      }
-    if (o != Number.MAX_VALUE)
-      for (let y = 0; y < this._lipSyncParameterIds.getSize() && y < l; ++y) {
-        const B = t.getParameterValueById(this._lipSyncParameterIds.at(y));
-        if ((h >> y) & 1) continue;
-        const v = B + (o - B) * i;
-        t.setParameterValueById(this._lipSyncParameterIds.at(y), v);
-      }
+    {
+      if (n != Number.MAX_VALUE)
+        for (
+          let y = 0;
+          y < this._eyeBlinkParameterIds.getSize() && y < l;
+          ++y
+        ) {
+          const B = t.getParameterValueById(this._eyeBlinkParameterIds.at(y));
+          if ((u >> y) & 1) continue;
+          const v = B + (n - B) * i;
+          t.setParameterValueById(this._eyeBlinkParameterIds.at(y), v);
+        }
+      if (o != Number.MAX_VALUE)
+        for (let y = 0; y < this._lipSyncParameterIds.getSize() && y < l; ++y) {
+          const B = t.getParameterValueById(this._lipSyncParameterIds.at(y));
+          if ((h >> y) & 1) continue;
+          const v = B + (o - B) * i;
+          t.setParameterValueById(this._lipSyncParameterIds.at(y), v);
+        }
+    }
     for (
       ;
       c < this._motionData.curveCount &&
@@ -8919,4 +8924,4 @@ function cn(r) {
   r.ports[0] && ((Te = r.ports[0]), (Te.onmessage = gn));
 }
 window.addEventListener("message", cn);
-//# sourceMappingURL=index-C43zhfSu.js.map
+//# sourceMappingURL=index-BacQgGIN.js.map

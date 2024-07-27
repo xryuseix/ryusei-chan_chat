@@ -1,4 +1,4 @@
-import { getServerSession } from "next-auth/next";
+import { auth } from "@/lib/auth";
 import { signIn } from "@/lib/auth";
 
 export default async function AdminLayout({
@@ -6,7 +6,7 @@ export default async function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const session = await auth();
   if (!session?.user) {
     signIn();
   } else {

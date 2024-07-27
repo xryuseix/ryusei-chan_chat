@@ -20,7 +20,7 @@ export default function ChatForm({
   // FIXME:
   // @ts-ignore
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -71,6 +71,7 @@ export default function ChatForm({
           value={`${message}${transcript}`}
           disabled={isGenerating}
           onChange={(e) => setMsg(e.target.value)}
+          className="text-md"
         />
         {recognition && (
           <InputGroup.Button
@@ -92,7 +93,12 @@ export default function ChatForm({
         <InputGroup.Button
           withRing={false}
           disabled={isGenerating}
-          onClick={handleSubmit}
+          onClick={() => {
+            if (isRecording) {
+              setIsRecording(false);
+            }
+            handleSubmit();
+          }}
           className="border-0 border-l border-gray-400/30"
           style={{ borderRadius: "0 0.5rem 0.5rem 0" }}
         >

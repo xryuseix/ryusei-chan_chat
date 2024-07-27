@@ -2,7 +2,7 @@
 
 import { InputGroup } from "@rewind-ui/core";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
-import ChatWithRyuseiChan from "../lib/chat/gemini";
+// import ChatWithRyuseiChan from "../lib/chat/gemini";
 import React from "react";
 
 type Props = {
@@ -11,32 +11,32 @@ type Props = {
 
 export const MessageBox = ({ boxStyle }: Props) => {
   const [text, setText] = React.useState("こんにちは");
-  const ryuseiChan = React.useRef<ChatWithRyuseiChan | null>(null);
-  try {
-    const _ryuseiChan = new ChatWithRyuseiChan();
-    ryuseiChan.current = _ryuseiChan;
-  } catch (e) {
-    console.error(e);
-  }
+  // const ryuseiChan = React.useRef<ChatWithRyuseiChan | null>(null);
+  // try {
+  //   const _ryuseiChan = new ChatWithRyuseiChan();
+  //   ryuseiChan.current = _ryuseiChan;
+  // } catch (e) {
+  //   console.error(e);
+  // }
 
   return (
     <div style={Object.assign({}, boxStyle, styles.messageBox)}>
       <InputGroup>
         <InputGroup.Input
-          placeholder={ryuseiChan.current?.placeholder}
+          // placeholder={ryuseiChan.current?.placeholder}
           type="search"
           withRing={false}
           value={text}
-          disabled={!ryuseiChan.current?.available}
+          // disabled={!ryuseiChan.current?.available}
           onChange={(e) => setText(e.target.value)}
         />
         <InputGroup.Button
           withRing={false}
-          disabled={!ryuseiChan.current?.available}
+          // disabled={!ryuseiChan.current?.available}
           onClick={async () => {
-            if (!ryuseiChan.current) return;
-            const result = await ryuseiChan.current.chat(text);
-            console.log(result);
+            // if (!ryuseiChan.current) return;
+            // const result = await ryuseiChan.current.chat(text);
+            // console.log(result);
           }}
         >
           <PaperPlaneTilt weight="duotone" />

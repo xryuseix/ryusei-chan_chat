@@ -12,6 +12,7 @@
     "lint": "biome lint --write src",
     "live2d:build": "pushd ./CubismWebSamples && yarn build && popd && yarn live2d:copy",
     "live2d:copy": "cp -r ./CubismWebSamples/dist/assets/index-*.js ./public/bundle.js",
+    "logging": "yarn wrangler pages deployment tail",
     "preview": "yarn run build:pages && yarn wrangler pages dev",
     "start": "next start",
     "test": "vitest"
@@ -26,7 +27,7 @@
     "class-variance-authority": "^0.7.0",
     "hono": "^4.4.13",
     "next": "14.1.0",
-    "next-auth": "^4.24.7",
+    "next-auth": "^5.0.0-beta.19",
     "openai": "^4.53.0",
     "postcss": "^8.4.39",
     "react": "^18",
@@ -49,6 +50,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "jsdom": "^24.1.1",
     "typescript": "^5",
+    "vercel": "^35.2.0",
     "vitest": "^2.0.4",
     "wrangler": "^3.64.0"
   }

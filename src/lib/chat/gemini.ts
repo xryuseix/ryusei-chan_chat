@@ -1,6 +1,6 @@
 "use client";
 
-import { initialPrompt } from "../ryuseiChan";
+import { initialPrompt } from "./ryuseiChan";
 
 type Session = {
   prompt: (text: string) => Promise<string>;

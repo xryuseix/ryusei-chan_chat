@@ -10,10 +10,12 @@ import ChatForm from "@/components/chat/ChatForm";
 import Live2d from "@/components/Live2d";
 import { ToastContainer, useToast } from "@rewind-ui/core";
 import ChatSettings, {
-  validVoices,
   type Input,
   type Voice,
 } from "@/components/chat/ChatSettings";
+import { initialPromptEn } from "@/lib/chat/ryuseiChan";
+
+export const runtime = "edge";
 
 function createErrrorToast(toast: ReturnType<typeof useToast>) {
   toast.add({
@@ -34,14 +36,13 @@ function createErrrorToast(toast: ReturnType<typeof useToast>) {
 }
 
 export default function AdminPage() {
-  const [message, setMsg] = useState("Please tell me about you.");
+  const [message, setMsg] = useState("");
   const [lastMsg, setLastMsg] = useState("");
   const [history, setHistory] = useState<MessageWithId[]>([
     {
       id: 0,
       role: "user",
-      content:
-        "You should use a pretty girl tone of voice in your conversation.",
+      content: initialPromptEn,
     },
   ]);
   const [isGenerating, setIsGenerating] = useState(false);
