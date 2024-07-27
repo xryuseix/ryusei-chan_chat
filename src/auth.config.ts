@@ -23,7 +23,7 @@ export const authOptions: NextAuthConfig = {
     session: ({ session, token }) => {
       if (session?.user) {
         Object.assign(session.user, {
-          uid: token.uid,
+          id: (token.uid as number).toString(),
           username: token.username,
         });
       }

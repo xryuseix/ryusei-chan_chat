@@ -6,7 +6,7 @@
     "build": "next build",
     "build:pages": "npx @cloudflare/next-on-pages",
     "cf-typegen": "yarn wrangler types --env-interface CloudflareEnv env.d.ts",
-    "deploy": "yarn run build:pages && yarn wrangler pages deploy",
+    "deploy": "NODE_ENV=production yarn run build:pages && yarn wrangler pages deploy",
     "dev": "next dev",
     "format": "biome format --write src public",
     "lint": "biome lint --write src",
@@ -50,7 +50,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "jsdom": "^24.1.1",
     "typescript": "^5",
-    "vercel": "^35.2.0",
+    "vercel": "^35.2.1",
     "vitest": "^2.0.4",
     "wrangler": "^3.64.0"
   }

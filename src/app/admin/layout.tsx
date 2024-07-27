@@ -7,9 +7,11 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  if (!session?.user) {
-    signIn();
-  } else {
+  if (session?.user && session?.user.id === process.env.XRYUSEIX_USER_ID) {
     return <div>{children}</div>;
+  } else {
+    console.error("Unauthorized");
+    await signIn();
+    return <>Unauthorized</>;
   }
 }

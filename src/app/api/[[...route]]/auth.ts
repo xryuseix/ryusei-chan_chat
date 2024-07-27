@@ -11,17 +11,17 @@ type AuthRes =
       role: "admin" | "user";
     };
 
-async function authCheck(c: Context): Promise<AuthRes> {
+async function authCheck(_: Context): Promise<AuthRes> {
   const session = await auth();
   if (!session) {
     return { error: "Unauthorized", status: 401 };
   }
 
   const userId = session?.user?.id;
-  if (userId && userId !== process.env.XRYUSEIX_USER_ID) {
-    return { error: "Forbidden", status: 403 };
+  if (userId && userId === process.env.XRYUSEIX_USER_ID) {
+    return { name: session.user?.name ?? "", role: "admin" };
   }
-  return { name: session.user?.name ?? "", role: "admin" };
+  return { error: "Forbidden", status: 403 };
 }
 
 export default authCheck;
