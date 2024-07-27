@@ -1,6 +1,5 @@
 import type { Context } from "hono";
-import { getCookie } from "hono/cookie";
-import { decode } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
 
 type AuthRes =
   | {
@@ -13,8 +12,8 @@ type AuthRes =
     };
 
 async function authCheck(c: Context): Promise<AuthRes> {
-  const sessionToken = getCookie(c, "next-auth.session-token");
-  if (!sessionToken) {
+  const session = await auth();
+  if (!session) {
     return { error: "Unauthorized", status: 401 };
   }
 
@@ -28,19 +27,11 @@ async function authCheck(c: Context): Promise<AuthRes> {
     throw new Error("NEXTAUTH_SECRET_SALT is not defined");
   }
 
-  const decoded = await decode({
-    token: sessionToken,
-    secret: NEXTAUTH_SECRET,
-    salt: salt,
-  });
-
-  if (!decoded) {
-    return { error: "Unauthorized", status: 401 };
-  }
-  if (decoded.role !== "admin") {
+  const userId = session?.user?.id;
+  if (userId && userId !== process.env.XRYUSEIX_USER_ID) {
     return { error: "Forbidden", status: 403 };
   }
-  return { name: decoded.name ?? "", role: decoded.role };
+  return { name: session.user?.name ?? "", role: "admin" };
 }
 
 export default authCheck;
