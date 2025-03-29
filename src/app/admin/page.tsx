@@ -3,8 +3,8 @@
 import { useRef, useState } from "react";
 import { client } from "@api/client";
 import ChatLog, {
-  type MessageWithId,
   getChunks,
+  type MessageWithId,
 } from "@/components/chat/ChatLog";
 import ChatForm from "@/components/chat/ChatForm";
 import Live2d from "@/components/Live2d";

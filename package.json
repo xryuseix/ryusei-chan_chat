@@ -6,16 +6,16 @@
     "build": "next build",
     "build:pages": "npx @cloudflare/next-on-pages",
     "cf-typegen": "yarn wrangler types --env-interface CloudflareEnv env.d.ts",
-    "deploy": "NODE_ENV=production yarn run build:pages && yarn wrangler pages deploy",
+    "deploy": "NODE_ENV=production deno task build:pages && wrangler pages deploy",
     "dev": "next dev",
-    "format": "biome format --write src public",
-    "lint": "biome lint --write src",
-    "live2d:build": "pushd ./CubismWebSamples && yarn build && popd && yarn live2d:copy",
+    "format": "deno fmt src public",
+    "lint": "deno lint src",
+    "live2d:build": "pushd ./CubismWebSamples && deno task build && popd && deno task live2d:copy",
     "live2d:copy": "cp -r ./CubismWebSamples/dist/assets/index-*.js ./public/bundle.js",
-    "logging": "yarn wrangler pages deployment tail",
-    "preview": "yarn run build:pages && yarn wrangler pages dev",
+    "logging": "wrangler pages deployment tail",
+    "preview": "deno task build:pages && wrangler pages dev",
     "start": "next start",
-    "test": "vitest"
+    "test": "deno test"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.2.2",
@@ -23,6 +23,7 @@
     "@rewind-ui/core": "^0.19.11",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
+    "@types/react": "^18.3.9",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "hono": "^4.4.13",
@@ -30,7 +31,7 @@
     "next-auth": "^5.0.0-beta.19",
     "openai": "^4.53.0",
     "postcss": "^8.4.39",
-    "react": "^18",
+    "react": "^18.3.1",
     "react-dom": "^18",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.4.0",
@@ -39,7 +40,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
     "@cloudflare/next-on-pages": "^1.12.1",
     "@cloudflare/workers-types": "^4.20240701.0",
     "@testing-library/react": "^16.0.0",

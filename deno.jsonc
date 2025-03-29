@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@/": "./src/",
+    "@api/": "./src/app/api/[[...route]]/"
+  }
+}

@@ -6,13 +6,15 @@ type Session = {
   prompt: (text: string) => Promise<string>;
 };
 
-type AI = {
-  ai: {
-    canCreateTextSession: () => Promise<string>;
-    createTextSession: () => Promise<Session>;
-  };
-} & Window &
-  typeof globalThis;
+type AI =
+  & {
+    ai: {
+      canCreateTextSession: () => Promise<string>;
+      createTextSession: () => Promise<Session>;
+    };
+  }
+  & Window
+  & typeof globalThis;
 
 const placeholders: { text: string; weight: number }[] = [
   { text: "何か話しかけてみよう！", weight: 10 },

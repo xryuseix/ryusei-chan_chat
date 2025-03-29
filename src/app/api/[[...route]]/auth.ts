@@ -3,13 +3,13 @@ import { auth } from "@/lib/auth";
 
 type AuthRes =
   | {
-      error: string;
-      status: 401 | 403;
-    }
+    error: string;
+    status: 401 | 403;
+  }
   | {
-      name: string;
-      role: "admin" | "user";
-    };
+    name: string;
+    role: "admin" | "user";
+  };
 
 async function authCheck(_: Context): Promise<AuthRes> {
   const session = await auth();

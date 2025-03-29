@@ -3,22 +3,25 @@
   if (t && t.supports && t.supports("modulepreload")) return;
   for (const s of document.querySelectorAll('link[rel="modulepreload"]')) i(s);
   new MutationObserver((s) => {
-    for (const a of s)
-      if (a.type === "childList")
-        for (const o of a.addedNodes)
+    for (const a of s) {
+      if (a.type === "childList") {
+        for (const o of a.addedNodes) {
           o.tagName === "LINK" && o.rel === "modulepreload" && i(o);
+        }
+      }
+    }
   }).observe(document, { childList: !0, subtree: !0 });
   function e(s) {
     const a = {};
     return (
       s.integrity && (a.integrity = s.integrity),
-      s.referrerPolicy && (a.referrerPolicy = s.referrerPolicy),
-      s.crossOrigin === "use-credentials"
-        ? (a.credentials = "include")
-        : s.crossOrigin === "anonymous"
+        s.referrerPolicy && (a.referrerPolicy = s.referrerPolicy),
+        s.crossOrigin === "use-credentials"
+          ? (a.credentials = "include")
+          : s.crossOrigin === "anonymous"
           ? (a.credentials = "omit")
           : (a.credentials = "same-origin"),
-      a
+        a
     );
   }
   function i(s) {
@@ -47,10 +50,9 @@ const kt = class kt {
   }
   pushBack(t) {
     this._size >= this._capacity &&
-      this.prepareCapacity(
-        this._capacity == 0 ? kt.DefaultSize : this._capacity * 2,
-      ),
-      (this._ptr[this._size++] = t);
+    this.prepareCapacity(
+      this._capacity == 0 ? kt.DefaultSize : this._capacity * 2,
+    ), (this._ptr[this._size++] = t);
   }
   clear() {
     (this._ptr.length = 0), (this._size = 0);
@@ -67,14 +69,15 @@ const kt = class kt {
     this.updateSize(t, e, !0);
   }
   updateSize(t, e = null, i = !0) {
-    if (this._size < t)
-      if ((this.prepareCapacity(t), i))
-        for (let a = this._size; a < t; a++)
+    if (this._size < t) {
+      if ((this.prepareCapacity(t), i)) {
+        for (let a = this._size; a < t; a++) {
           typeof e == "function"
             ? (this._ptr[a] = JSON.parse(JSON.stringify(new e())))
             : (this._ptr[a] = e);
-      else for (let a = this._size; a < t; a++) this._ptr[a] = e;
-    else {
+        }
+      } else for (let a = this._size; a < t; a++) this._ptr[a] = e;
+    } else {
       const a = this._size - t;
       this._ptr.splice(this._size - a, a);
     }
@@ -87,7 +90,7 @@ const kt = class kt {
       n = o - a;
     this.prepareCapacity(this._size + n);
     const l = this._size - s;
-    if (l > 0) for (let h = 0; h < l; h++) this._ptr.splice(s + h, 0, null);
+    if (l > 0) { for (let h = 0; h < l; h++) this._ptr.splice(s + h, 0, null); }
     for (let h = a; h < o; h++, s++) this._ptr[s] = e._vector._ptr[h];
     this._size = this._size + n;
   }
@@ -118,9 +121,9 @@ const kt = class kt {
     const e = new kt();
     return (
       (e._ptr = this.get(t)),
-      (e._size = this.get(t).length),
-      (e._capacity = this.get(t).length),
-      e
+        (e._size = this.get(t).length),
+        (e._capacity = this.get(t).length),
+        e
     );
   }
 };
@@ -204,19 +207,19 @@ class Vt {
     return typeof t == "string"
       ? this._id.isEqual(t)
       : t instanceof Y
-        ? this._id.isEqual(t.s)
-        : t instanceof Vt
-          ? this._id.isEqual(t._id.s)
-          : !1;
+      ? this._id.isEqual(t.s)
+      : t instanceof Vt
+      ? this._id.isEqual(t._id.s)
+      : !1;
   }
   isNotEqual(t) {
     return typeof t == "string"
       ? !this._id.isEqual(t)
       : t instanceof Y
-        ? !this._id.isEqual(t.s)
-        : t instanceof Vt
-          ? !this._id.isEqual(t._id.s)
-          : !1;
+      ? !this._id.isEqual(t.s)
+      : t instanceof Vt
+      ? !this._id.isEqual(t._id.s)
+      : !1;
   }
   constructor(t) {
     if (typeof t == "string") {
@@ -256,8 +259,9 @@ class us {
     return typeof t == "string" ? this.findId(t) != null : this.isExist(t.s);
   }
   findId(t) {
-    for (let e = 0; e < this._ids.getSize(); ++e)
+    for (let e = 0; e < this._ids.getSize(); ++e) {
       if (this._ids.at(e).getString().isEqual(t)) return this._ids.at(e);
+    }
     return null;
   }
 }
@@ -271,17 +275,49 @@ class A {
   }
   static multiply(t, e, i) {
     const s = new Float32Array([
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
       ]),
       a = 4;
-    for (let o = 0; o < a; ++o)
-      for (let n = 0; n < a; ++n)
+    for (let o = 0; o < a; ++o) {
+      for (let n = 0; n < a; ++n) {
         for (let l = 0; l < a; ++l) s[n + o * 4] += t[l + o * 4] * e[n + l * 4];
+      }
+    }
     for (let o = 0; o < 16; ++o) i[o] = s[o];
   }
   loadIdentity() {
     const t = new Float32Array([
-      1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
     ]);
     this.setMatrix(t);
   }
@@ -447,8 +483,9 @@ class ge {
     const e = this.getModelColor();
     return (
       (e.a *= t),
-      this.isPremultipliedAlpha() && ((e.r *= e.a), (e.g *= e.a), (e.b *= e.a)),
-      e
+        this.isPremultipliedAlpha() &&
+        ((e.r *= e.a), (e.g *= e.a), (e.b *= e.a)),
+        e
     );
   }
   setIsPremultipliedAlpha(t) {
@@ -490,11 +527,11 @@ class ge {
   }
 }
 var ot = ((r) => (
-  (r[(r.CubismBlendMode_Normal = 0)] = "CubismBlendMode_Normal"),
-  (r[(r.CubismBlendMode_Additive = 1)] = "CubismBlendMode_Additive"),
-  (r[(r.CubismBlendMode_Multiplicative = 2)] =
-    "CubismBlendMode_Multiplicative"),
-  r
+  (r[r.CubismBlendMode_Normal = 0] = "CubismBlendMode_Normal"),
+    (r[r.CubismBlendMode_Additive = 1] = "CubismBlendMode_Additive"),
+    (r[r.CubismBlendMode_Multiplicative = 2] =
+      "CubismBlendMode_Multiplicative"),
+    r
 ))(ot || {});
 class k {
   constructor(t = 1, e = 1, i = 1, s = 1) {
@@ -516,7 +553,7 @@ class js {
     this._layoutBounds != null && (this._layoutBounds = null),
       this._allClippedDrawRect != null && (this._allClippedDrawRect = null),
       this._clippedDrawableIndexList != null &&
-        (this._clippedDrawableIndexList = null);
+      (this._clippedDrawableIndexList = null);
   }
   addClippedDrawable(t) {
     this._clippedDrawableIndexList.push(t);
@@ -563,15 +600,16 @@ class Fe {
     s(a);
   }
   static dumpBytes(t, e, i) {
-    for (let s = 0; s < i; s++)
+    for (let s = 0; s < i; s++) {
       s % 16 == 0 && s > 0
         ? this.print(
-            t,
-            `
+          t,
+          `
 `,
-          )
+        )
         : s % 8 == 0 && s > 0 && this.print(t, "  "),
         this.print(t, "{0} ", [e[s] & 255]);
+    }
     this.print(
       t,
       `
@@ -607,29 +645,32 @@ const Nt = class Nt {
   }
   getValue(t) {
     let e = -1;
-    for (let i = 0; i < this._size; i++)
+    for (let i = 0; i < this._size; i++) {
       if (this._keyValues[i].first == t) {
         e = i;
         break;
       }
+    }
     return e >= 0
       ? this._keyValues[e].second
       : (this.appendKey(t), this._keyValues[this._size - 1].second);
   }
   setValue(t, e) {
     let i = -1;
-    for (let s = 0; s < this._size; s++)
+    for (let s = 0; s < this._size; s++) {
       if (this._keyValues[s].first == t) {
         i = s;
         break;
       }
+    }
     i >= 0
       ? (this._keyValues[i].second = e)
       : (this.appendKey(t), (this._keyValues[this._size - 1].second = e));
   }
   isExist(t) {
-    for (let e = 0; e < this._size; e++)
+    for (let e = 0; e < this._size; e++) {
       if (this._keyValues[e].first == t) return !0;
+    }
     return !1;
   }
   clear() {
@@ -647,8 +688,8 @@ const Nt = class Nt {
         ? (!e && t < Nt.DefaultSize && (t = Nt.DefaultSize),
           (this._keyValues.length = t))
         : (!e &&
-            t < this._keyValues.length * 2 &&
-            (t = this._keyValues.length * 2),
+          t < this._keyValues.length * 2 &&
+          (t = this._keyValues.length * 2),
           (this._keyValues.length = t)));
   }
   begin() {
@@ -664,10 +705,11 @@ const Nt = class Nt {
       : (this._keyValues.splice(e, 1), --this._size, new _t(this, e));
   }
   dumpAsInt() {
-    for (let t = 0; t < this._size; t++)
+    for (let t = 0; t < this._size; t++) {
       zt("{0} ,", this._keyValues[t]),
         zt(`
 `);
+    }
   }
 };
 Nt.DefaultSize = 10;
@@ -716,23 +758,23 @@ class ae {
         } else if (typeof t[i] == "number") {
           const s = Number(t[i]);
           e.put(i, new oe(s));
-        } else
+        } else {
           t[i] instanceof Array
             ? e.put(i, ae.parseJsonArray(t[i]))
             : t[i] instanceof Object
-              ? e.put(i, ae.parseJsonObject(t[i], new Rt()))
-              : t[i] == null
-                ? e.put(i, new wt())
-                : e.put(i, t[i]);
-      }),
-      e
+            ? e.put(i, ae.parseJsonObject(t[i], new Rt()))
+            : t[i] == null
+            ? e.put(i, new wt())
+            : e.put(i, t[i]);
+        }
+      }), e
     );
   }
   static parseJsonArray(t) {
     const e = new Ee();
     return (
       Object.keys(t).forEach((i) => {
-        if (typeof Number(i) == "number")
+        if (typeof Number(i) == "number") {
           if (typeof t[i] == "boolean") {
             const a = !!t[i];
             e.add(new $(a));
@@ -742,24 +784,24 @@ class ae {
           } else if (typeof t[i] == "number") {
             const a = Number(t[i]);
             e.add(new oe(a));
-          } else
+          } else {
             t[i] instanceof Array
               ? e.add(this.parseJsonArray(t[i]))
               : t[i] instanceof Object
-                ? e.add(this.parseJsonObject(t[i], new Rt()))
-                : t[i] == null
-                  ? e.add(new wt())
-                  : e.add(t[i]);
-        else if (t[i] instanceof Array) e.add(this.parseJsonArray(t[i]));
-        else if (t[i] instanceof Object)
+              ? e.add(this.parseJsonObject(t[i], new Rt()))
+              : t[i] == null
+              ? e.add(new wt())
+              : e.add(t[i]);
+          }
+        } else if (t[i] instanceof Array) e.add(this.parseJsonArray(t[i]));
+        else if (t[i] instanceof Object) {
           e.add(this.parseJsonObject(t[i], new Rt()));
-        else if (t[i] == null) e.add(new wt());
+        } else if (t[i] == null) e.add(new wt());
         else {
           const a = Array(t[i]);
           for (let o = 0; o < a.length; o++) e.add(a[o]);
         }
-      }),
-      e
+      }), e
     );
   }
 }
@@ -864,8 +906,9 @@ class L {
   static arrayBufferToString(t) {
     const e = new Uint8Array(t);
     let i = "";
-    for (let s = 0, a = e.length; s < a; ++s)
+    for (let s = 0, a = e.length; s < a; ++s) {
       i += "%" + this.pad(e[s].toString(16));
+    }
     return (i = decodeURIComponent(i)), i;
   }
   static pad(t) {
@@ -878,21 +921,21 @@ class L {
       (i == null
         ? (this._root = this.parseValue(a, e, 0, s))
         : (this._root = i(JSON.parse(a), new Rt())),
-      this._error)
+        this._error)
     ) {
       let o = "\0";
       return (
-        (o =
-          "Json parse error : @line " +
+        (o = "Json parse error : @line " +
           (this._lineCount + 1) +
           `
 `),
-        (this._root = new Tt(o)),
-        q("{0}", this._root.getRawString()),
-        !1
+          (this._root = new Tt(o)),
+          q("{0}", this._root.getRawString()),
+          !1
       );
-    } else if (this._root == null)
+    } else if (this._root == null) {
       return (this._root = new Xt(new Y(this._error), !1)), !1;
+    }
     return !0;
   }
   getParseError() {
@@ -906,7 +949,7 @@ class L {
     let a = null,
       o = i,
       n;
-    for (; o < e; o++)
+    for (; o < e; o++) {
       switch (t[o]) {
         case "-":
         case ".":
@@ -933,22 +976,19 @@ class L {
           return (
             o + 3 < e
               ? ((a = new wt()), (s[0] = o + 4))
-              : (this._error = "parse null"),
-            a
+              : (this._error = "parse null"), a
           );
         case "t":
           return (
             o + 3 < e
               ? ((a = $.trueValue), (s[0] = o + 4))
-              : (this._error = "parse true"),
-            a
+              : (this._error = "parse true"), a
           );
         case "f":
           return (
             o + 4 < e
               ? ((a = $.falseValue), (s[0] = o + 5))
-              : (this._error = "illegal ',' position"),
-            a
+              : (this._error = "illegal ',' position"), a
           );
         case ",":
           return (this._error = "illegal ',' position"), null;
@@ -958,6 +998,7 @@ class L {
 `:
           this._lineCount++;
       }
+    }
     return (this._error = "illegal end of value"), null;
   }
   parseString(t, e, i, s) {
@@ -968,14 +1009,14 @@ class L {
       n;
     const l = new Y("");
     let h = i;
-    for (; a < e; a++)
+    for (; a < e; a++) {
       switch (((o = t[a]), o)) {
         case '"':
           return (s[0] = a + 1), l.append(t.slice(h), a - h), l.s;
         case "//":
           if (
             (a++, a - 1 > h && l.append(t.slice(h), a - h), (h = a + 1), a < e)
-          )
+          ) {
             switch (((n = t[a]), n)) {
               case "\\":
                 l.expansion(1, "\\");
@@ -1009,8 +1050,9 @@ class L {
                 this._error = "parse string/unicord escape not supported";
                 break;
             }
-          else this._error = "parse string/escape error";
+          } else this._error = "parse string/escape error";
       }
+    }
     return (this._error = "parse string/illegal end"), null;
   }
   parseObject(t, e, i, s) {
@@ -1023,11 +1065,12 @@ class L {
     const h = Array(1);
     let u = !1;
     for (; n < e; n++) {
-      t: for (; n < e; n++)
+      t: for (; n < e; n++) {
         switch (((l = t[n]), l)) {
           case '"':
-            if (((o = this.parseString(t, e, n + 1, h)), this._error))
+            if (((o = this.parseString(t, e, n + 1, h)), this._error)) {
               return null;
+            }
             (n = h[0]), (u = !0);
             break t;
           case "}":
@@ -1039,9 +1082,10 @@ class L {
 `:
             this._lineCount++;
         }
+      }
       if (!u) return (this._error = "key not found"), null;
       u = !1;
-      t: for (; n < e; n++)
+      t: for (; n < e; n++) {
         switch (((l = t[n]), l)) {
           case ":":
             (u = !0), n++;
@@ -1053,11 +1097,12 @@ class L {
 `:
             this._lineCount++;
         }
+      }
       if (!u) return (this._error = "':' not found"), null;
       const d = this.parseValue(t, e, n, h);
       if (this._error) return null;
       (n = h[0]), a.put(o, d);
-      t: for (; n < e; n++)
+      t: for (; n < e; n++) {
         switch (((l = t[n]), l)) {
           case ",":
             break t;
@@ -1067,6 +1112,7 @@ class L {
 `:
             this._lineCount++;
         }
+      }
     }
     return (this._error = "illegal end of perseObject"), null;
   }
@@ -1081,7 +1127,7 @@ class L {
       const h = this.parseValue(t, e, o, l);
       if (this._error) return null;
       (o = l[0]), h && a.add(h);
-      t: for (; o < e; o++)
+      t: for (; o < e; o++) {
         switch (((n = t[o]), n)) {
           case ",":
             break t;
@@ -1091,6 +1137,7 @@ class L {
 `:
             ++this._lineCount;
         }
+      }
     }
     return (a = void 0), (this._error = "illegal end of parseObject"), null;
   }
@@ -1106,8 +1153,8 @@ class oe extends O {
     const i = "\0";
     return (
       (this._value = parseFloat(i)),
-      (this._stringBuffer = i),
-      this._stringBuffer
+        (this._stringBuffer = i),
+        this._stringBuffer
     );
   }
   toInt(t = 0) {
@@ -1130,7 +1177,7 @@ class $ extends O {
   getString(t, e) {
     return (
       (this._stringBuffer = this._boolValue ? "true" : "false"),
-      this._stringBuffer
+        this._stringBuffer
     );
   }
   equals(t) {
@@ -1159,8 +1206,8 @@ class Tt extends O {
     return typeof t == "string"
       ? this._stringBuffer == t
       : t instanceof Y
-        ? this._stringBuffer == t.s
-        : !1;
+      ? this._stringBuffer == t.s
+      : !1;
   }
 }
 class Xt extends Tt {
@@ -1212,8 +1259,9 @@ class Ee extends O {
     return !0;
   }
   getValueByIndex(t) {
-    if (t < 0 || this._array.getSize() <= t)
+    if (t < 0 || this._array.getSize() <= t) {
       return O.errorValue.setErrorNotForClientCall(Hs);
+    }
     const e = this._array.at(t);
     return e ?? O.nullValue;
   }
@@ -1221,8 +1269,7 @@ class Ee extends O {
     return O.errorValue.setErrorNotForClientCall(ne);
   }
   getString(t, e) {
-    const i =
-      e +
+    const i = e +
       `[
 `;
     for (
@@ -1231,20 +1278,17 @@ class Ee extends O {
       s.increment()
     ) {
       const a = s.ptr();
-      this._stringBuffer +=
-        e +
+      this._stringBuffer += e +
         "" +
         a.getString(e + " ") +
         `
 `;
     }
     return (
-      (this._stringBuffer =
-        i +
+      (this._stringBuffer = i +
         e +
         `]
-`),
-      this._stringBuffer
+`), this._stringBuffer
     );
   }
   add(t) {
@@ -1263,7 +1307,7 @@ class Rt extends O {
   }
   release() {
     const t = this._map.begin();
-    for (; t.notEqual(this._map.end()); ) {
+    for (; t.notEqual(this._map.end());) {
       let e = t.ptr().second;
       e && !e.isStatic() && ((e = void 0), (e = null)), t.preIncrement();
     }
@@ -1280,39 +1324,36 @@ class Rt extends O {
       let e = this._map.begin();
       e.notEqual(this._map.end());
       e.preIncrement()
-    )
-      if (e.ptr().first == t)
+    ) {
+      if (e.ptr().first == t) {
         return e.ptr().second == null ? O.nullValue : e.ptr().second;
+      }
+    }
     return O.nullValue;
   }
   getValueByIndex(t) {
     return O.errorValue.setErrorNotForClientCall(ne);
   }
   getString(t, e) {
-    this._stringBuffer =
-      e +
+    this._stringBuffer = e +
       `{
 `;
     const i = this._map.begin();
-    for (; i.notEqual(this._map.end()); ) {
+    for (; i.notEqual(this._map.end());) {
       const s = i.ptr().first,
         a = i.ptr().second;
-      (this._stringBuffer +=
-        e +
+      (this._stringBuffer += e +
         " " +
         s +
         " : " +
         a.getString(e + "   ") +
         ` 
-`),
-        i.preIncrement();
+`), i.preIncrement();
     }
     return (
-      (this._stringBuffer +=
-        e +
+      (this._stringBuffer += e +
         `}
-`),
-      this._stringBuffer
+`), this._stringBuffer
     );
   }
   getMap(t) {
@@ -1325,7 +1366,7 @@ class Rt extends O {
     if (!this._keys) {
       this._keys = new x();
       const t = this._map.begin();
-      for (; t.notEqual(this._map.end()); ) {
+      for (; t.notEqual(this._map.end());) {
         const e = t.ptr().first;
         this._keys.pushBack(e), t.preIncrement();
       }
@@ -1350,7 +1391,7 @@ var Je;
 })(Je || (Je = {}));
 function $s(r, t) {
   let e = 0;
-  for (let s = 1; ; s++) {
+  for (let s = 1;; s++) {
     const a = r.slice(s - 1, s);
     if (a == "e" || a == "-" || a == "E") continue;
     const o = r.substring(0, s),
@@ -1374,9 +1415,10 @@ class V {
     if (j) return q("CubismFramework.startUp() is already done."), j;
     if (
       ((xt = t),
-      xt != null && Live2DCubismCore.Logging.csmSetLogFunction(xt.logFunction),
-      (j = !0),
-      j)
+        xt != null &&
+        Live2DCubismCore.Logging.csmSetLogFunction(xt.logFunction),
+        (j = !0),
+        j)
     ) {
       const e = Live2DCubismCore.Version.csmGetVersion(),
         i = (e & 4278190080) >> 24,
@@ -1447,13 +1489,13 @@ class V {
 }
 class Ws {}
 var ct = ((r) => (
-    (r[(r.LogLevel_Verbose = 0)] = "LogLevel_Verbose"),
-    (r[(r.LogLevel_Debug = 1)] = "LogLevel_Debug"),
-    (r[(r.LogLevel_Info = 2)] = "LogLevel_Info"),
-    (r[(r.LogLevel_Warning = 3)] = "LogLevel_Warning"),
-    (r[(r.LogLevel_Error = 4)] = "LogLevel_Error"),
-    (r[(r.LogLevel_Off = 5)] = "LogLevel_Off"),
-    r
+    (r[r.LogLevel_Verbose = 0] = "LogLevel_Verbose"),
+      (r[r.LogLevel_Debug = 1] = "LogLevel_Debug"),
+      (r[r.LogLevel_Info = 2] = "LogLevel_Info"),
+      (r[r.LogLevel_Warning = 3] = "LogLevel_Warning"),
+      (r[r.LogLevel_Error = 4] = "LogLevel_Error"),
+      (r[r.LogLevel_Off = 5] = "LogLevel_Off"),
+      r
   ))(ct || {}),
   Ke;
 ((r) => {
@@ -1494,7 +1536,7 @@ class Ae {
     (E = document.createElement("canvas")),
       (m = E.getContext("webgl2")),
       m ||
-        (alert("Cannot initialize WebGL. This browser does not support."),
+      (alert("Cannot initialize WebGL. This browser does not support."),
         (m = null),
         (document.body.innerHTML =
           "This browser does not support the <code>&lt;canvas&gt;</code> element."));
@@ -1632,7 +1674,7 @@ class ds extends cs {
     super(),
       (this._json = L.create(t, e)),
       this.getJson() &&
-        ((this._jsonValue = new x()),
+      ((this._jsonValue = new x()),
         this._jsonValue.pushBack(this.getJson().getRoot().getValueByString(hr)),
         this._jsonValue.pushBack(
           this.getJson().getRoot().getValueByString(tt).getValueByString(dr),
@@ -1744,58 +1786,59 @@ class ds extends cs {
   getMotionFileName(t, e) {
     return this.isExistMotionGroupName(t)
       ? this._jsonValue
-          .at(2)
-          .getValueByString(t)
-          .getValueByIndex(e)
-          .getValueByString(ai)
-          .getRawString()
+        .at(2)
+        .getValueByString(t)
+        .getValueByIndex(e)
+        .getValueByString(ai)
+        .getRawString()
       : "";
   }
   getMotionSoundFileName(t, e) {
     return this.isExistMotionSoundFile(t, e)
       ? this._jsonValue
-          .at(2)
-          .getValueByString(t)
-          .getValueByIndex(e)
-          .getValueByString(ni)
-          .getRawString()
+        .at(2)
+        .getValueByString(t)
+        .getValueByIndex(e)
+        .getValueByString(ni)
+        .getRawString()
       : "";
   }
   getMotionFadeInTimeValue(t, e) {
     return this.isExistMotionFadeIn(t, e)
       ? this._jsonValue
-          .at(2)
-          .getValueByString(t)
-          .getValueByIndex(e)
-          .getValueByString(oi)
-          .toFloat()
+        .at(2)
+        .getValueByString(t)
+        .getValueByIndex(e)
+        .getValueByString(oi)
+        .toFloat()
       : -1;
   }
   getMotionFadeOutTimeValue(t, e) {
     return this.isExistMotionFadeOut(t, e)
       ? this._jsonValue
-          .at(2)
-          .getValueByString(t)
-          .getValueByIndex(e)
-          .getValueByString(li)
-          .toFloat()
+        .at(2)
+        .getValueByString(t)
+        .getValueByIndex(e)
+        .getValueByString(li)
+        .toFloat()
       : -1;
   }
   getUserDataFile() {
     return this.isExistUserDataFile()
       ? this.getJson()
-          .getRoot()
-          .getValueByString(tt)
-          .getValueByString(ri)
-          .getRawString()
+        .getRoot()
+        .getValueByString(tt)
+        .getValueByString(ri)
+        .getRawString()
       : "";
   }
   getLayoutMap(t) {
     const e = this.getJson().getRoot().getValueByString(gr).getMap();
     if (e == null) return !1;
     let i = !1;
-    for (const s = e.begin(); s.notEqual(e.end()); s.preIncrement())
+    for (const s = e.begin(); s.notEqual(e.end()); s.preIncrement()) {
       t.setValue(s.ptr().first, s.ptr().second.toFloat()), (i = !0);
+    }
     return i;
   }
   getEyeBlinkParameterCount() {
@@ -1820,10 +1863,11 @@ class ds extends cs {
       if (
         !(i.isNull() || i.isError()) &&
         i.getValueByString(et).getRawString() == me
-      )
+      ) {
         return V.getIdManager().getId(
           i.getValueByString(Kt).getValueByIndex(t).getRawString(),
         );
+      }
     }
     return null;
   }
@@ -1849,10 +1893,11 @@ class ds extends cs {
       if (
         !(i.isNull() || i.isError()) &&
         i.getValueByString(et).getRawString() == _e
-      )
+      ) {
         return V.getIdManager().getId(
           i.getValueByString(Kt).getValueByIndex(t).getRawString(),
         );
+      }
     }
     return null;
   }
@@ -1920,31 +1965,37 @@ class ds extends cs {
     return !t.isNull() && !t.isError();
   }
   isExistEyeBlinkParameters() {
-    if (this._jsonValue.at(0).isNull() || this._jsonValue.at(0).isError())
+    if (this._jsonValue.at(0).isNull() || this._jsonValue.at(0).isError()) {
       return !1;
-    for (let t = 0; t < this._jsonValue.at(0).getSize(); ++t)
+    }
+    for (let t = 0; t < this._jsonValue.at(0).getSize(); ++t) {
       if (
         this._jsonValue
           .at(0)
           .getValueByIndex(t)
           .getValueByString(et)
           .getRawString() == me
-      )
+      ) {
         return !0;
+      }
+    }
     return !1;
   }
   isExistLipSyncParameters() {
-    if (this._jsonValue.at(0).isNull() || this._jsonValue.at(0).isError())
+    if (this._jsonValue.at(0).isNull() || this._jsonValue.at(0).isError()) {
       return !1;
-    for (let t = 0; t < this._jsonValue.at(0).getSize(); ++t)
+    }
+    for (let t = 0; t < this._jsonValue.at(0).getSize(); ++t) {
       if (
         this._jsonValue
           .at(0)
           .getValueByIndex(t)
           .getValueByString(et)
           .getRawString() == _e
-      )
+      ) {
         return !0;
+      }
+    }
     return !1;
   }
 }
@@ -2017,39 +2068,35 @@ const Ut = class Ut {
       s = 0;
     switch (this._blinkingState) {
       case 2:
-        (s =
-          (this._userTimeSeconds - this._stateStartTimeSeconds) /
+        (s = (this._userTimeSeconds - this._stateStartTimeSeconds) /
           this._closingSeconds),
           s >= 1 &&
-            ((s = 1),
+          ((s = 1),
             (this._blinkingState = 3),
             (this._stateStartTimeSeconds = this._userTimeSeconds)),
           (i = 1 - s);
         break;
       case 3:
-        (s =
-          (this._userTimeSeconds - this._stateStartTimeSeconds) /
+        (s = (this._userTimeSeconds - this._stateStartTimeSeconds) /
           this._closedSeconds),
           s >= 1 &&
-            ((this._blinkingState = 4),
+          ((this._blinkingState = 4),
             (this._stateStartTimeSeconds = this._userTimeSeconds)),
           (i = 0);
         break;
       case 4:
-        (s =
-          (this._userTimeSeconds - this._stateStartTimeSeconds) /
+        (s = (this._userTimeSeconds - this._stateStartTimeSeconds) /
           this._openingSeconds),
           s >= 1 &&
-            ((s = 1),
+          ((s = 1),
             (this._blinkingState = 1),
             (this._nextBlinkingTime = this.determinNextBlinkingTiming())),
           (i = s);
         break;
       case 1:
         this._nextBlinkingTime < this._userTimeSeconds &&
-          ((this._blinkingState = 2),
-          (this._stateStartTimeSeconds = this._userTimeSeconds)),
-          (i = 1);
+        ((this._blinkingState = 2),
+          (this._stateStartTimeSeconds = this._userTimeSeconds)), (i = 1);
         break;
       case 0:
       default:
@@ -2059,24 +2106,27 @@ const Ut = class Ut {
         break;
     }
     Ut.CloseIfZero || (i = -i);
-    for (let o = 0; o < this._parameterIds.getSize(); ++o)
+    for (let o = 0; o < this._parameterIds.getSize(); ++o) {
       t.setParameterValueById(this._parameterIds.at(o), i);
+    }
   }
   constructor(t) {
     if (
       ((this._blinkingState = 0),
-      (this._nextBlinkingTime = 0),
-      (this._stateStartTimeSeconds = 0),
-      (this._blinkingIntervalSeconds = 4),
-      (this._closingSeconds = 0.1),
-      (this._closedSeconds = 0.05),
-      (this._openingSeconds = 0.15),
-      (this._userTimeSeconds = 0),
-      (this._parameterIds = new x()),
-      t != null)
-    )
-      for (let e = 0; e < t.getEyeBlinkParameterCount(); ++e)
+        (this._nextBlinkingTime = 0),
+        (this._stateStartTimeSeconds = 0),
+        (this._blinkingIntervalSeconds = 4),
+        (this._closingSeconds = 0.1),
+        (this._closedSeconds = 0.05),
+        (this._openingSeconds = 0.15),
+        (this._userTimeSeconds = 0),
+        (this._parameterIds = new x()),
+        t != null)
+    ) {
+      for (let e = 0; e < t.getEyeBlinkParameterCount(); ++e) {
         this._parameterIds.pushBack(t.getEyeBlinkParameterId(e));
+      }
+    }
   }
   determinNextBlinkingTiming() {
     const t = Math.random();
@@ -2086,12 +2136,12 @@ const Ut = class Ut {
 Ut.CloseIfZero = !0;
 let Yt = Ut;
 var _s = ((r) => (
-    (r[(r.EyeState_First = 0)] = "EyeState_First"),
-    (r[(r.EyeState_Interval = 1)] = "EyeState_Interval"),
-    (r[(r.EyeState_Closing = 2)] = "EyeState_Closing"),
-    (r[(r.EyeState_Closed = 3)] = "EyeState_Closed"),
-    (r[(r.EyeState_Opening = 4)] = "EyeState_Opening"),
-    r
+    (r[r.EyeState_First = 0] = "EyeState_First"),
+      (r[r.EyeState_Interval = 1] = "EyeState_Interval"),
+      (r[r.EyeState_Closing = 2] = "EyeState_Closing"),
+      (r[r.EyeState_Closed = 3] = "EyeState_Closed"),
+      (r[r.EyeState_Opening = 4] = "EyeState_Opening"),
+      r
   ))(_s || {}),
   gi;
 ((r) => {
@@ -2111,7 +2161,7 @@ class jt {
       a = i.getRoot();
     a.getValueByString(ci).isNull() ||
       ((s._fadeTimeSeconds = a.getValueByString(ci).toFloat(pe)),
-      s._fadeTimeSeconds <= 0 && (s._fadeTimeSeconds = pe));
+        s._fadeTimeSeconds <= 0 && (s._fadeTimeSeconds = pe));
     const o = a.getValueByString(Cr),
       n = o.getSize();
     for (let l = 0; l < n; ++l) {
@@ -2160,8 +2210,9 @@ class jt {
         if (!(o < 0)) {
           t.setPartOpacityByIndex(o, a == e ? 1 : 0),
             t.setParameterValueByIndex(n, a == e ? 1 : 0);
-          for (let l = 0; l < this._partGroups.at(a).link.getSize(); ++l)
+          for (let l = 0; l < this._partGroups.at(a).link.getSize(); ++l) {
             this._partGroups.at(a).link.at(l).initialize(t);
+          }
         }
       }
       e += s;
@@ -2220,19 +2271,25 @@ class Gt {
   constructor(t) {
     if (
       ((this.parameterIndex = 0),
-      (this.partIndex = 0),
-      (this.link = new x()),
-      t != null)
+        (this.partIndex = 0),
+        (this.link = new x()),
+        t != null)
     ) {
       this.partId = t.partId;
-      for (const e = t.link.begin(); e.notEqual(t.link.end()); e.preIncrement())
+      for (
+        const e = t.link.begin();
+        e.notEqual(t.link.end());
+        e.preIncrement()
+      ) {
         this.link.pushBack(e.ptr().clone());
+      }
     }
   }
   assignment(t) {
     this.partId = t.partId;
-    for (const e = t.link.begin(); e.notEqual(t.link.end()); e.preIncrement())
+    for (const e = t.link.begin(); e.notEqual(t.link.end()); e.preIncrement()) {
       this.link.pushBack(e.ptr().clone());
+    }
     return this;
   }
   initialize(t) {
@@ -2246,8 +2303,13 @@ class Gt {
       (t.parameterIndex = this.parameterIndex),
       (t.partIndex = this.partIndex),
       (t.link = new x());
-    for (let e = this.link.begin(); e.notEqual(this.link.end()); e.increment())
+    for (
+      let e = this.link.begin();
+      e.notEqual(this.link.end());
+      e.increment()
+    ) {
       t.link.pushBack(e.ptr().clone());
+    }
     return t;
   }
 }
@@ -2328,18 +2390,18 @@ class ms extends A {
       g == s
         ? this.setX(c)
         : g == a
-          ? this.setY(c)
-          : g == o
-            ? this.centerX(c)
-            : g == n
-              ? this.centerY(c)
-              : g == l
-                ? this.top(c)
-                : g == h
-                  ? this.bottom(c)
-                  : g == u
-                    ? this.left(c)
-                    : g == d && this.right(c);
+        ? this.setY(c)
+        : g == o
+        ? this.centerX(c)
+        : g == n
+        ? this.centerY(c)
+        : g == l
+        ? this.top(c)
+        : g == h
+        ? this.bottom(c)
+        : g == u
+        ? this.left(c)
+        : g == d && this.right(c);
     }
   }
 }
@@ -2425,7 +2487,7 @@ const bt = class bt {
       e === 1 / 0
         ? (s = 1 / 0)
         : ((s = Math.exp(Math.log(e) / 3)), (s = (e / (s * s) + 2 * s) / 3)),
-      i ? -s : s
+        i ? -s : s
     );
   }
   static getEasingSine(t) {
@@ -2447,8 +2509,8 @@ const bt = class bt {
     const i = Math.atan2(e.y, e.x),
       s = Math.atan2(t.y, t.x);
     let a = i - s;
-    for (; a < -Math.PI; ) a += Math.PI * 2;
-    for (; a > Math.PI; ) a -= Math.PI * 2;
+    for (; a < -Math.PI;) a += Math.PI * 2;
+    for (; a > Math.PI;) a -= Math.PI * 2;
     return a;
   }
   static directionToDegrees(t, e) {
@@ -2462,14 +2524,13 @@ const bt = class bt {
   }
   static quadraticEquation(t, e, i) {
     return this.abs(t) < bt.Epsilon
-      ? this.abs(e) < bt.Epsilon
-        ? -i
-        : -i / e
+      ? this.abs(e) < bt.Epsilon ? -i : -i / e
       : -(e + this.sqrt(e * e - 4 * t * i)) / (2 * t);
   }
   static cardanoAlgorithmForBezier(t, e, i, s) {
-    if (this.sqrt(t) < bt.Epsilon)
+    if (this.sqrt(t) < bt.Epsilon) {
       return this.range(this.quadraticEquation(e, i, s), 0, 1);
+    }
     const a = e / t,
       o = i / t,
       n = s / t,
@@ -2510,10 +2571,11 @@ const bt = class bt {
     return this.range(y, 0, 1);
   }
   static mod(t, e) {
-    if (!isFinite(t) || e === 0 || isNaN(t) || isNaN(e))
+    if (!isFinite(t) || e === 0 || isNaN(t) || isNaN(e)) {
       return (
         console.warn(`divided: ${t}, divisor: ${e} mod() returns 'NaN'.`), NaN
       );
+    }
     const i = Math.abs(t),
       s = Math.abs(e);
     let a = i - Math.floor(i / s) * s;
@@ -2618,14 +2680,12 @@ class Ft {
   updateFadeWeight(t, e) {
     t == null && Fe.print(ct.LogLevel_Error, "motionQueueEntry is null.");
     let i = this._weight;
-    const s =
-        this._fadeInSeconds == 0
-          ? 1
-          : P.getEasingSine((e - t.getFadeInStartTime()) / this._fadeInSeconds),
-      a =
-        this._fadeOutSeconds == 0 || t.getEndTime() < 0
-          ? 1
-          : P.getEasingSine((t.getEndTime() - e) / this._fadeOutSeconds);
+    const s = this._fadeInSeconds == 0
+        ? 1
+        : P.getEasingSine((e - t.getFadeInStartTime()) / this._fadeInSeconds),
+      a = this._fadeOutSeconds == 0 || t.getEndTime() < 0
+        ? 1
+        : P.getEasingSine((t.getEndTime() - e) / this._fadeOutSeconds);
     return (i = i * s * a), t.setState(e, i), W(0 <= i && i <= 1), i;
   }
   setFadeInTime(t) {
@@ -2718,21 +2778,22 @@ const Pr = "FadeInTime",
           const h = (l.overwriteValue = t.getParameterValueById(l.parameterId)),
             u = this.getExpressionParameters();
           let d = -1;
-          for (let p = 0; p < u.getSize(); ++p)
+          for (let p = 0; p < u.getSize(); ++p) {
             if (l.parameterId == u.at(p).parameterId) {
               d = p;
               break;
             }
+          }
           if (d < 0) {
             a == 0
               ? ((l.additiveValue = U.DefaultAdditiveValue),
                 (l.multiplyValue = U.DefaultMultiplyValue),
                 (l.overwriteValue = h))
               : ((l.additiveValue = this.calculateValue(
-                  l.additiveValue,
-                  U.DefaultAdditiveValue,
-                  o,
-                )),
+                l.additiveValue,
+                U.DefaultAdditiveValue,
+                o,
+              )),
                 (l.multiplyValue = this.calculateValue(
                   l.multiplyValue,
                   U.DefaultMultiplyValue,
@@ -2792,13 +2853,13 @@ const Pr = "FadeInTime",
           h = n.getValueByString(br).toFloat();
         let u;
         n.getValueByString(Zt).isNull() ||
-        n.getValueByString(Zt).getString() == Ir
+          n.getValueByString(Zt).getString() == Ir
           ? (u = 0)
           : n.getValueByString(Zt).getString() == Vr
-            ? (u = 1)
-            : n.getValueByString(Zt).getString() == wr
-              ? (u = 2)
-              : (u = 0);
+          ? (u = 1)
+          : n.getValueByString(Zt).getString() == wr
+          ? (u = 2)
+          : (u = 0);
         const d = new ys();
         (d.parameterId = l),
           (d.blendType = u),
@@ -2817,10 +2878,10 @@ const Pr = "FadeInTime",
 (U.DefaultAdditiveValue = 0), (U.DefaultMultiplyValue = 1);
 let nt = U;
 var fs = ((r) => (
-  (r[(r.Additive = 0)] = "Additive"),
-  (r[(r.Multiply = 1)] = "Multiply"),
-  (r[(r.Overwrite = 2)] = "Overwrite"),
-  r
+  (r[r.Additive = 0] = "Additive"),
+    (r[r.Multiply = 1] = "Multiply"),
+    (r[r.Overwrite = 2] = "Overwrite"),
+    r
 ))(fs || {});
 class ys {}
 var Pi;
@@ -2856,7 +2917,7 @@ class Ss {
     const i = e + t;
     (this._isTriggeredFadeOut = !0),
       (this._endTimeSeconds < 0 || i < this._endTimeSeconds) &&
-        (this._endTimeSeconds = i);
+      (this._endTimeSeconds = i);
   }
   isFinished() {
     return this._finished;
@@ -2931,27 +2992,29 @@ class De {
       (this._motions = new x());
   }
   release() {
-    for (let t = 0; t < this._motions.getSize(); ++t)
+    for (let t = 0; t < this._motions.getSize(); ++t) {
       this._motions.at(t) &&
         (this._motions.at(t).release(), this._motions.set(t, null));
+    }
     this._motions = null;
   }
   startMotion(t, e, i) {
     if (t == null) return le;
     let s = null;
-    for (let a = 0; a < this._motions.getSize(); ++a)
+    for (let a = 0; a < this._motions.getSize(); ++a) {
       (s = this._motions.at(a)),
         s != null && s.setFadeOut(s._motion.getFadeOutTime());
+    }
     return (
       (s = new Ss()),
-      (s._autoDelete = e),
-      (s._motion = t),
-      this._motions.pushBack(s),
-      s._motionQueueEntryHandle
+        (s._autoDelete = e),
+        (s._motion = t),
+        this._motions.pushBack(s),
+        s._motionQueueEntryHandle
     );
   }
   isFinished() {
-    for (let t = this._motions.begin(); t.notEqual(this._motions.end()); ) {
+    for (let t = this._motions.begin(); t.notEqual(this._motions.end());) {
       let e = t.ptr();
       if (e == null) {
         t = this._motions.erase(t);
@@ -2973,13 +3036,14 @@ class De {
       e.increment()
     ) {
       const i = e.ptr();
-      if (i != null && i._motionQueueEntryHandle == t && !i.isFinished())
+      if (i != null && i._motionQueueEntryHandle == t && !i.isFinished()) {
         return !1;
+      }
     }
     return !0;
   }
   stopAllMotions() {
-    for (let t = this._motions.begin(); t.notEqual(this._motions.end()); ) {
+    for (let t = this._motions.begin(); t.notEqual(this._motions.end());) {
       let e = t.ptr();
       if (e == null) {
         t = this._motions.erase(t);
@@ -3007,7 +3071,7 @@ class De {
   }
   doUpdateMotion(t, e) {
     let i = !1;
-    for (let s = this._motions.begin(); s.notEqual(this._motions.end()); ) {
+    for (let s = this._motions.begin(); s.notEqual(this._motions.end());) {
       let a = s.ptr();
       if (a == null) {
         s = this._motions.erase(s);
@@ -3023,8 +3087,9 @@ class De {
         a.getLastCheckEventSeconds() - a.getStartTime(),
         e - a.getStartTime(),
       );
-      for (let l = 0; l < n.getSize(); ++l)
+      for (let l = 0; l < n.getSize(); ++l) {
         this._eventCallBack(this, n.at(l), this._eventCustomData);
+      }
       a.setLastCheckEventSeconds(e),
         a.isFinished()
           ? (a.release(), (a = null), (s = this._motions.erase(s)))
@@ -3051,7 +3116,7 @@ class xs extends De {
   }
   release() {
     this._expressionParameterValues &&
-      (Ot(this._expressionParameterValues),
+    (Ot(this._expressionParameterValues),
       (this._expressionParameterValues = null)),
       this._fadeWeights && (Ot(this._fadeWeights), (this._fadeWeights = null));
   }
@@ -3070,9 +3135,9 @@ class xs extends De {
   startMotionPriority(t, e, i) {
     return (
       i == this.getReservePriority() && this.setReservePriority(0),
-      (this._currentPriority = i),
-      this._fadeWeights.pushBack(0),
-      this.startMotion(t, e)
+        (this._currentPriority = i),
+        this._fadeWeights.pushBack(0),
+        this.startMotion(t, e)
     );
   }
   updateMotion(t, e) {
@@ -3081,7 +3146,7 @@ class xs extends De {
     const s = this.getCubismMotionQueueEntries();
     let a = 0,
       o = 0;
-    for (let n = this._motions.begin(); n.notEqual(this._motions.end()); ) {
+    for (let n = this._motions.begin(); n.notEqual(this._motions.end());) {
       const l = n.ptr();
       if (l == null) {
         n = s.erase(n);
@@ -3093,18 +3158,19 @@ class xs extends De {
         continue;
       }
       const u = h.getExpressionParameters();
-      if (l.isAvailable())
+      if (l.isAvailable()) {
         for (let d = 0; d < u.getSize(); ++d) {
           if (u.at(d).parameterId == null) continue;
           let _ = -1;
-          for (let c = 0; c < this._expressionParameterValues.getSize(); ++c)
+          for (let c = 0; c < this._expressionParameterValues.getSize(); ++c) {
             if (
               this._expressionParameterValues.at(c).parameterId ==
-              u.at(d).parameterId
+                u.at(d).parameterId
             ) {
               _ = c;
               break;
             }
+          }
           if (_ >= 0) continue;
           const g = new Rr();
           (g.parameterId = u.at(d).parameterId),
@@ -3113,6 +3179,7 @@ class xs extends De {
             (g.overwriteValue = t.getParameterValueById(g.parameterId)),
             this._expressionParameterValues.pushBack(g);
         }
+      }
       h.setupMotionQueueEntry(l, this._userTimeSeconds),
         this._fadeWeights.set(o, h.updateFadeWeight(l, this._userTimeSeconds)),
         h.calculateExpressionParameters(
@@ -3123,28 +3190,26 @@ class xs extends De {
           o,
           this._fadeWeights.at(o),
         ),
-        (a +=
-          h.getFadeInTime() == 0
-            ? 1
-            : P.getEasingSine(
-                (this._userTimeSeconds - l.getFadeInStartTime()) /
-                  h.getFadeInTime(),
-              )),
+        (a += h.getFadeInTime() == 0 ? 1 : P.getEasingSine(
+          (this._userTimeSeconds - l.getFadeInStartTime()) /
+            h.getFadeInTime(),
+        )),
         (i = !0),
         l.isTriggeredFadeOut() &&
-          l.startFadeOut(l.getFadeOutSeconds(), this._userTimeSeconds),
+        l.startFadeOut(l.getFadeOutSeconds(), this._userTimeSeconds),
         n.preIncrement(),
         ++o;
     }
     if (
       s.getSize() > 1 &&
       (s.at(s.getSize() - 1).getCubismMotion(),
-      this._fadeWeights.at(this._fadeWeights.getSize() - 1) >= 1)
-    )
+        this._fadeWeights.at(this._fadeWeights.getSize() - 1) >= 1)
+    ) {
       for (let l = s.getSize() - 2; l >= 0; --l) {
         const h = s.at(l);
         Ot(h), s.remove(l), this._fadeWeights.remove(l);
       }
+    }
     a > 1 && (a = 1);
     for (let n = 0; n < this._expressionParameterValues.getSize(); ++n) {
       const l = this._expressionParameterValues.at(n);
@@ -3164,24 +3229,23 @@ var bi;
   r.CubismExpressionMotionManager = xs;
 })(bi || (bi = {}));
 var G = ((r) => (
-    (r[(r.CubismMotionCurveTarget_Model = 0)] =
-      "CubismMotionCurveTarget_Model"),
-    (r[(r.CubismMotionCurveTarget_Parameter = 1)] =
-      "CubismMotionCurveTarget_Parameter"),
-    (r[(r.CubismMotionCurveTarget_PartOpacity = 2)] =
-      "CubismMotionCurveTarget_PartOpacity"),
-    r
+    (r[r.CubismMotionCurveTarget_Model = 0] = "CubismMotionCurveTarget_Model"),
+      (r[r.CubismMotionCurveTarget_Parameter = 1] =
+        "CubismMotionCurveTarget_Parameter"),
+      (r[r.CubismMotionCurveTarget_PartOpacity = 2] =
+        "CubismMotionCurveTarget_PartOpacity"),
+      r
   ))(G || {}),
   H = ((r) => (
-    (r[(r.CubismMotionSegmentType_Linear = 0)] =
+    (r[r.CubismMotionSegmentType_Linear = 0] =
       "CubismMotionSegmentType_Linear"),
-    (r[(r.CubismMotionSegmentType_Bezier = 1)] =
-      "CubismMotionSegmentType_Bezier"),
-    (r[(r.CubismMotionSegmentType_Stepped = 2)] =
-      "CubismMotionSegmentType_Stepped"),
-    (r[(r.CubismMotionSegmentType_InverseStepped = 3)] =
-      "CubismMotionSegmentType_InverseStepped"),
-    r
+      (r[r.CubismMotionSegmentType_Bezier = 1] =
+        "CubismMotionSegmentType_Bezier"),
+      (r[r.CubismMotionSegmentType_Stepped = 2] =
+        "CubismMotionSegmentType_Stepped"),
+      (r[r.CubismMotionSegmentType_InverseStepped = 3] =
+        "CubismMotionSegmentType_InverseStepped"),
+      r
   ))(H || {});
 class Le {
   constructor() {
@@ -3273,10 +3337,10 @@ class vs {
   getEvaluationOptionFlag(t) {
     return t == 0
       ? this._json
-          .getRoot()
-          .getValueByString(N)
-          .getValueByString(Er)
-          .toBoolean()
+        .getRoot()
+        .getValueByString(N)
+        .getValueByString(Er)
+        .toBoolean()
       : !1;
   }
   getMotionCurveCount() {
@@ -3437,9 +3501,8 @@ class vs {
   }
 }
 var bs = ((r) => (
-    (r[(r.EvaluationOptionFlag_AreBeziersRistricted = 0)] =
-      "EvaluationOptionFlag_AreBeziersRistricted"),
-    r
+    (r[r.EvaluationOptionFlag_AreBeziersRistricted = 0] =
+      "EvaluationOptionFlag_AreBeziersRistricted"), r
   ))(bs || {}),
   Ri;
 ((r) => {
@@ -3456,8 +3519,8 @@ function X(r, t, e) {
   const i = new Le();
   return (
     (i.time = r.time + (t.time - r.time) * e),
-    (i.value = r.value + (t.value - r.value) * e),
-    i
+      (i.value = r.value + (t.value - r.value) * e),
+      i
   );
 }
 function Jr(r, t) {
@@ -3503,18 +3566,18 @@ function ye(r, t, e) {
   let s = -1;
   const a = i.baseSegmentIndex + i.segmentCount;
   let o = 0;
-  for (let l = i.baseSegmentIndex; l < a; ++l)
+  for (let l = i.baseSegmentIndex; l < a; ++l) {
     if (
-      ((o =
-        r.segments.at(l).basePointIndex +
+      ((o = r.segments.at(l).basePointIndex +
         (r.segments.at(l).segmentType == H.CubismMotionSegmentType_Bezier
           ? 3
           : 1)),
-      r.points.at(o).time > e)
+        r.points.at(o).time > e)
     ) {
       s = l;
       break;
     }
+  }
   if (s == -1) return r.points.at(o).value;
   const n = r.segments.at(s);
   return n.evaluate(r.points.get(n.basePointIndex), e);
@@ -3524,19 +3587,19 @@ class ce extends Ft {
     const s = new ce();
     return (
       s.parse(t, e),
-      (s._sourceFrameRate = s._motionData.fps),
-      (s._loopDurationSeconds = s._motionData.duration),
-      (s._onFinishedMotion = i),
-      s
+        (s._sourceFrameRate = s._motionData.fps),
+        (s._loopDurationSeconds = s._motionData.duration),
+        (s._onFinishedMotion = i),
+        s
     );
   }
   doUpdateParameters(t, e, i, s) {
     this._modelCurveIdEyeBlink == null &&
-      (this._modelCurveIdEyeBlink = V.getIdManager().getId(jr)),
+    (this._modelCurveIdEyeBlink = V.getIdManager().getId(jr)),
       this._modelCurveIdLipSync == null &&
-        (this._modelCurveIdLipSync = V.getIdManager().getId(Gr)),
+      (this._modelCurveIdLipSync = V.getIdManager().getId(Gr)),
       this._modelCurveIdOpacity == null &&
-        (this._modelCurveIdOpacity = V.getIdManager().getId(ee));
+      (this._modelCurveIdOpacity = V.getIdManager().getId(ee));
     let a = e - s.getStartTime();
     a < 0 && (a = 0);
     let o = Number.MAX_VALUE,
@@ -3545,44 +3608,44 @@ class ce extends Ft {
     let h = 0,
       u = 0;
     this._eyeBlinkParameterIds.getSize() > l &&
-      zt(
-        "too many eye blink targets : {0}",
-        this._eyeBlinkParameterIds.getSize(),
-      ),
+    zt(
+      "too many eye blink targets : {0}",
+      this._eyeBlinkParameterIds.getSize(),
+    ),
       this._lipSyncParameterIds.getSize() > l &&
-        zt(
-          "too many lip sync targets : {0}",
-          this._lipSyncParameterIds.getSize(),
-        );
-    const d =
-        this._fadeInSeconds <= 0
-          ? 1
-          : P.getEasingSine((e - s.getFadeInStartTime()) / this._fadeInSeconds),
-      _ =
-        this._fadeOutSeconds <= 0 || s.getEndTime() < 0
-          ? 1
-          : P.getEasingSine((s.getEndTime() - e) / this._fadeOutSeconds);
+      zt(
+        "too many lip sync targets : {0}",
+        this._lipSyncParameterIds.getSize(),
+      );
+    const d = this._fadeInSeconds <= 0
+        ? 1
+        : P.getEasingSine((e - s.getFadeInStartTime()) / this._fadeInSeconds),
+      _ = this._fadeOutSeconds <= 0 || s.getEndTime() < 0
+        ? 1
+        : P.getEasingSine((s.getEndTime() - e) / this._fadeOutSeconds);
     let g,
       c,
       f,
       p = a;
-    if (this._isLoop)
-      for (; p > this._motionData.duration; ) p -= this._motionData.duration;
+    if (this._isLoop) {
+      for (; p > this._motionData.duration;) p -= this._motionData.duration;
+    }
     const S = this._motionData.curves;
     for (
       c = 0;
       c < this._motionData.curveCount &&
       S.at(c).type == G.CubismMotionCurveTarget_Model;
       ++c
-    )
+    ) {
       (g = ye(this._motionData, c, p)),
         S.at(c).id == this._modelCurveIdEyeBlink
           ? (n = g)
           : S.at(c).id == this._modelCurveIdLipSync
-            ? (o = g)
-            : S.at(c).id == this._modelCurveIdOpacity &&
-              ((this._modelOpacity = g),
+          ? (o = g)
+          : S.at(c).id == this._modelCurveIdOpacity &&
+            ((this._modelOpacity = g),
               t.setModelOapcity(this.getModelOpacityValue()));
+    }
     for (
       ;
       c < this._motionData.curveCount &&
@@ -3592,47 +3655,49 @@ class ce extends Ft {
       if (((f = t.getParameterIndex(S.at(c).id)), f == -1)) continue;
       const y = t.getParameterValueByIndex(f);
       if (((g = ye(this._motionData, c, p)), n != Number.MAX_VALUE)) {
-        for (let v = 0; v < this._eyeBlinkParameterIds.getSize() && v < l; ++v)
+        for (
+          let v = 0;
+          v < this._eyeBlinkParameterIds.getSize() && v < l;
+          ++v
+        ) {
           if (this._eyeBlinkParameterIds.at(v) == S.at(c).id) {
             (g *= n), (u |= 1 << v);
             break;
           }
+        }
       }
       if (o != Number.MAX_VALUE) {
-        for (let v = 0; v < this._lipSyncParameterIds.getSize() && v < l; ++v)
+        for (let v = 0; v < this._lipSyncParameterIds.getSize() && v < l; ++v) {
           if (this._lipSyncParameterIds.at(v) == S.at(c).id) {
             (g += o), (h |= 1 << v);
             break;
           }
+        }
       }
       let B;
-      if (S.at(c).fadeInTime < 0 && S.at(c).fadeOutTime < 0)
+      if (S.at(c).fadeInTime < 0 && S.at(c).fadeOutTime < 0) {
         B = y + (g - y) * i;
-      else {
+      } else {
         let v, I;
         S.at(c).fadeInTime < 0
           ? (v = d)
-          : (v =
-              S.at(c).fadeInTime == 0
-                ? 1
-                : P.getEasingSine(
-                    (e - s.getFadeInStartTime()) / S.at(c).fadeInTime,
-                  )),
+          : (v = S.at(c).fadeInTime == 0 ? 1 : P.getEasingSine(
+            (e - s.getFadeInStartTime()) / S.at(c).fadeInTime,
+          )),
           S.at(c).fadeOutTime < 0
             ? (I = _)
-            : (I =
-                S.at(c).fadeOutTime == 0 || s.getEndTime() < 0
-                  ? 1
-                  : P.getEasingSine(
-                      (s.getEndTime() - e) / S.at(c).fadeOutTime,
-                    ));
+            : (I = S.at(c).fadeOutTime == 0 || s.getEndTime() < 0
+              ? 1
+              : P.getEasingSine(
+                (s.getEndTime() - e) / S.at(c).fadeOutTime,
+              ));
         const b = this._weight * v * I;
         B = y + (g - y) * b;
       }
       t.setParameterValueByIndex(f, B, 1);
     }
     {
-      if (n != Number.MAX_VALUE)
+      if (n != Number.MAX_VALUE) {
         for (
           let y = 0;
           y < this._eyeBlinkParameterIds.getSize() && y < l;
@@ -3643,29 +3708,31 @@ class ce extends Ft {
           const v = B + (n - B) * i;
           t.setParameterValueById(this._eyeBlinkParameterIds.at(y), v);
         }
-      if (o != Number.MAX_VALUE)
+      }
+      if (o != Number.MAX_VALUE) {
         for (let y = 0; y < this._lipSyncParameterIds.getSize() && y < l; ++y) {
           const B = t.getParameterValueById(this._lipSyncParameterIds.at(y));
           if ((h >> y) & 1) continue;
           const v = B + (o - B) * i;
           t.setParameterValueById(this._lipSyncParameterIds.at(y), v);
         }
+      }
     }
     for (
       ;
       c < this._motionData.curveCount &&
       S.at(c).type == G.CubismMotionCurveTarget_PartOpacity;
       ++c
-    )
+    ) {
       (f = t.getParameterIndex(S.at(c).id)),
         f != -1 &&
-          ((g = ye(this._motionData, c, p)), t.setParameterValueByIndex(f, g));
+        ((g = ye(this._motionData, c, p)), t.setParameterValueByIndex(f, g));
+    }
     a >= this._motionData.duration &&
-      (this._isLoop
-        ? (s.setStartTime(e), this._isLoopFadeIn && s.setFadeInStartTime(e))
-        : (this._onFinishedMotion && this._onFinishedMotion(this),
-          s.setIsFinished(!0))),
-      (this._lastWeight = i);
+    (this._isLoop
+      ? (s.setStartTime(e), this._isLoopFadeIn && s.setFadeInStartTime(e))
+      : (this._onFinishedMotion && this._onFinishedMotion(this),
+        s.setIsFinished(!0))), (this._lastWeight = i);
   }
   setIsLoop(t) {
     this._isLoop = t;
@@ -3687,30 +3754,34 @@ class ce extends Ft {
   }
   setParameterFadeInTime(t, e) {
     const i = this._motionData.curves;
-    for (let s = 0; s < this._motionData.curveCount; ++s)
+    for (let s = 0; s < this._motionData.curveCount; ++s) {
       if (t == i.at(s).id) {
         i.at(s).fadeInTime = e;
         return;
       }
+    }
   }
   setParameterFadeOutTime(t, e) {
     const i = this._motionData.curves;
-    for (let s = 0; s < this._motionData.curveCount; ++s)
+    for (let s = 0; s < this._motionData.curveCount; ++s) {
       if (t == i.at(s).id) {
         i.at(s).fadeOutTime = e;
         return;
       }
+    }
   }
   getParameterFadeInTime(t) {
     const e = this._motionData.curves;
-    for (let i = 0; i < this._motionData.curveCount; ++i)
+    for (let i = 0; i < this._motionData.curveCount; ++i) {
       if (t == e.at(i).id) return e.at(i).fadeInTime;
+    }
     return -1;
   }
   getParameterFadeOutTime(t) {
     const e = this._motionData.curves;
-    for (let i = 0; i < this._motionData.curveCount; ++i)
+    for (let i = 0; i < this._motionData.curveCount; ++i) {
       if (t == e.at(i).id) return e.at(i).fadeOutTime;
+    }
     return -1;
   }
   setEffectIds(t, e) {
@@ -3750,12 +3821,14 @@ class ce extends Ft {
       bs.EvaluationOptionFlag_AreBeziersRistricted,
     );
     i.isExistMotionFadeInTime()
-      ? (this._fadeInSeconds =
-          i.getMotionFadeInTime() < 0 ? 1 : i.getMotionFadeInTime())
+      ? (this._fadeInSeconds = i.getMotionFadeInTime() < 0
+        ? 1
+        : i.getMotionFadeInTime())
       : (this._fadeInSeconds = 1),
       i.isExistMotionFadeOutTime()
-        ? (this._fadeOutSeconds =
-            i.getMotionFadeOutTime() < 0 ? 1 : i.getMotionFadeOutTime())
+        ? (this._fadeOutSeconds = i.getMotionFadeOutTime() < 0
+          ? 1
+          : i.getMotionFadeOutTime())
         : (this._fadeOutSeconds = 1),
       this._motionData.curves.updateSize(this._motionData.curveCount, Ms, !0),
       this._motionData.segments.updateSize(
@@ -3771,14 +3844,14 @@ class ce extends Ft {
       i.getMotionCurveTarget(n) == Hr
         ? (this._motionData.curves.at(n).type = G.CubismMotionCurveTarget_Model)
         : i.getMotionCurveTarget(n) == $r
-          ? (this._motionData.curves.at(n).type =
-              G.CubismMotionCurveTarget_Parameter)
-          : i.getMotionCurveTarget(n) == Wr
-            ? (this._motionData.curves.at(n).type =
-                G.CubismMotionCurveTarget_PartOpacity)
-            : rt(
-                'Warning : Unable to get segment type from Curve! The number of "CurveCount" may be incorrect!',
-              ),
+        ? (this._motionData.curves.at(n).type =
+          G.CubismMotionCurveTarget_Parameter)
+        : i.getMotionCurveTarget(n) == Wr
+        ? (this._motionData.curves.at(n).type =
+          G.CubismMotionCurveTarget_PartOpacity)
+        : rt(
+          'Warning : Unable to get segment type from Curve! The number of "CurveCount" may be incorrect!',
+        ),
         (this._motionData.curves.at(n).id = i.getMotionCurveId(n)),
         (this._motionData.curves.at(n).baseSegmentIndex = o),
         (this._motionData.curves.at(n).fadeInTime =
@@ -3789,7 +3862,7 @@ class ce extends Ft {
           i.isExistMotionCurveFadeOutTime(n)
             ? i.getMotionCurveFadeOutTime(n)
             : -1);
-      for (let l = 0; l < i.getMotionCurveSegmentCount(n); ) {
+      for (let l = 0; l < i.getMotionCurveSegmentCount(n);) {
         switch (
           (l == 0
             ? ((this._motionData.segments.at(o).basePointIndex = a),
@@ -3804,7 +3877,7 @@ class ce extends Ft {
               (a += 1),
               (l += 2))
             : (this._motionData.segments.at(o).basePointIndex = a - 1),
-          i.getMotionCurveSegment(n, l))
+            i.getMotionCurveSegment(n, l))
         ) {
           case H.CubismMotionSegmentType_Linear: {
             (this._motionData.segments.at(o).segmentType =
@@ -3840,14 +3913,14 @@ class ce extends Ft {
                 n,
                 l + 3,
               )),
-              (this._motionData.points.at(a + 1).value =
-                i.getMotionCurveSegment(n, l + 4)),
+              (this._motionData.points.at(a + 1).value = i
+                .getMotionCurveSegment(n, l + 4)),
               (this._motionData.points.at(a + 2).time = i.getMotionCurveSegment(
                 n,
                 l + 5,
               )),
-              (this._motionData.points.at(a + 2).value =
-                i.getMotionCurveSegment(n, l + 6)),
+              (this._motionData.points.at(a + 2).value = i
+                .getMotionCurveSegment(n, l + 6)),
               (a += 3),
               (l += 7);
             break;
@@ -3892,19 +3965,21 @@ class ce extends Ft {
         ++this._motionData.curves.at(n).segmentCount, ++o;
       }
     }
-    for (let n = 0; n < i.getEventCount(); ++n)
+    for (let n = 0; n < i.getEventCount(); ++n) {
       (this._motionData.events.at(n).fireTime = i.getEventTime(n)),
         (this._motionData.events.at(n).value = i.getEventValue(n));
+    }
     i.release(), (i = void 0), (i = null);
   }
   getFiredEvent(t, e) {
     this._firedEventValues.updateSize(0);
-    for (let i = 0; i < this._motionData.eventCount; ++i)
+    for (let i = 0; i < this._motionData.eventCount; ++i) {
       this._motionData.events.at(i).fireTime > t &&
         this._motionData.events.at(i).fireTime <= e &&
         this._firedEventValues.pushBack(
           new Y(this._motionData.events.at(i).value.s),
         );
+    }
     return this._firedEventValues;
   }
   isExistModelOpacity() {
@@ -3913,21 +3988,24 @@ class ce extends Ft {
       if (
         e.type == G.CubismMotionCurveTarget_Model &&
         e.id.getString().s.localeCompare(ee) == 0
-      )
+      ) {
         return !0;
+      }
     }
     return !1;
   }
   getModelOpacityIndex() {
-    if (this.isExistModelOpacity())
+    if (this.isExistModelOpacity()) {
       for (let t = 0; t < this._motionData.curveCount; t++) {
         const e = this._motionData.curves.at(t);
         if (
           e.type == G.CubismMotionCurveTarget_Model &&
           e.id.getString().s.localeCompare(ee) == 0
-        )
+        ) {
           return t;
+        }
       }
+    }
     return -1;
   }
   getModelOpacityId(t) {
@@ -3936,8 +4014,9 @@ class ce extends Ft {
       if (
         e.type == G.CubismMotionCurveTarget_Model &&
         e.id.getString().s.localeCompare(ee) == 0
-      )
+      ) {
         return V.getIdManager().getId(e.id.getString().s);
+      }
     }
     return null;
   }
@@ -3965,8 +4044,8 @@ class Is extends De {
   startMotionPriority(t, e, i) {
     return (
       i == this._reservePriority && (this._reservePriority = 0),
-      (this._currentPriority = i),
-      super.startMotion(t, e)
+        (this._currentPriority = i),
+        super.startMotion(t, e)
     );
   }
   updateMotion(t, e) {
@@ -3985,15 +4064,14 @@ var Fi;
   r.CubismMotionManager = Is;
 })(Fi || (Fi = {}));
 var ue = ((r) => (
-    (r[(r.CubismPhysicsTargetType_Parameter = 0)] =
-      "CubismPhysicsTargetType_Parameter"),
-    r
+    (r[r.CubismPhysicsTargetType_Parameter = 0] =
+      "CubismPhysicsTargetType_Parameter"), r
   ))(ue || {}),
   st = ((r) => (
-    (r[(r.CubismPhysicsSource_X = 0)] = "CubismPhysicsSource_X"),
-    (r[(r.CubismPhysicsSource_Y = 1)] = "CubismPhysicsSource_Y"),
-    (r[(r.CubismPhysicsSource_Angle = 2)] = "CubismPhysicsSource_Angle"),
-    r
+    (r[r.CubismPhysicsSource_X = 0] = "CubismPhysicsSource_X"),
+      (r[r.CubismPhysicsSource_Y = 1] = "CubismPhysicsSource_Y"),
+      (r[r.CubismPhysicsSource_Angle = 2] = "CubismPhysicsSource_Angle"),
+      r
   ))(st || {});
 class ea {
   constructor() {
@@ -4102,14 +4180,14 @@ class Es {
         .getValueByString(Li)
         .getValueByString(Se)
         .toFloat()),
-      (t.y = this._json
-        .getRoot()
-        .getValueByString(Z)
-        .getValueByString(ie)
-        .getValueByString(Li)
-        .getValueByString(xe)
-        .toFloat()),
-      t
+        (t.y = this._json
+          .getRoot()
+          .getValueByString(Z)
+          .getValueByString(ie)
+          .getValueByString(Li)
+          .getValueByString(xe)
+          .toFloat()),
+        t
     );
   }
   getWind() {
@@ -4122,14 +4200,14 @@ class Es {
         .getValueByString(Oi)
         .getValueByString(Se)
         .toFloat()),
-      (t.y = this._json
-        .getRoot()
-        .getValueByString(Z)
-        .getValueByString(ie)
-        .getValueByString(Oi)
-        .getValueByString(xe)
-        .toFloat()),
-      t
+        (t.y = this._json
+          .getRoot()
+          .getValueByString(Z)
+          .getValueByString(ie)
+          .getValueByString(Oi)
+          .getValueByString(xe)
+          .toFloat()),
+        t
     );
   }
   getFps() {
@@ -4412,16 +4490,16 @@ class Es {
         .getValueByString(Dt)
         .getValueByString(Se)
         .toFloat()),
-      (i.y = this._json
-        .getRoot()
-        .getValueByString(F)
-        .getValueByIndex(t)
-        .getValueByString(ut)
-        .getValueByIndex(e)
-        .getValueByString(Dt)
-        .getValueByString(xe)
-        .toFloat()),
-      i
+        (i.y = this._json
+          .getRoot()
+          .getValueByString(F)
+          .getValueByIndex(t)
+          .getValueByString(ut)
+          .getValueByIndex(e)
+          .getValueByString(Dt)
+          .getValueByString(xe)
+          .toFloat()),
+        i
     );
   }
 }
@@ -4465,37 +4543,37 @@ class Ht {
       a = 0,
       o = 0;
     for (let n = 0; n < this._physicsRig.settings.getSize(); ++n) {
-      (this._physicsRig.settings.at(n).normalizationPosition.minimum =
-        i.getNormalizationPositionMinimumValue(n)),
-        (this._physicsRig.settings.at(n).normalizationPosition.maximum =
-          i.getNormalizationPositionMaximumValue(n)),
-        (this._physicsRig.settings.at(n).normalizationPosition.defalut =
-          i.getNormalizationPositionDefaultValue(n)),
-        (this._physicsRig.settings.at(n).normalizationAngle.minimum =
-          i.getNormalizationAngleMinimumValue(n)),
-        (this._physicsRig.settings.at(n).normalizationAngle.maximum =
-          i.getNormalizationAngleMaximumValue(n)),
-        (this._physicsRig.settings.at(n).normalizationAngle.defalut =
-          i.getNormalizationAngleDefaultValue(n)),
+      (this._physicsRig.settings.at(n).normalizationPosition.minimum = i
+        .getNormalizationPositionMinimumValue(n)),
+        (this._physicsRig.settings.at(n).normalizationPosition.maximum = i
+          .getNormalizationPositionMaximumValue(n)),
+        (this._physicsRig.settings.at(n).normalizationPosition.defalut = i
+          .getNormalizationPositionDefaultValue(n)),
+        (this._physicsRig.settings.at(n).normalizationAngle.minimum = i
+          .getNormalizationAngleMinimumValue(n)),
+        (this._physicsRig.settings.at(n).normalizationAngle.maximum = i
+          .getNormalizationAngleMaximumValue(n)),
+        (this._physicsRig.settings.at(n).normalizationAngle.defalut = i
+          .getNormalizationAngleDefaultValue(n)),
         (this._physicsRig.settings.at(n).inputCount = i.getInputCount(n)),
         (this._physicsRig.settings.at(n).baseInputIndex = s);
-      for (let u = 0; u < this._physicsRig.settings.at(n).inputCount; ++u)
+      for (let u = 0; u < this._physicsRig.settings.at(n).inputCount; ++u) {
         (this._physicsRig.inputs.at(s + u).sourceParameterIndex = -1),
           (this._physicsRig.inputs.at(s + u).weight = i.getInputWeight(n, u)),
           (this._physicsRig.inputs.at(s + u).reflect = i.getInputReflect(n, u)),
           i.getInputType(n, u) == ji
             ? ((this._physicsRig.inputs.at(s + u).type =
-                st.CubismPhysicsSource_X),
+              st.CubismPhysicsSource_X),
               (this._physicsRig.inputs.at(s + u).getNormalizedParameterValue =
                 ya))
             : i.getInputType(n, u) == Gi
-              ? ((this._physicsRig.inputs.at(s + u).type =
-                  st.CubismPhysicsSource_Y),
-                (this._physicsRig.inputs.at(s + u).getNormalizedParameterValue =
-                  Sa))
-              : i.getInputType(n, u) == Hi &&
-                ((this._physicsRig.inputs.at(s + u).type =
-                  st.CubismPhysicsSource_Angle),
+            ? ((this._physicsRig.inputs.at(s + u).type =
+              st.CubismPhysicsSource_Y),
+              (this._physicsRig.inputs.at(s + u).getNormalizedParameterValue =
+                Sa))
+            : i.getInputType(n, u) == Hi &&
+              ((this._physicsRig.inputs.at(s + u).type =
+                st.CubismPhysicsSource_Angle),
                 (this._physicsRig.inputs.at(s + u).getNormalizedParameterValue =
                   xa)),
           (this._physicsRig.inputs.at(s + u).source.targetType =
@@ -4504,6 +4582,7 @@ class Ht {
             n,
             u,
           ));
+      }
       (s += this._physicsRig.settings.at(n).inputCount),
         (this._physicsRig.settings.at(n).outputCount = i.getOutputCount(n)),
         (this._physicsRig.settings.at(n).baseOutputIndex = a);
@@ -4511,44 +4590,45 @@ class Ht {
       l.outputs.resize(this._physicsRig.settings.at(n).outputCount);
       const h = new Wi();
       h.outputs.resize(this._physicsRig.settings.at(n).outputCount);
-      for (let u = 0; u < this._physicsRig.settings.at(n).outputCount; ++u)
+      for (let u = 0; u < this._physicsRig.settings.at(n).outputCount; ++u) {
         l.outputs.set(u, 0),
           h.outputs.set(u, 0),
           (this._physicsRig.outputs.at(a + u).destinationParameterIndex = -1),
-          (this._physicsRig.outputs.at(a + u).vertexIndex =
-            i.getOutputVertexIndex(n, u)),
-          (this._physicsRig.outputs.at(a + u).angleScale =
-            i.getOutputAngleScale(n, u)),
+          (this._physicsRig.outputs.at(a + u).vertexIndex = i
+            .getOutputVertexIndex(n, u)),
+          (this._physicsRig.outputs.at(a + u).angleScale = i
+            .getOutputAngleScale(n, u)),
           (this._physicsRig.outputs.at(a + u).weight = i.getOutputWeight(n, u)),
           (this._physicsRig.outputs.at(a + u).destination.targetType =
             ue.CubismPhysicsTargetType_Parameter),
-          (this._physicsRig.outputs.at(a + u).destination.id =
-            i.getOutputDestinationId(n, u)),
+          (this._physicsRig.outputs.at(a + u).destination.id = i
+            .getOutputDestinationId(n, u)),
           i.getOutputType(n, u) == ji
             ? ((this._physicsRig.outputs.at(a + u).type =
-                st.CubismPhysicsSource_X),
+              st.CubismPhysicsSource_X),
               (this._physicsRig.outputs.at(a + u).getValue = Ca),
               (this._physicsRig.outputs.at(a + u).getScale = ba))
             : i.getOutputType(n, u) == Gi
-              ? ((this._physicsRig.outputs.at(a + u).type =
-                  st.CubismPhysicsSource_Y),
-                (this._physicsRig.outputs.at(a + u).getValue = Ma),
-                (this._physicsRig.outputs.at(a + u).getScale = Ia))
-              : i.getOutputType(n, u) == Hi &&
-                ((this._physicsRig.outputs.at(a + u).type =
-                  st.CubismPhysicsSource_Angle),
+            ? ((this._physicsRig.outputs.at(a + u).type =
+              st.CubismPhysicsSource_Y),
+              (this._physicsRig.outputs.at(a + u).getValue = Ma),
+              (this._physicsRig.outputs.at(a + u).getScale = Ia))
+            : i.getOutputType(n, u) == Hi &&
+              ((this._physicsRig.outputs.at(a + u).type =
+                st.CubismPhysicsSource_Angle),
                 (this._physicsRig.outputs.at(a + u).getValue = Pa),
                 (this._physicsRig.outputs.at(a + u).getScale = Va)),
           (this._physicsRig.outputs.at(a + u).reflect = i.getOutputReflect(
             n,
             u,
           ));
+      }
       this._currentRigOutputs.pushBack(l),
         this._previousRigOutputs.pushBack(h),
         (a += this._physicsRig.settings.at(n).outputCount),
         (this._physicsRig.settings.at(n).particleCount = i.getParticleCount(n)),
         (this._physicsRig.settings.at(n).baseParticleIndex = o);
-      for (let u = 0; u < this._physicsRig.settings.at(n).particleCount; ++u)
+      for (let u = 0; u < this._physicsRig.settings.at(n).particleCount; ++u) {
         (this._physicsRig.particles.at(o + u).mobility = i.getParticleMobility(
           n,
           u,
@@ -4557,14 +4637,15 @@ class Ht {
             n,
             u,
           )),
-          (this._physicsRig.particles.at(o + u).acceleration =
-            i.getParticleAcceleration(n, u)),
+          (this._physicsRig.particles.at(o + u).acceleration = i
+            .getParticleAcceleration(n, u)),
           (this._physicsRig.particles.at(o + u).radius = i.getParticleRadius(
             n,
             u,
           )),
-          (this._physicsRig.particles.at(o + u).position =
-            i.getParticlePosition(n, u));
+          (this._physicsRig.particles.at(o + u).position = i
+            .getParticlePosition(n, u));
+      }
       o += this._physicsRig.settings.at(n).particleCount;
     }
     this.initialize(), i.release(), (i = void 0), (i = null);
@@ -4580,12 +4661,13 @@ class Ht {
       c = t.getModel().parameters.defaultValues;
     (((f = this._parameterCaches) == null ? void 0 : f.length) ?? 0) <
       t.getParameterCount() &&
-      (this._parameterCaches = new Float32Array(t.getParameterCount())),
+    (this._parameterCaches = new Float32Array(t.getParameterCount())),
       (((p = this._parameterInputCaches) == null ? void 0 : p.length) ?? 0) <
         t.getParameterCount() &&
-        (this._parameterInputCaches = new Float32Array(t.getParameterCount()));
-    for (let S = 0; S < t.getParameterCount(); ++S)
+      (this._parameterInputCaches = new Float32Array(t.getParameterCount()));
+    for (let S = 0; S < t.getParameterCount(); ++S) {
       (this._parameterCaches[S] = d[S]), (this._parameterInputCaches[S] = d[S]);
+    }
     for (let S = 0; S < this._physicsRig.subRigCount; ++S) {
       (e = { angle: 0 }),
         (o.x = 0),
@@ -4594,10 +4676,10 @@ class Ht {
         (l = this._physicsRig.inputs.get(n.baseInputIndex)),
         (h = this._physicsRig.outputs.get(n.baseOutputIndex)),
         (u = this._physicsRig.particles.get(n.baseParticleIndex));
-      for (let y = 0; y < n.inputCount; ++y)
+      for (let y = 0; y < n.inputCount; ++y) {
         (i = l[y].weight / Ve),
           l[y].sourceParameterIndex == -1 &&
-            (l[y].sourceParameterIndex = t.getParameterIndex(l[y].source.id)),
+          (l[y].sourceParameterIndex = t.getParameterIndex(l[y].source.id)),
           l[y].getNormalizedParameterValue(
             o,
             e,
@@ -4612,6 +4694,7 @@ class Ht {
           ),
           (this._parameterCaches[l[y].sourceParameterIndex] =
             d[l[y].sourceParameterIndex]);
+      }
       (s = P.degreesToRadian(-e.angle)),
         (o.x = o.x * P.cos(s) - o.y * P.sin(s)),
         (o.y = o.x * P.sin(s) + o.y * P.cos(s)),
@@ -4630,23 +4713,24 @@ class Ht {
             (h[y].destinationParameterIndex = t.getParameterIndex(
               h[y].destination.id,
             )),
-          B < 1 || B >= n.particleCount)
-        )
+            B < 1 || B >= n.particleCount)
+        ) {
           continue;
+        }
         let v = new M();
         (v = u[B].position.substract(u[B - 1].position)),
           (a = h[y].getValue(v, u, B, h[y].reflect, this._options.gravity)),
           this._currentRigOutputs.at(S).outputs.set(y, a),
           this._previousRigOutputs.at(S).outputs.set(y, a);
         const I = h[y].destinationParameterIndex,
-          b =
-            !Float32Array.prototype.slice &&
-            "subarray" in Float32Array.prototype
-              ? JSON.parse(JSON.stringify(d.subarray(I)))
-              : d.slice(I);
+          b = !Float32Array.prototype.slice &&
+              "subarray" in Float32Array.prototype
+            ? JSON.parse(JSON.stringify(d.subarray(I)))
+            : d.slice(I);
         Me(b, g[I], _[I], a, h[y]);
-        for (let D = I, J = 0; D < this._parameterCaches.length; D++, J++)
+        for (let D = I, J = 0; D < this._parameterCaches.length; D++, J++) {
           d[D] = this._parameterCaches[D] = b[J];
+        }
       }
     }
   }
@@ -4663,16 +4747,17 @@ class Ht {
     let p;
     if (
       ((this._currentRemainTime += e),
-      this._currentRemainTime > pa && (this._currentRemainTime = 0),
-      (((y = this._parameterCaches) == null ? void 0 : y.length) ?? 0) <
-        t.getParameterCount() &&
+        this._currentRemainTime > pa && (this._currentRemainTime = 0),
+        (((y = this._parameterCaches) == null ? void 0 : y.length) ?? 0) <
+          t.getParameterCount() &&
         (this._parameterCaches = new Float32Array(t.getParameterCount())),
-      (((B = this._parameterInputCaches) == null ? void 0 : B.length) ?? 0) <
-        t.getParameterCount())
+        (((B = this._parameterInputCaches) == null ? void 0 : B.length) ?? 0) <
+          t.getParameterCount())
     ) {
       this._parameterInputCaches = new Float32Array(t.getParameterCount());
-      for (let v = 0; v < t.getParameterCount(); ++v)
+      for (let v = 0; v < t.getParameterCount(); ++v) {
         this._parameterInputCaches[v] = _[v];
+      }
     }
     for (
       this._physicsRig.fps > 0 ? (p = 1 / this._physicsRig.fps) : (p = e);
@@ -4681,16 +4766,17 @@ class Ht {
       for (let I = 0; I < this._physicsRig.subRigCount; ++I) {
         (l = this._physicsRig.settings.at(I)),
           (u = this._physicsRig.outputs.get(l.baseOutputIndex));
-        for (let b = 0; b < l.outputCount; ++b)
+        for (let b = 0; b < l.outputCount; ++b) {
           this._previousRigOutputs
             .at(I)
             .outputs.set(b, this._currentRigOutputs.at(I).outputs.at(b));
+        }
       }
       const v = p / this._currentRemainTime;
-      for (let I = 0; I < t.getParameterCount(); ++I)
-        (this._parameterCaches[I] =
-          this._parameterInputCaches[I] * (1 - v) + _[I] * v),
-          (this._parameterInputCaches[I] = this._parameterCaches[I]);
+      for (let I = 0; I < t.getParameterCount(); ++I) {
+        (this._parameterCaches[I] = this._parameterInputCaches[I] * (1 - v) +
+          _[I] * v), (this._parameterInputCaches[I] = this._parameterCaches[I]);
+      }
       for (let I = 0; I < this._physicsRig.subRigCount; ++I) {
         (i = { angle: 0 }),
           (n.x = 0),
@@ -4699,10 +4785,10 @@ class Ht {
           (h = this._physicsRig.inputs.get(l.baseInputIndex)),
           (u = this._physicsRig.outputs.get(l.baseOutputIndex)),
           (d = this._physicsRig.particles.get(l.baseParticleIndex));
-        for (let b = 0; b < l.inputCount; ++b)
+        for (let b = 0; b < l.inputCount; ++b) {
           (s = h[b].weight / Ve),
             h[b].sourceParameterIndex == -1 &&
-              (h[b].sourceParameterIndex = t.getParameterIndex(h[b].source.id)),
+            (h[b].sourceParameterIndex = t.getParameterIndex(h[b].source.id)),
             h[b].getNormalizedParameterValue(
               n,
               i,
@@ -4715,6 +4801,7 @@ class Ht {
               h[b].reflect,
               s,
             );
+        }
         (a = P.degreesToRadian(-i.angle)),
           (n.x = n.x * P.cos(a) - n.y * P.sin(a)),
           (n.y = n.x * P.sin(a) + n.y * P.cos(a)),
@@ -4735,27 +4822,28 @@ class Ht {
               (u[b].destinationParameterIndex = t.getParameterIndex(
                 u[b].destination.id,
               )),
-            D < 1 || D >= l.particleCount)
-          )
+              D < 1 || D >= l.particleCount)
+          ) {
             continue;
+          }
           const J = new M();
           (J.x = d[D].position.x - d[D - 1].position.x),
             (J.y = d[D].position.y - d[D - 1].position.y),
             (o = u[b].getValue(J, d, D, u[b].reflect, this._options.gravity)),
             this._currentRigOutputs.at(I).outputs.set(b, o);
           const pt = u[b].destinationParameterIndex,
-            ft =
-              !Float32Array.prototype.slice &&
-              "subarray" in Float32Array.prototype
-                ? JSON.parse(JSON.stringify(this._parameterCaches.subarray(pt)))
-                : this._parameterCaches.slice(pt);
+            ft = !Float32Array.prototype.slice &&
+                "subarray" in Float32Array.prototype
+              ? JSON.parse(JSON.stringify(this._parameterCaches.subarray(pt)))
+              : this._parameterCaches.slice(pt);
           Me(ft, c[pt], g[pt], o, u[b]);
           for (
             let yt = pt, Et = 0;
             yt < this._parameterCaches.length;
             yt++, Et++
-          )
+          ) {
             this._parameterCaches[yt] = ft[Et];
+          }
         }
       }
       this._currentRemainTime -= p;
@@ -4774,11 +4862,10 @@ class Ht {
       for (let h = 0; h < s.outputCount; ++h) {
         if (i[h].destinationParameterIndex == -1) continue;
         const u = i[h].destinationParameterIndex,
-          d =
-            !Float32Array.prototype.slice &&
-            "subarray" in Float32Array.prototype
-              ? JSON.parse(JSON.stringify(a.subarray(u)))
-              : a.slice(u);
+          d = !Float32Array.prototype.slice &&
+              "subarray" in Float32Array.prototype
+            ? JSON.parse(JSON.stringify(a.subarray(u)))
+            : a.slice(u);
         Me(
           d,
           n[u],
@@ -4827,7 +4914,7 @@ class Ht {
         (t[0].lastGravity.y *= -1),
         (t[0].velocity = new M(0, 0)),
         (t[0].force = new M(0, 0));
-      for (let a = 1; a < e.particleCount; ++a)
+      for (let a = 1; a < e.particleCount; ++a) {
         (i = new M(0, 0)),
           (i.y = t[a].radius),
           (t[a].initialPosition = new M(
@@ -4846,6 +4933,7 @@ class Ht {
           (t[a].lastGravity.y *= -1),
           (t[a].velocity = new M(0, 0)),
           (t[a].force = new M(0, 0));
+      }
     }
   }
 }
@@ -4886,9 +4974,9 @@ function Pa(r, t, e, i, s) {
     e >= 2
       ? (s = t[e - 1].position.substract(t[e - 2].position))
       : (s = s.multiplyByScaler(-1)),
-    (a = P.directionToRadian(s, r)),
-    i && (a *= -1),
-    a
+      (a = P.directionToRadian(s, r)),
+      i && (a *= -1),
+      a
   );
 }
 function Ba(r, t) {
@@ -4919,7 +5007,7 @@ function wa(r, t, e, i, s, a, o, n) {
   const c = P.degreesToRadian(i),
     f = P.radianToDirection(c);
   f.normalize();
-  for (let p = 1; p < t; ++p)
+  for (let p = 1; p < t; ++p) {
     (r[p].force = f.multiplyByScaler(r[p].acceleration).add(s)),
       (r[p].lastPosition = new M(r[p].position.x, r[p].position.y)),
       (l = r[p].delay * o * 30),
@@ -4936,11 +5024,12 @@ function wa(r, t, e, i, s, a, o, n) {
       (r[p].position = r[p - 1].position.add(g.multiplyByScaler(r[p].radius))),
       P.abs(r[p].position.x) < a && (r[p].position.x = 0),
       l != 0 &&
-        ((r[p].velocity = r[p].position.substract(r[p].lastPosition)),
+      ((r[p].velocity = r[p].position.substract(r[p].lastPosition)),
         (r[p].velocity = r[p].velocity.divisionByScalar(l)),
         (r[p].velocity = r[p].velocity.multiplyByScaler(r[p].mobility))),
       (r[p].force = new M(0, 0)),
       (r[p].lastGravity = new M(f.x, f.y));
+  }
 }
 function Ra(r, t, e, i, s, a) {
   let o = new M(0, 0);
@@ -4948,7 +5037,7 @@ function Ra(r, t, e, i, s, a) {
   const n = P.degreesToRadian(i),
     l = P.radianToDirection(n);
   l.normalize();
-  for (let h = 1; h < t; ++h)
+  for (let h = 1; h < t; ++h) {
     (r[h].force = l.multiplyByScaler(r[h].acceleration).add(s)),
       (r[h].lastPosition = new M(r[h].position.x, r[h].position.y)),
       (r[h].velocity = new M(0, 0)),
@@ -4959,6 +5048,7 @@ function Ra(r, t, e, i, s, a) {
       P.abs(r[h].position.x) < a && (r[h].position.x = 0),
       (r[h].force = new M(0, 0)),
       (r[h].lastGravity = new M(l.x, l.y));
+  }
 }
 function Me(r, t, e, i, s) {
   let a;
@@ -5047,32 +5137,35 @@ class Ea {
       this._channelColors.pushBack(e);
   }
   release() {
-    for (let t = 0; t < this._clippingContextListForMask.getSize(); t++)
+    for (let t = 0; t < this._clippingContextListForMask.getSize(); t++) {
       this._clippingContextListForMask.at(t) &&
-        (this._clippingContextListForMask.at(t).release(),
+      (this._clippingContextListForMask.at(t).release(),
         this._clippingContextListForMask.set(t, void 0)),
         this._clippingContextListForMask.set(t, null);
+    }
     this._clippingContextListForMask = null;
-    for (let t = 0; t < this._clippingContextListForDraw.getSize(); t++)
+    for (let t = 0; t < this._clippingContextListForDraw.getSize(); t++) {
       this._clippingContextListForDraw.set(t, null);
+    }
     this._clippingContextListForDraw = null;
-    for (let t = 0; t < this._channelColors.getSize(); t++)
+    for (let t = 0; t < this._channelColors.getSize(); t++) {
       this._channelColors.set(t, null);
+    }
     (this._channelColors = null),
       this._clearedFrameBufferFlags != null &&
-        this._clearedFrameBufferFlags.clear(),
+      this._clearedFrameBufferFlags.clear(),
       (this._clearedFrameBufferFlags = null);
   }
   initialize(t, e) {
     e % 1 != 0 &&
-      (rt(
-        "The number of render textures must be specified as an integer. The decimal point is rounded down and corrected to an integer.",
-      ),
+    (rt(
+      "The number of render textures must be specified as an integer. The decimal point is rounded down and corrected to an integer.",
+    ),
       (e = ~~e)),
       e < 1 &&
-        rt(
-          "The number of render textures must be an integer greater than or equal to 1. Set the number of render textures to 1.",
-        ),
+      rt(
+        "The number of render textures must be an integer greater than or equal to 1. Set the number of render textures to 1.",
+      ),
       (this._renderTextureCount = e < 1 ? 1 : e),
       (this._clearedFrameBufferFlags = new x(this._renderTextureCount));
     for (let i = 0; i < t.getDrawableCount(); i++) {
@@ -5085,11 +5178,11 @@ class Ea {
         t.getDrawableMaskCounts()[i],
       );
       s == null &&
-        ((s = new this._clippingContexttConstructor(
-          this,
-          t.getDrawableMasks()[i],
-          t.getDrawableMaskCounts()[i],
-        )),
+      ((s = new this._clippingContexttConstructor(
+        this,
+        t.getDrawableMasks()[i],
+        t.getDrawableMaskCounts()[i],
+      )),
         this._clippingContextListForMask.pushBack(s)),
         s.addClippedDrawable(i),
         this._clippingContextListForDraw.pushBack(s);
@@ -5103,11 +5196,12 @@ class Ea {
       let o = 0;
       for (let n = 0; n < a; n++) {
         const l = s._clippingIdList[n];
-        for (let h = 0; h < a; h++)
+        for (let h = 0; h < a; h++) {
           if (t[h] == l) {
             o++;
             break;
           }
+        }
       }
       if (o == a) return s;
     }
@@ -5122,14 +5216,17 @@ class Ea {
     if (i > 0) {
       if (
         (this.setupLayoutBounds(0),
-        this._clearedFrameBufferFlags.getSize() != this._renderTextureCount)
+          this._clearedFrameBufferFlags.getSize() != this._renderTextureCount)
       ) {
         this._clearedFrameBufferFlags.clear();
-        for (let s = 0; s < this._renderTextureCount; s++)
+        for (let s = 0; s < this._renderTextureCount; s++) {
           this._clearedFrameBufferFlags.pushBack(!1);
-      } else
-        for (let s = 0; s < this._renderTextureCount; s++)
+        }
+      } else {
+        for (let s = 0; s < this._renderTextureCount; s++) {
           this._clearedFrameBufferFlags.set(s, !1);
+        }
+      }
       for (let s = 0; s < this._clippingContextListForMask.getSize(); s++) {
         const a = this._clippingContextListForMask.at(s),
           o = a._allClippedDrawRect,
@@ -5177,8 +5274,9 @@ class Ea {
       this._tmpMatrixForDraw.setMatrix(this._tmpMatrix.getArray());
   }
   setupLayoutBounds(t) {
-    const e =
-      this._renderTextureCount <= 1 ? Ta : Fa * this._renderTextureCount;
+    const e = this._renderTextureCount <= 1
+      ? Ta
+      : Fa * this._renderTextureCount;
     if (t <= 0 || t > e) {
       t > e &&
         R(
@@ -5207,11 +5305,11 @@ class Ea {
     const n = s % Pe;
     o = ~~o;
     let l = 0;
-    for (let h = 0; h < this._renderTextureCount; h++)
+    for (let h = 0; h < this._renderTextureCount; h++) {
       for (let u = 0; u < Pe; u++) {
         let d = o + (u < n ? 1 : 0);
         const _ = n + (o < 1 ? -1 : 0);
-        if ((u == _ && a > 0 && (d -= h < a ? 0 : 1), d != 0))
+        if ((u == _ && a > 0 && (d -= h < a ? 0 : 1), d != 0)) {
           if (d == 1) {
             const g = this._clippingContextListForMask.at(l++);
             (g._layoutChannelIndex = u),
@@ -5220,7 +5318,7 @@ class Ea {
               (g._layoutBounds.width = 1),
               (g._layoutBounds.height = 1),
               (g._bufferIndex = h);
-          } else if (d == 2)
+          } else if (d == 2) {
             for (let g = 0; g < d; g++) {
               let c = g % 2;
               c = ~~c;
@@ -5232,7 +5330,7 @@ class Ea {
                 (f._layoutBounds.height = 1),
                 (f._bufferIndex = h);
             }
-          else if (d <= 4)
+          } else if (d <= 4) {
             for (let g = 0; g < d; g++) {
               let c = g % 2,
                 f = g / 2;
@@ -5245,7 +5343,7 @@ class Ea {
                 (p._layoutBounds.height = 0.5),
                 (p._bufferIndex = h);
             }
-          else if (d <= i)
+          } else if (d <= i) {
             for (let g = 0; g < d; g++) {
               let c = g % 3,
                 f = g / 3;
@@ -5258,7 +5356,7 @@ class Ea {
                 (p._layoutBounds.height = 1 / 3),
                 (p._bufferIndex = h);
             }
-          else {
+          } else {
             R(
               `not supported mask count : {0}
 [Details] render texture count : {1}, mask count : {2}`,
@@ -5276,7 +5374,9 @@ class Ea {
                 (c._bufferIndex = 0);
             }
           }
+        }
       }
+    }
   }
   calcClippedDrawTotalBounds(t, e) {
     let i = Number.MAX_VALUE,
@@ -5298,20 +5398,20 @@ class Ea {
           B = d[S + 1];
         y < _ && (_ = y), y > c && (c = y), B < g && (g = B), B > f && (f = B);
       }
-      if (_ != Number.MAX_VALUE)
+      if (_ != Number.MAX_VALUE) {
         if (
           (_ < i && (i = _),
-          g < s && (s = g),
-          c > a && (a = c),
-          f > o && (o = f),
-          i == Number.MAX_VALUE)
-        )
+            g < s && (s = g),
+            c > a && (a = c),
+            f > o && (o = f),
+            i == Number.MAX_VALUE)
+        ) {
           (e._allClippedDrawRect.x = 0),
             (e._allClippedDrawRect.y = 0),
             (e._allClippedDrawRect.width = 0),
             (e._allClippedDrawRect.height = 0),
             (e._isUsing = !1);
-        else {
+        } else {
           e._isUsing = !0;
           const S = a - i,
             y = o - s;
@@ -5320,6 +5420,7 @@ class Ea {
             (e._allClippedDrawRect.width = S),
             (e._allClippedDrawRect.height = y);
         }
+      }
     }
   }
   getClippingContextListForDraw() {
@@ -5387,7 +5488,7 @@ class dt {
     }
     this.gl.useProgram(d.shaderProgram),
       t._bufferData.vertex == null &&
-        (t._bufferData.vertex = this.gl.createBuffer()),
+      (t._bufferData.vertex = this.gl.createBuffer()),
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, t._bufferData.vertex);
     const _ = e.getDrawableVertices(i);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, _, this.gl.DYNAMIC_DRAW),
@@ -5405,16 +5506,16 @@ class dt {
     const g = e.getDrawableVertexUvs(i);
     if (
       (this.gl.bufferData(this.gl.ARRAY_BUFFER, g, this.gl.DYNAMIC_DRAW),
-      this.gl.enableVertexAttribArray(d.attributeTexCoordLocation),
-      this.gl.vertexAttribPointer(
-        d.attributeTexCoordLocation,
-        2,
-        this.gl.FLOAT,
-        !1,
-        0,
-        0,
-      ),
-      l)
+        this.gl.enableVertexAttribArray(d.attributeTexCoordLocation),
+        this.gl.vertexAttribPointer(
+          d.attributeTexCoordLocation,
+          2,
+          this.gl.FLOAT,
+          !1,
+          0,
+          0,
+        ),
+        l)
     ) {
       this.gl.activeTexture(this.gl.TEXTURE1);
       const I = t
@@ -5450,7 +5551,7 @@ class dt {
       this.gl.uniform4f(d.uniformMultiplyColorLocation, y.r, y.g, y.b, y.a),
       this.gl.uniform4f(d.uniformScreenColorLocation, B.r, B.g, B.b, B.a),
       t._bufferData.index == null &&
-        (t._bufferData.index = this.gl.createBuffer());
+      (t._bufferData.index = this.gl.createBuffer());
     const v = e.getDrawableVertexIndices(i);
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, t._bufferData.index),
       this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, v, this.gl.DYNAMIC_DRAW),
@@ -5462,7 +5563,7 @@ class dt {
     const s = this._shaderSets.at(0);
     this.gl.useProgram(s.shaderProgram),
       t._bufferData.vertex == null &&
-        (t._bufferData.vertex = this.gl.createBuffer()),
+      (t._bufferData.vertex = this.gl.createBuffer()),
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, t._bufferData.vertex);
     const a = e.getDrawableVertices(i);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, a, this.gl.DYNAMIC_DRAW),
@@ -5531,11 +5632,12 @@ class dt {
       this.gl.blendFuncSeparate(c, f, p, S);
   }
   releaseShaderProgram() {
-    for (let t = 0; t < this._shaderSets.getSize(); t++)
+    for (let t = 0; t < this._shaderSets.getSize(); t++) {
       this.gl.deleteProgram(this._shaderSets.at(t).shaderProgram),
         (this._shaderSets.at(t).shaderProgram = 0),
         this._shaderSets.set(t, void 0),
         this._shaderSets.set(t, null);
+    }
   }
   generateShaders() {
     for (let t = 0; t < Aa; t++) this._shaderSets.pushBack(new Ds());
@@ -5555,448 +5657,448 @@ class dt {
         this._shaderSets.at(2).shaderProgram),
       (this._shaderSets.at(9).shaderProgram =
         this._shaderSets.at(3).shaderProgram),
-      (this._shaderSets.at(0).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(0).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(0).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(0).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(0).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(0).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(0).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(0).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(0).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(0).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(0).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(0).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(0).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(0).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(0).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(0).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(0).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(0).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(0).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(0).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(0).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(0).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(0).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(0).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(1).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(1).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(1).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(1).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(1).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(1).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(1).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(1).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(1).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(1).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(1).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(1).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(1).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(1).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(1).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(1).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(1).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(1).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(1).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(1).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(1).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(2).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(2).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(2).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(2).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(2).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(2).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(2).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(2).samplerTexture1Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).samplerTexture1Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "s_texture1",
         )),
-      (this._shaderSets.at(2).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(2).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(2).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(2).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(2).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(2).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(2).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(2).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(3).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(3).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(3).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(3).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(3).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(3).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(3).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(3).samplerTexture1Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).samplerTexture1Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "s_texture1",
         )),
-      (this._shaderSets.at(3).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(3).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(3).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(3).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(3).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(3).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(3).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(3).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(4).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(4).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(4).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(4).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(4).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(4).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(4).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(4).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(4).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(4).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(4).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(4).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(4).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(4).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(4).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(4).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(4).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(4).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(4).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(4).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(4).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(5).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(5).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(5).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(5).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(5).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(5).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(5).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(5).samplerTexture1Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).samplerTexture1Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "s_texture1",
         )),
-      (this._shaderSets.at(5).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(5).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(5).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(5).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(5).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(5).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(5).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(5).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(6).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(6).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(6).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(6).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(6).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(6).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(6).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(6).samplerTexture1Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).samplerTexture1Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "s_texture1",
         )),
-      (this._shaderSets.at(6).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(6).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(6).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(6).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(6).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(6).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(6).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(6).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(7).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(7).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(7).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(7).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(7).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(7).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(7).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(7).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(7).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(7).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(7).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(7).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(7).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(7).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(7).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(7).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(7).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(7).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(7).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(7).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(7).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(8).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(8).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(8).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(8).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(8).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(8).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(8).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(8).samplerTexture1Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).samplerTexture1Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "s_texture1",
         )),
-      (this._shaderSets.at(8).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(8).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(8).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(8).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(8).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(8).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(8).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(8).shaderProgram,
           "u_screenColor",
         )),
-      (this._shaderSets.at(9).attributePositionLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(9).attributePositionLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(9).shaderProgram,
           "a_position",
         )),
-      (this._shaderSets.at(9).attributeTexCoordLocation =
-        this.gl.getAttribLocation(
+      (this._shaderSets.at(9).attributeTexCoordLocation = this.gl
+        .getAttribLocation(
           this._shaderSets.at(9).shaderProgram,
           "a_texCoord",
         )),
-      (this._shaderSets.at(9).samplerTexture0Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).samplerTexture0Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "s_texture0",
         )),
-      (this._shaderSets.at(9).samplerTexture1Location =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).samplerTexture1Location = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "s_texture1",
         )),
-      (this._shaderSets.at(9).uniformMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).uniformMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "u_matrix",
         )),
-      (this._shaderSets.at(9).uniformClipMatrixLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).uniformClipMatrixLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "u_clipMatrix",
         )),
-      (this._shaderSets.at(9).uniformChannelFlagLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).uniformChannelFlagLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "u_channelFlag",
         )),
-      (this._shaderSets.at(9).uniformBaseColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).uniformBaseColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "u_baseColor",
         )),
-      (this._shaderSets.at(9).uniformMultiplyColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).uniformMultiplyColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "u_multiplyColor",
         )),
-      (this._shaderSets.at(9).uniformScreenColorLocation =
-        this.gl.getUniformLocation(
+      (this._shaderSets.at(9).uniformScreenColorLocation = this.gl
+        .getUniformLocation(
           this._shaderSets.at(9).shaderProgram,
           "u_screenColor",
         ));
@@ -6038,26 +6140,26 @@ class dt {
 }
 class Ds {}
 var Ls = ((r) => (
-  (r[(r.ShaderNames_SetupMask = 0)] = "ShaderNames_SetupMask"),
-  (r[(r.ShaderNames_NormalPremultipliedAlpha = 1)] =
-    "ShaderNames_NormalPremultipliedAlpha"),
-  (r[(r.ShaderNames_NormalMaskedPremultipliedAlpha = 2)] =
-    "ShaderNames_NormalMaskedPremultipliedAlpha"),
-  (r[(r.ShaderNames_NomralMaskedInvertedPremultipliedAlpha = 3)] =
-    "ShaderNames_NomralMaskedInvertedPremultipliedAlpha"),
-  (r[(r.ShaderNames_AddPremultipliedAlpha = 4)] =
-    "ShaderNames_AddPremultipliedAlpha"),
-  (r[(r.ShaderNames_AddMaskedPremultipliedAlpha = 5)] =
-    "ShaderNames_AddMaskedPremultipliedAlpha"),
-  (r[(r.ShaderNames_AddMaskedPremultipliedAlphaInverted = 6)] =
-    "ShaderNames_AddMaskedPremultipliedAlphaInverted"),
-  (r[(r.ShaderNames_MultPremultipliedAlpha = 7)] =
-    "ShaderNames_MultPremultipliedAlpha"),
-  (r[(r.ShaderNames_MultMaskedPremultipliedAlpha = 8)] =
-    "ShaderNames_MultMaskedPremultipliedAlpha"),
-  (r[(r.ShaderNames_MultMaskedPremultipliedAlphaInverted = 9)] =
-    "ShaderNames_MultMaskedPremultipliedAlphaInverted"),
-  r
+  (r[r.ShaderNames_SetupMask = 0] = "ShaderNames_SetupMask"),
+    (r[r.ShaderNames_NormalPremultipliedAlpha = 1] =
+      "ShaderNames_NormalPremultipliedAlpha"),
+    (r[r.ShaderNames_NormalMaskedPremultipliedAlpha = 2] =
+      "ShaderNames_NormalMaskedPremultipliedAlpha"),
+    (r[r.ShaderNames_NomralMaskedInvertedPremultipliedAlpha = 3] =
+      "ShaderNames_NomralMaskedInvertedPremultipliedAlpha"),
+    (r[r.ShaderNames_AddPremultipliedAlpha = 4] =
+      "ShaderNames_AddPremultipliedAlpha"),
+    (r[r.ShaderNames_AddMaskedPremultipliedAlpha = 5] =
+      "ShaderNames_AddMaskedPremultipliedAlpha"),
+    (r[r.ShaderNames_AddMaskedPremultipliedAlphaInverted = 6] =
+      "ShaderNames_AddMaskedPremultipliedAlphaInverted"),
+    (r[r.ShaderNames_MultPremultipliedAlpha = 7] =
+      "ShaderNames_MultPremultipliedAlpha"),
+    (r[r.ShaderNames_MultMaskedPremultipliedAlpha = 8] =
+      "ShaderNames_MultMaskedPremultipliedAlpha"),
+    (r[r.ShaderNames_MultMaskedPremultipliedAlphaInverted = 9] =
+      "ShaderNames_MultMaskedPremultipliedAlphaInverted"),
+    r
 ))(Ls || {});
 const Da =
     "attribute vec4     a_position;attribute vec2     a_texCoord;varying vec2       v_texCoord;varying vec4       v_myPos;uniform mat4       u_clipMatrix;void main(){   gl_Position = u_clipMatrix * a_position;   v_myPos = u_clipMatrix * a_position;   v_texCoord = a_texCoord;   v_texCoord.y = 1.0 - v_texCoord.y;}",
@@ -6080,15 +6182,15 @@ var Ki;
 let Q, he;
 class we extends Ea {
   getMaskRenderTexture() {
-    if (this._maskTexture && this._maskTexture.textures != null)
+    if (this._maskTexture && this._maskTexture.textures != null) {
       this._maskTexture.frameNo = this._currentFrameNo;
-    else {
+    } else {
       this._maskRenderTextures != null && this._maskRenderTextures.clear(),
         (this._maskRenderTextures = new x()),
         this._maskColorBuffers != null && this._maskColorBuffers.clear(),
         (this._maskColorBuffers = new x());
       const t = this._clippingMaskBufferSize;
-      for (let e = 0; e < this._renderTextureCount; e++)
+      for (let e = 0; e < this._renderTextureCount; e++) {
         this._maskColorBuffers.pushBack(this.gl.createTexture()),
           this.gl.bindTexture(this.gl.TEXTURE_2D, this._maskColorBuffers.at(e)),
           this.gl.texImage2D(
@@ -6135,6 +6237,7 @@ class we extends Ea {
             this._maskColorBuffers.at(e),
             0,
           );
+      }
       this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, he),
         (this._maskTexture = new Os(
           this._currentFrameNo,
@@ -6171,10 +6274,11 @@ class we extends Ea {
           this._currentMaskRenderTexture,
         ),
         this._clearedFrameBufferFlags.getSize() != this._renderTextureCount &&
-          (this._clearedFrameBufferFlags.clear(),
+        (this._clearedFrameBufferFlags.clear(),
           (this._clearedFrameBufferFlags = new x(this._renderTextureCount)));
-      for (let s = 0; s < this._clearedFrameBufferFlags.getSize(); s++)
+      for (let s = 0; s < this._clearedFrameBufferFlags.getSize(); s++) {
         this._clearedFrameBufferFlags.set(s, !1);
+      }
       for (let s = 0; s < this._clippingContextListForMask.getSize(); s++) {
         const a = this._clippingContextListForMask.at(s),
           o = a._allClippedDrawRect,
@@ -6184,7 +6288,7 @@ class we extends Ea {
           u = 0;
         const d = this.getMaskRenderTexture().at(a._bufferIndex);
         this._currentMaskRenderTexture != d &&
-          ((this._currentMaskRenderTexture = d),
+        ((this._currentMaskRenderTexture = d),
           e.preDraw(),
           this.gl.bindFramebuffer(
             this.gl.FRAMEBUFFER,
@@ -6219,12 +6323,12 @@ class we extends Ea {
           const c = a._clippingIdList[g];
           t.getDrawableDynamicFlagVertexPositionsDidChange(c) &&
             (e.setIsCulling(t.getDrawableCulling(c) != !1),
-            this._clearedFrameBufferFlags.at(a._bufferIndex) ||
+              this._clearedFrameBufferFlags.at(a._bufferIndex) ||
               (this.gl.clearColor(1, 1, 1, 1),
-              this.gl.clear(this.gl.COLOR_BUFFER_BIT),
-              this._clearedFrameBufferFlags.set(a._bufferIndex, !0)),
-            e.setClippingContextBufferForMask(a),
-            e.drawMeshWebGL(t, c));
+                this.gl.clear(this.gl.COLOR_BUFFER_BIT),
+                this._clearedFrameBufferFlags.set(a._bufferIndex, !0)),
+              e.setClippingContextBufferForMask(a),
+              e.drawMeshWebGL(t, c));
         }
       }
       this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, he),
@@ -6381,7 +6485,7 @@ Please call 'CubimRenderer_WebGL.startUp' function.`);
 class Ne extends ge {
   initialize(t, e = 1) {
     t.isUsingMasking() &&
-      ((this._clippingManager = new we()),
+    ((this._clippingManager = new we()),
       this._clippingManager.initialize(t, e)),
       this._sortedDrawableIndexList.resize(t.getDrawableCount(), 0),
       super.initialize(t);
@@ -6429,11 +6533,11 @@ class Ne extends ge {
   }
   release() {
     this._clippingManager &&
-      (this._clippingManager.release(),
+    (this._clippingManager.release(),
       (this._clippingManager = void 0),
       (this._clippingManager = null)),
       this.gl != null &&
-        (this.gl.deleteBuffer(this._bufferData.vertex),
+      (this.gl.deleteBuffer(this._bufferData.vertex),
         (this._bufferData.vertex = null),
         this.gl.deleteBuffer(this._bufferData.uv),
         (this._bufferData.uv = null),
@@ -6449,7 +6553,7 @@ Please call 'CubimRenderer_WebGL.startUp' function.`);
       return;
     }
     this._clippingManager != null &&
-      (this.preDraw(),
+    (this.preDraw(),
       this.isUsingHighPrecisionMask()
         ? this._clippingManager.setupMatrixForHighPrecision(this.getModel(), !1)
         : this._clippingManager.setupClippingContext(this.getModel(), this)),
@@ -6463,10 +6567,9 @@ Please call 'CubimRenderer_WebGL.startUp' function.`);
     for (let i = 0; i < t; ++i) {
       const s = this._sortedDrawableIndexList.at(i);
       if (!this.getModel().getDrawableDynamicFlagIsVisible(s)) continue;
-      const a =
-        this._clippingManager != null
-          ? this._clippingManager.getClippingContextListForDraw().at(s)
-          : null;
+      const a = this._clippingManager != null
+        ? this._clippingManager.getClippingContextListForDraw().at(s)
+        : null;
       if (a != null && this.isUsingHighPrecisionMask()) {
         a._isUsing &&
           (this.gl.viewport(
@@ -6475,21 +6578,21 @@ Please call 'CubimRenderer_WebGL.startUp' function.`);
             this._clippingManager.getClippingMaskBufferSize(),
             this._clippingManager.getClippingMaskBufferSize(),
           ),
-          this.preDraw(),
-          this.gl.bindFramebuffer(
-            this.gl.FRAMEBUFFER,
-            a.getClippingManager().getMaskRenderTexture().at(a._bufferIndex),
-          ),
-          this.gl.clearColor(1, 1, 1, 1),
-          this.gl.clear(this.gl.COLOR_BUFFER_BIT));
+            this.preDraw(),
+            this.gl.bindFramebuffer(
+              this.gl.FRAMEBUFFER,
+              a.getClippingManager().getMaskRenderTexture().at(a._bufferIndex),
+            ),
+            this.gl.clearColor(1, 1, 1, 1),
+            this.gl.clear(this.gl.COLOR_BUFFER_BIT));
         {
           const o = a._clippingIdCount;
           for (let n = 0; n < o; n++) {
             const l = a._clippingIdList[n];
             this._model.getDrawableDynamicFlagVertexPositionsDidChange(l) &&
               (this.setIsCulling(this._model.getDrawableCulling(l) != !1),
-              this.setClippingContextBufferForMask(a),
-              this.drawMeshWebGL(this._model, l));
+                this.setClippingContextBufferForMask(a),
+                this.drawMeshWebGL(this._model, l));
           }
         }
         this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, he),
@@ -6533,23 +6636,25 @@ Please call 'CubimRenderer_WebGL.startUp' function.`);
   preDraw() {
     if (
       (this.firstDraw && (this.firstDraw = !1),
-      this.gl.disable(this.gl.SCISSOR_TEST),
-      this.gl.disable(this.gl.STENCIL_TEST),
-      this.gl.disable(this.gl.DEPTH_TEST),
-      this.gl.frontFace(this.gl.CW),
-      this.gl.enable(this.gl.BLEND),
-      this.gl.colorMask(!0, !0, !0, !0),
-      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null),
-      this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null),
-      this.getAnisotropy() > 0 && this._extension)
-    )
-      for (let t = 0; t < this._textures.getSize(); ++t)
+        this.gl.disable(this.gl.SCISSOR_TEST),
+        this.gl.disable(this.gl.STENCIL_TEST),
+        this.gl.disable(this.gl.DEPTH_TEST),
+        this.gl.frontFace(this.gl.CW),
+        this.gl.enable(this.gl.BLEND),
+        this.gl.colorMask(!0, !0, !0, !0),
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null),
+        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null),
+        this.getAnisotropy() > 0 && this._extension)
+    ) {
+      for (let t = 0; t < this._textures.getSize(); ++t) {
         this.gl.bindTexture(this.gl.TEXTURE_2D, this._textures.getValue(t)),
           this.gl.texParameterf(
             this.gl.TEXTURE_2D,
             this._extension.TEXTURE_MAX_ANISOTROPY_EXT,
             this.getAnisotropy(),
           );
+      }
+    }
   }
   setClippingContextBufferForMask(t) {
     this._clippingContextBufferForMask = t;
@@ -6610,34 +6715,31 @@ class Ns {
     return this._model == null ? 0 : this._model.canvasinfo.PixelsPerUnit;
   }
   getCanvasWidth() {
-    return this._model == null
-      ? 0
-      : this._model.canvasinfo.CanvasWidth /
-          this._model.canvasinfo.PixelsPerUnit;
+    return this._model == null ? 0 : this._model.canvasinfo.CanvasWidth /
+      this._model.canvasinfo.PixelsPerUnit;
   }
   getCanvasHeight() {
-    return this._model == null
-      ? 0
-      : this._model.canvasinfo.CanvasHeight /
-          this._model.canvasinfo.PixelsPerUnit;
+    return this._model == null ? 0 : this._model.canvasinfo.CanvasHeight /
+      this._model.canvasinfo.PixelsPerUnit;
   }
   saveParameters() {
     const t = this._model.parameters.count,
       e = this._savedParameters.getSize();
-    for (let i = 0; i < t; ++i)
+    for (let i = 0; i < t; ++i) {
       i < e
         ? this._savedParameters.set(i, this._parameterValues[i])
         : this._savedParameters.pushBack(this._parameterValues[i]);
+    }
   }
   getMultiplyColor(t) {
     return this.getOverwriteFlagForModelMultiplyColors() ||
-      this.getOverwriteFlagForDrawableMultiplyColors(t)
+        this.getOverwriteFlagForDrawableMultiplyColors(t)
       ? this._userMultiplyColors.at(t).color
       : this.getDrawableMultiplyColor(t);
   }
   getScreenColor(t) {
     return this.getOverwriteFlagForModelScreenColors() ||
-      this.getOverwriteFlagForDrawableScreenColors(t)
+        this.getOverwriteFlagForDrawableScreenColors(t)
       ? this._userScreenColors.at(t).color
       : this.getDrawableScreenColor(t);
   }
@@ -6668,11 +6770,11 @@ class Ns {
   setPartColor(t, e, i, s, a, o, n) {
     if (
       ((o.at(t).color.r = e),
-      (o.at(t).color.g = i),
-      (o.at(t).color.b = s),
-      (o.at(t).color.a = a),
-      o.at(t).isOverwritten)
-    )
+        (o.at(t).color.g = i),
+        (o.at(t).color.b = s),
+        (o.at(t).color.a = a),
+        o.at(t).isOverwritten)
+    ) {
       for (let l = 0; l < this._partChildDrawables.at(t).getSize(); ++l) {
         const h = this._partChildDrawables.at(t).at(l);
         (n.at(h).color.r = e),
@@ -6680,6 +6782,7 @@ class Ns {
           (n.at(h).color.b = s),
           (n.at(h).color.a = a);
       }
+    }
   }
   setPartMultiplyColorByTextureColor(t, e) {
     this.setPartMultiplyColorByRGBA(t, e.r, e.g, e.b, e.a);
@@ -6745,7 +6848,7 @@ class Ns {
       const o = this._partChildDrawables.at(t).at(a);
       (s.at(o).isOverwritten = e),
         e &&
-          ((s.at(o).color.r = i.at(t).color.r),
+        ((s.at(o).color.r = i.at(t).color.r),
           (s.at(o).color.g = i.at(t).color.g),
           (s.at(o).color.b = i.at(t).color.b),
           (s.at(o).color.a = i.at(t).color.a));
@@ -6773,8 +6876,9 @@ class Ns {
     if (
       this.getOverwriteFlagForModelCullings() ||
       this.getOverwriteFlagForDrawableCullings(t)
-    )
+    ) {
       return this._userCullings.at(t).isCulling;
+    }
     const e = this._model.drawables.constantFlags;
     return !Live2DCubismCore.Utils.hasIsDoubleSidedBit(e[t]);
   }
@@ -6846,8 +6950,8 @@ class Ns {
     for (e = 0; e < i; ++e) if (t == this._parameterIds.at(e)) return e;
     return this._notExistParameterId.isExist(t)
       ? this._notExistParameterId.getValue(t)
-      : ((e =
-          this._model.parameters.count + this._notExistParameterId.getSize()),
+      : ((e = this._model.parameters.count +
+        this._notExistParameterId.getSize()),
         this._notExistParameterId.setValue(t, e),
         this._notExistParameterValues.appendKey(e),
         e);
@@ -6891,14 +6995,13 @@ class Ns {
     }
     W(0 <= t && t < this.getParameterCount()),
       this._model.parameters.maximumValues[t] < e &&
-        (e = this._model.parameters.maximumValues[t]),
+      (e = this._model.parameters.maximumValues[t]),
       this._model.parameters.minimumValues[t] > e &&
-        (e = this._model.parameters.minimumValues[t]),
-      (this._parameterValues[t] =
-        i == 1
-          ? e
-          : (this._parameterValues[t] =
-              this._parameterValues[t] * (1 - i) + e * i));
+      (e = this._model.parameters.minimumValues[t]),
+      (this._parameterValues[t] = i == 1
+        ? e
+        : (this._parameterValues[t] = this._parameterValues[t] * (1 - i) +
+          e * i));
   }
   setParameterValueById(t, e, i = 1) {
     const s = this.getParameterIndex(t);
@@ -6991,8 +7094,8 @@ class Ns {
     return Live2DCubismCore.Utils.hasBlendAdditiveBit(e[t])
       ? ot.CubismBlendMode_Additive
       : Live2DCubismCore.Utils.hasBlendMultiplicativeBit(e[t])
-        ? ot.CubismBlendMode_Multiplicative
-        : ot.CubismBlendMode_Normal;
+      ? ot.CubismBlendMode_Multiplicative
+      : ot.CubismBlendMode_Normal;
   }
   getDrawableInvertedMaskBit(t) {
     const e = this._model.drawables.constantFlags;
@@ -7005,8 +7108,9 @@ class Ns {
     return this._model.drawables.maskCounts;
   }
   isUsingMasking() {
-    for (let t = 0; t < this._model.drawables.count; ++t)
+    for (let t = 0; t < this._model.drawables.count; ++t) {
       if (!(this._model.drawables.maskCounts[t] <= 0)) return !0;
+    }
     return !1;
   }
   getDrawableDynamicFlagIsVisible(t) {
@@ -7033,8 +7137,9 @@ class Ns {
     let t = this._model.parameters.count;
     const e = this._savedParameters.getSize();
     t > e && (t = e);
-    for (let i = 0; i < t; ++i)
+    for (let i = 0; i < t; ++i) {
       this._parameterValues[i] = this._savedParameters.at(i);
+    }
   }
   initialize() {
     W(this._model),
@@ -7046,15 +7151,17 @@ class Ns {
       const e = this._model.parameters.ids,
         i = this._model.parameters.count;
       this._parameterIds.prepareCapacity(i);
-      for (let s = 0; s < i; ++s)
+      for (let s = 0; s < i; ++s) {
         this._parameterIds.pushBack(V.getIdManager().getId(e[s]));
+      }
     }
     const t = this._model.parts.count;
     {
       const e = this._model.parts.ids;
       this._partIds.prepareCapacity(t);
-      for (let i = 0; i < t; ++i)
+      for (let i = 0; i < t; ++i) {
         this._partIds.pushBack(V.getIdManager().getId(e[i]));
+      }
       this._userPartMultiplyColors.prepareCapacity(t),
         this._userPartScreenColors.prepareCapacity(t),
         this._partChildDrawables.prepareCapacity(t);
@@ -7130,9 +7237,8 @@ class qt {
     const s = Live2DCubismCore.Moc.fromArrayBuffer(t);
     return (
       s &&
-        ((i = new qt(s)),
-        (i._mocVersion = Live2DCubismCore.Version.csmGetMocVersion(s, t))),
-      i
+      ((i = new qt(s)),
+        (i._mocVersion = Live2DCubismCore.Version.csmGetMocVersion(s, t))), i
     );
   }
   static delete(t) {
@@ -7260,8 +7366,9 @@ class $t {
     (this._userDataNodes = new x()), (this._artMeshUserDataNode = new x());
   }
   release() {
-    for (let t = 0; t < this._userDataNodes.getSize(); ++t)
+    for (let t = 0; t < this._userDataNodes.getSize(); ++t) {
       this._userDataNodes.set(t, null);
+    }
     this._userDataNodes = null;
   }
 }
@@ -7420,11 +7527,11 @@ class de {
   }
   release() {
     this._motionManager != null &&
-      (this._motionManager.release(), (this._motionManager = null)),
+    (this._motionManager.release(), (this._motionManager = null)),
       this._expressionManager != null &&
-        (this._expressionManager.release(), (this._expressionManager = null)),
+      (this._expressionManager.release(), (this._expressionManager = null)),
       this._moc != null &&
-        (this._moc.deleteModel(this._model),
+      (this._moc.deleteModel(this._model),
         this._moc.release(),
         (this._moc = null)),
       (this._modelMatrix = null),
@@ -7492,25 +7599,27 @@ class Ue {
     if (
       this._pcmData == null ||
       this._sampleOffset >= this._wavFileInfo._samplesPerChannel
-    )
+    ) {
       return (this._lastRms = 0), !1;
+    }
     (this._userTimeSeconds += t),
       (e = Math.floor(this._userTimeSeconds * this._wavFileInfo._samplingRate)),
       e > this._wavFileInfo._samplesPerChannel &&
-        (e = this._wavFileInfo._samplesPerChannel),
+      (e = this._wavFileInfo._samplesPerChannel),
       (i = 0);
-    for (let s = 0; s < this._wavFileInfo._numberOfChannels; s++)
+    for (let s = 0; s < this._wavFileInfo._numberOfChannels; s++) {
       for (let a = this._sampleOffset; a < e; a++) {
         const o = this._pcmData[s][a];
         i += o * o;
       }
+    }
     return (
       (i = Math.sqrt(
         i / (this._wavFileInfo._numberOfChannels * (e - this._sampleOffset)),
       )),
-      (this._lastRms = i),
-      (this._sampleOffset = e),
-      !0
+        (this._lastRms = i),
+        (this._sampleOffset = e),
+        !0
     );
   }
   start(t) {
@@ -7530,62 +7639,72 @@ class Ue {
       (async () => {
         if (
           ((this._byteReader._fileByte = await s()),
-          (this._byteReader._fileDataView = new DataView(
-            this._byteReader._fileByte,
-          )),
-          (this._byteReader._fileSize = this._byteReader._fileByte.byteLength),
-          (this._byteReader._readOffset = 0),
-          this._byteReader._fileByte == null || this._byteReader._fileSize < 4)
+            (this._byteReader._fileDataView = new DataView(
+              this._byteReader._fileByte,
+            )),
+            (this._byteReader._fileSize =
+              this._byteReader._fileByte.byteLength),
+            (this._byteReader._readOffset = 0),
+            this._byteReader._fileByte == null ||
+            this._byteReader._fileSize < 4)
         ) {
           e(!1);
           return;
         }
         this._wavFileInfo._fileName = t;
         try {
-          if (!this._byteReader.getCheckSignature("RIFF"))
+          if (!this._byteReader.getCheckSignature("RIFF")) {
             throw ((i = !1), new Error('Cannot find Signeture "RIFF".'));
+          }
           if (
             (this._byteReader.get32LittleEndian(),
-            !this._byteReader.getCheckSignature("WAVE"))
-          )
+              !this._byteReader.getCheckSignature("WAVE"))
+          ) {
             throw ((i = !1), new Error('Cannot find Signeture "WAVE".'));
-          if (!this._byteReader.getCheckSignature("fmt "))
+          }
+          if (!this._byteReader.getCheckSignature("fmt ")) {
             throw ((i = !1), new Error('Cannot find Signeture "fmt".'));
+          }
           const a = this._byteReader.get32LittleEndian();
-          if (this._byteReader.get16LittleEndian() != 1)
+          if (this._byteReader.get16LittleEndian() != 1) {
             throw ((i = !1), new Error("File is not linear PCM."));
+          }
           for (
-            this._wavFileInfo._numberOfChannels =
-              this._byteReader.get16LittleEndian(),
-              this._wavFileInfo._samplingRate =
-                this._byteReader.get32LittleEndian(),
+            this._wavFileInfo._numberOfChannels = this._byteReader
+              .get16LittleEndian(),
+              this._wavFileInfo._samplingRate = this._byteReader
+                .get32LittleEndian(),
               this._byteReader.get32LittleEndian(),
               this._byteReader.get16LittleEndian(),
-              this._wavFileInfo._bitsPerSample =
-                this._byteReader.get16LittleEndian(),
+              this._wavFileInfo._bitsPerSample = this._byteReader
+                .get16LittleEndian(),
               a > 16 && (this._byteReader._readOffset += a - 16);
             !this._byteReader.getCheckSignature("data") &&
             this._byteReader._readOffset < this._byteReader._fileSize;
-          )
+          ) {
             this._byteReader._readOffset +=
               this._byteReader.get32LittleEndian() + 4;
-          if (this._byteReader._readOffset >= this._byteReader._fileSize)
+          }
+          if (this._byteReader._readOffset >= this._byteReader._fileSize) {
             throw ((i = !1), new Error('Cannot find "data" Chunk.'));
+          }
           {
             const o = this._byteReader.get32LittleEndian();
-            this._wavFileInfo._samplesPerChannel =
-              (o * 8) /
+            this._wavFileInfo._samplesPerChannel = (o * 8) /
               (this._wavFileInfo._bitsPerSample *
                 this._wavFileInfo._numberOfChannels);
           }
           this._pcmData = new Array(this._wavFileInfo._numberOfChannels);
-          for (let o = 0; o < this._wavFileInfo._numberOfChannels; o++)
+          for (let o = 0; o < this._wavFileInfo._numberOfChannels; o++) {
             this._pcmData[o] = new Float32Array(
               this._wavFileInfo._samplesPerChannel,
             );
-          for (let o = 0; o < this._wavFileInfo._samplesPerChannel; o++)
-            for (let n = 0; n < this._wavFileInfo._numberOfChannels; n++)
+          }
+          for (let o = 0; o < this._wavFileInfo._samplesPerChannel; o++) {
+            for (let n = 0; n < this._wavFileInfo._numberOfChannels; n++) {
               this._pcmData[n][o] = this.getPcmSample();
+            }
+          }
           (i = !0), e(i);
         } catch (a) {
           console.log(a);
@@ -7624,8 +7743,9 @@ class Ue {
       : this._wavFileInfo._samplingRate;
   }
   releasePcmData() {
-    for (let t = 0; t < this._wavFileInfo._numberOfChannels; t++)
+    for (let t = 0; t < this._wavFileInfo._numberOfChannels; t++) {
       delete this._pcmData[t];
+    }
     delete this._pcmData, (this._pcmData = null);
   }
 }
@@ -7650,21 +7770,18 @@ class Ja {
     return this._readOffset++, t;
   }
   get16LittleEndian() {
-    const t =
-      (this._fileDataView.getUint8(this._readOffset + 1) << 8) |
+    const t = (this._fileDataView.getUint8(this._readOffset + 1) << 8) |
       this._fileDataView.getUint8(this._readOffset);
     return (this._readOffset += 2), t;
   }
   get24LittleEndian() {
-    const t =
-      (this._fileDataView.getUint8(this._readOffset + 2) << 16) |
+    const t = (this._fileDataView.getUint8(this._readOffset + 2) << 16) |
       (this._fileDataView.getUint8(this._readOffset + 1) << 8) |
       this._fileDataView.getUint8(this._readOffset);
     return (this._readOffset += 3), t;
   }
   get32LittleEndian() {
-    const t =
-      (this._fileDataView.getUint8(this._readOffset + 3) << 24) |
+    const t = (this._fileDataView.getUint8(this._readOffset + 3) << 24) |
       (this._fileDataView.getUint8(this._readOffset + 2) << 16) |
       (this._fileDataView.getUint8(this._readOffset + 1) << 8) |
       this._fileDataView.getUint8(this._readOffset);
@@ -7694,24 +7811,24 @@ class Ka extends de {
   setupModel(t) {
     if (
       ((this._updating = !0),
-      (this._initialized = !1),
-      (this._modelSetting = t),
-      this._modelSetting.getModelFileName() != "")
+        (this._initialized = !1),
+        (this._modelSetting = t),
+        this._modelSetting.getModelFileName() != "")
     ) {
       const _ = this._modelSetting.getModelFileName();
       fetch(`${this._modelHomeDir}${_}`)
         .then((g) => {
           if (g.ok) return g.arrayBuffer();
-          if (g.status >= 400)
+          if (g.status >= 400) {
             return (
               R(`Failed to load file ${this._modelHomeDir}${_}`),
-              new ArrayBuffer(0)
+                new ArrayBuffer(0)
             );
+          }
         })
         .then((g) => {
           this.loadModel(g, this._mocConsistency), (this._state = 3), e();
-        }),
-        (this._state = 2);
+        }), (this._state = 2);
     } else T.printMessage("Model data does not exist.");
     const e = () => {
         if (this._modelSetting.getExpressionCount() > 0) {
@@ -7722,16 +7839,17 @@ class Ka extends de {
             fetch(`${this._modelHomeDir}${f}`)
               .then((p) => {
                 if (p.ok) return p.arrayBuffer();
-                if (p.status >= 400)
+                if (p.status >= 400) {
                   return (
                     R(`Failed to load file ${this._modelHomeDir}${f}`),
-                    new ArrayBuffer(0)
+                      new ArrayBuffer(0)
                   );
+                }
               })
               .then((p) => {
                 const S = this.loadExpression(p, p.byteLength, c);
                 this._expressions.getValue(c) != null &&
-                  (Ft.delete(this._expressions.getValue(c)),
+                (Ft.delete(this._expressions.getValue(c)),
                   this._expressions.setValue(c, null)),
                   this._expressions.setValue(c, S),
                   this._expressionCount++,
@@ -7747,16 +7865,16 @@ class Ka extends de {
           fetch(`${this._modelHomeDir}${_}`)
             .then((g) => {
               if (g.ok) return g.arrayBuffer();
-              if (g.status >= 400)
+              if (g.status >= 400) {
                 return (
                   R(`Failed to load file ${this._modelHomeDir}${_}`),
-                  new ArrayBuffer(0)
+                    new ArrayBuffer(0)
                 );
+              }
             })
             .then((g) => {
               this.loadPhysics(g, g.byteLength), (this._state = 7), s();
-            }),
-            (this._state = 6);
+            }), (this._state = 6);
         } else (this._state = 7), s();
       },
       s = () => {
@@ -7765,22 +7883,21 @@ class Ka extends de {
           fetch(`${this._modelHomeDir}${_}`)
             .then((g) => {
               if (g.ok) return g.arrayBuffer();
-              if (g.status >= 400)
+              if (g.status >= 400) {
                 return (
                   R(`Failed to load file ${this._modelHomeDir}${_}`),
-                  new ArrayBuffer(0)
+                    new ArrayBuffer(0)
                 );
+              }
             })
             .then((g) => {
               this.loadPose(g, g.byteLength), (this._state = 9), a();
-            }),
-            (this._state = 8);
+            }), (this._state = 8);
         } else (this._state = 9), a();
       },
       a = () => {
         this._modelSetting.getEyeBlinkParameterCount() > 0 &&
-          ((this._eyeBlink = Yt.create(this._modelSetting)),
-          (this._state = 10)),
+        ((this._eyeBlink = Yt.create(this._modelSetting)), (this._state = 10)),
           o();
       },
       o = () => {
@@ -7803,32 +7920,34 @@ class Ka extends de {
           fetch(`${this._modelHomeDir}${_}`)
             .then((g) => {
               if (g.ok) return g.arrayBuffer();
-              if (g.status >= 400)
+              if (g.status >= 400) {
                 return (
                   R(`Failed to load file ${this._modelHomeDir}${_}`),
-                  new ArrayBuffer(0)
+                    new ArrayBuffer(0)
                 );
+              }
             })
             .then((g) => {
               this.loadUserData(g, g.byteLength), (this._state = 13), l();
-            }),
-            (this._state = 12);
+            }), (this._state = 12);
         } else (this._state = 13), l();
       },
       l = () => {
         const _ = this._modelSetting.getEyeBlinkParameterCount();
-        for (let g = 0; g < _; ++g)
+        for (let g = 0; g < _; ++g) {
           this._eyeBlinkIds.pushBack(
             this._modelSetting.getEyeBlinkParameterId(g),
           );
+        }
         (this._state = 14), h();
       },
       h = () => {
         const _ = this._modelSetting.getLipSyncParameterCount();
-        for (let g = 0; g < _; ++g)
+        for (let g = 0; g < _; ++g) {
           this._lipSyncIds.pushBack(
             this._modelSetting.getLipSyncParameterId(g),
           );
+        }
         (this._state = 15), u();
       },
       u = () => {
@@ -7849,18 +7968,19 @@ class Ka extends de {
           (this._motionCount = 0);
         const _ = [],
           g = this._modelSetting.getMotionGroupCount();
-        for (let c = 0; c < g; c++)
+        for (let c = 0; c < g; c++) {
           (_[c] = this._modelSetting.getMotionGroupName(c)),
             (this._allMotionCount += this._modelSetting.getMotionCount(_[c]));
+        }
         for (let c = 0; c < g; c++) this.preLoadMotionGroup(_[c]);
         g == 0 &&
           ((this._state = 20),
-          this._motionManager.stopAllMotions(),
-          (this._updating = !1),
-          (this._initialized = !0),
-          this.createRenderer(),
-          this.setupTextures(),
-          this.getRenderer().startUp(m));
+            this._motionManager.stopAllMotions(),
+            (this._updating = !1),
+            (this._initialized = !0),
+            this.createRenderer(),
+            this.setupTextures(),
+            this.getRenderer().startUp(m));
       };
   }
   setupTextures() {
@@ -7897,67 +8017,77 @@ class Ka extends de {
     let e = !1;
     if (
       (this._model.loadParameters(),
-      this._motionManager.isFinished()
-        ? this.startRandomMotion(ar, or)
-        : (e = this._motionManager.updateMotion(this._model, t)),
-      this._model.saveParameters(),
-      e ||
+        this._motionManager.isFinished()
+          ? this.startRandomMotion(ar, or)
+          : (e = this._motionManager.updateMotion(this._model, t)),
+        this._model.saveParameters(),
+        e ||
         (this._eyeBlink != null &&
           this._eyeBlink.updateParameters(this._model, t)),
-      this._expressionManager != null &&
+        this._expressionManager != null &&
         this._expressionManager.updateMotion(this._model, t),
-      this._model.addParameterValueById(this._idParamAngleX, this._dragX * 30),
-      this._model.addParameterValueById(this._idParamAngleY, this._dragY * 30),
-      this._model.addParameterValueById(
-        this._idParamAngleZ,
-        this._dragX * this._dragY * -30,
-      ),
-      this._model.addParameterValueById(
-        this._idParamBodyAngleX,
-        this._dragX * 10,
-      ),
-      this._model.addParameterValueById(this._idParamEyeBallX, this._dragX),
-      this._model.addParameterValueById(this._idParamEyeBallY, this._dragY),
-      this._breath != null && this._breath.updateParameters(this._model, t),
-      this._physics != null && this._physics.evaluate(this._model, t),
-      this._lipsync)
+        this._model.addParameterValueById(
+          this._idParamAngleX,
+          this._dragX * 30,
+        ),
+        this._model.addParameterValueById(
+          this._idParamAngleY,
+          this._dragY * 30,
+        ),
+        this._model.addParameterValueById(
+          this._idParamAngleZ,
+          this._dragX * this._dragY * -30,
+        ),
+        this._model.addParameterValueById(
+          this._idParamBodyAngleX,
+          this._dragX * 10,
+        ),
+        this._model.addParameterValueById(this._idParamEyeBallX, this._dragX),
+        this._model.addParameterValueById(this._idParamEyeBallY, this._dragY),
+        this._breath != null && this._breath.updateParameters(this._model, t),
+        this._physics != null && this._physics.evaluate(this._model, t),
+        this._lipsync)
     ) {
       let i = 0;
       this._wavFileHandler.update(t), (i = this._wavFileHandler.getRms());
-      for (let s = 0; s < this._lipSyncIds.getSize(); ++s)
+      for (let s = 0; s < this._lipSyncIds.getSize(); ++s) {
         this._model.addParameterValueById(this._lipSyncIds.at(s), i, 0.8);
+      }
     }
     this._pose != null && this._pose.updateParameters(this._model, t),
       this._model.update();
   }
   startMotion(t, e, i, s) {
     if (i == ei) this._motionManager.setReservePriority(i);
-    else if (!this._motionManager.reserveMotion(i))
+    else if (!this._motionManager.reserveMotion(i)) {
       return this._debugMode && T.printMessage("[APP]can't start motion."), le;
+    }
     const a = this._modelSetting.getMotionFileName(t, e),
       o = `${t}_${e}`;
     let n = this._motions.getValue(o),
       l = !1;
     n == null
       ? fetch(`${this._modelHomeDir}${a}`)
-          .then((u) => {
-            if (u.ok) return u.arrayBuffer();
-            if (u.status >= 400)
-              return (
-                R(`Failed to load file ${this._modelHomeDir}${a}`),
+        .then((u) => {
+          if (u.ok) return u.arrayBuffer();
+          if (u.status >= 400) {
+            return (
+              R(`Failed to load file ${this._modelHomeDir}${a}`),
                 new ArrayBuffer(0)
-              );
-          })
-          .then((u) => {
-            if (((n = this.loadMotion(u, u.byteLength, null, s)), n == null))
-              return;
-            let d = this._modelSetting.getMotionFadeInTimeValue(t, e);
-            d >= 0 && n.setFadeInTime(d),
-              (d = this._modelSetting.getMotionFadeOutTimeValue(t, e)),
-              d >= 0 && n.setFadeOutTime(d),
-              n.setEffectIds(this._eyeBlinkIds, this._lipSyncIds),
-              (l = !0);
-          })
+            );
+          }
+        })
+        .then((u) => {
+          if (((n = this.loadMotion(u, u.byteLength, null, s)), n == null)) {
+            return;
+          }
+          let d = this._modelSetting.getMotionFadeInTimeValue(t, e);
+          d >= 0 && n.setFadeInTime(d),
+            (d = this._modelSetting.getMotionFadeOutTimeValue(t, e)),
+            d >= 0 && n.setFadeOutTime(d),
+            n.setEffectIds(this._eyeBlinkIds, this._lipSyncIds),
+            (l = !0);
+        })
       : n.setFinishedMotionHandler(s);
     const h = this._modelSetting.getMotionSoundFileName(t, e);
     if (h.localeCompare("") != 0) {
@@ -7966,7 +8096,7 @@ class Ka extends de {
     }
     return (
       this._debugMode && T.printMessage(`[APP]start motion: [${t}_${e}`),
-      this._motionManager.startMotionPriority(n, l, i)
+        this._motionManager.startMotionPriority(n, l, i)
     );
   }
   startRandomMotion(t, e, i) {
@@ -7984,12 +8114,13 @@ class Ka extends de {
   setRandomExpression() {
     if (this._expressions.getSize() == 0) return;
     const t = Math.floor(Math.random() * this._expressions.getSize());
-    for (let e = 0; e < this._expressions.getSize(); e++)
+    for (let e = 0; e < this._expressions.getSize(); e++) {
       if (e == t) {
         const i = this._expressions._keyValues[e].first;
         this.setExpression(i);
         return;
       }
+    }
   }
   motionEventFired(t) {
     q("{0} is fired on LAppModel!!", t.s);
@@ -7997,11 +8128,12 @@ class Ka extends de {
   hitTest(t, e, i) {
     if (this._opacity < 1) return !1;
     const s = this._modelSetting.getHitAreasCount();
-    for (let a = 0; a < s; a++)
+    for (let a = 0; a < s; a++) {
       if (this._modelSetting.getHitAreaName(a) == t) {
         const o = this._modelSetting.getHitAreaId(a);
         return this.isHit(o, e, i);
       }
+    }
     return !1;
   }
   preLoadMotionGroup(t) {
@@ -8012,11 +8144,12 @@ class Ka extends de {
         fetch(`${this._modelHomeDir}${i}`)
           .then((a) => {
             if (a.ok) return a.arrayBuffer();
-            if (a.status >= 400)
+            if (a.status >= 400) {
               return (
                 R(`Failed to load file ${this._modelHomeDir}${i}`),
-                new ArrayBuffer(0)
+                  new ArrayBuffer(0)
               );
+            }
           })
           .then((a) => {
             const o = this.loadMotion(a, a.byteLength, s);
@@ -8027,11 +8160,11 @@ class Ka extends de {
                 n >= 0 && o.setFadeOutTime(n),
                 o.setEffectIds(this._eyeBlinkIds, this._lipSyncIds),
                 this._motions.getValue(s) != null &&
-                  Ft.delete(this._motions.getValue(s)),
+                Ft.delete(this._motions.getValue(s)),
                 this._motions.setValue(s, o),
                 this._motionCount++,
                 this._motionCount >= this._allMotionCount &&
-                  ((this._state = 20),
+                ((this._state = 20),
                   this._motionManager.stopAllMotions(),
                   (this._updating = !1),
                   (this._initialized = !0),
@@ -8057,20 +8190,20 @@ class Ka extends de {
     this._model != null &&
       this._state == 22 &&
       (t.multiplyByMatrix(this._modelMatrix),
-      this.getRenderer().setMvpMatrix(t),
-      this.doDraw());
+        this.getRenderer().setMvpMatrix(t),
+        this.doDraw());
   }
   async hasMocConsistencyFromFile() {
     if (
       (W(this._modelSetting.getModelFileName().localeCompare("")),
-      this._modelSetting.getModelFileName() != "")
+        this._modelSetting.getModelFileName() != "")
     ) {
       const t = this._modelSetting.getModelFileName(),
         i = await (await fetch(`${this._modelHomeDir}${t}`)).arrayBuffer();
       return (
         (this._consistency = qt.hasMocConsistency(i)),
-        this._consistency ? q("Consistent MOC3.") : q("Inconsistent MOC3."),
-        this._consistency
+          this._consistency ? q("Consistent MOC3.") : q("Inconsistent MOC3."),
+          this._consistency
       );
     } else T.printMessage("Model data does not exist.");
   }
@@ -8122,8 +8255,9 @@ class mt {
     return t < this._models.getSize() ? this._models.at(t) : null;
   }
   releaseAllModel() {
-    for (let t = 0; t < this._models.getSize(); t++)
+    for (let t = 0; t < this._models.getSize(); t++) {
       this._models.at(t).release(), this._models.set(t, null);
+    }
     this._models.clear();
   }
   onDrag(t, e) {
@@ -8134,13 +8268,14 @@ class mt {
   }
   onTap(t, e) {
     T.printMessage(`[APP]tap point: {x: ${t.toFixed(2)} y: ${e.toFixed(2)}}`);
-    for (let i = 0; i < this._models.getSize(); i++)
+    for (let i = 0; i < this._models.getSize(); i++) {
       this._models.at(i).hitTest(Qe, t, e)
         ? (T.printMessage(`[APP]hit area: [${Qe}]`),
           this._models.at(i).setRandomExpression())
         : this._models.at(i).hitTest(ti, t, e) &&
           (T.printMessage(`[APP]hit area: [${ti}]`),
-          this._models.at(i).startRandomMotion(nr, lr, this._finishedMotion));
+            this._models.at(i).startRandomMotion(nr, lr, this._finishedMotion));
+    }
   }
   onUpdate() {
     const { width: t, height: e } = E,
@@ -8149,9 +8284,9 @@ class mt {
       const a = new A(),
         o = this.getModel(s);
       o.getModel() &&
-        (o.getModel().getCanvasWidth() > 1 && t < e
-          ? (o.getModelMatrix().setWidth(2), a.scale(1, t / e))
-          : a.scale(e / t, 1),
+      (o.getModel().getCanvasWidth() > 1 && t < e
+        ? (o.getModelMatrix().setWidth(2), a.scale(1, t / e))
+        : a.scale(e / t, 1),
         this._viewMatrix != null && a.multiplyByMatrix(this._viewMatrix)),
         o.update(),
         o.draw(a);
@@ -8173,8 +8308,9 @@ class mt {
       this._models.at(0).loadAssets(i, s);
   }
   setViewMatrix(t) {
-    for (let e = 0; e < 16; e++)
+    for (let e = 0; e < 16; e++) {
       this._viewMatrix.getArray()[e] = t.getArray()[e];
+    }
   }
 }
 class Za {
@@ -8186,8 +8322,9 @@ class Za {
       let t = this._textures.begin();
       t.notEqual(this._textures.end());
       t.preIncrement()
-    )
+    ) {
       m.deleteTexture(t.ptr().id);
+    }
     this._textures = null;
   }
   createTextureFromPngFile(t, e, i) {
@@ -8195,7 +8332,7 @@ class Za {
       let a = this._textures.begin();
       a.notEqual(this._textures.end());
       a.preIncrement()
-    )
+    ) {
       if (a.ptr().fileName == t && a.ptr().usePremultply == e) {
         (a.ptr().img = new Image()),
           a
@@ -8204,6 +8341,7 @@ class Za {
           (a.ptr().img.src = t);
         return;
       }
+    }
     const s = new Image();
     s.addEventListener(
       "load",
@@ -8222,37 +8360,38 @@ class Za {
           m.bindTexture(m.TEXTURE_2D, null);
         const o = new Qa();
         o != null &&
-          ((o.fileName = t),
+        ((o.fileName = t),
           (o.width = s.width),
           (o.height = s.height),
           (o.id = a),
           (o.img = s),
           (o.usePremultply = e),
-          this._textures.pushBack(o)),
-          i(o);
+          this._textures.pushBack(o)), i(o);
       },
       { passive: !0 },
-    ),
-      (s.src = t);
+    ), (s.src = t);
   }
   releaseTextures() {
-    for (let t = 0; t < this._textures.getSize(); t++)
+    for (let t = 0; t < this._textures.getSize(); t++) {
       this._textures.set(t, null);
+    }
     this._textures.clear();
   }
   releaseTextureByTexture(t) {
-    for (let e = 0; e < this._textures.getSize(); e++)
+    for (let e = 0; e < this._textures.getSize(); e++) {
       if (this._textures.at(e).id == t) {
         this._textures.set(e, null), this._textures.remove(e);
         break;
       }
+    }
   }
   releaseTextureByFilePath(t) {
-    for (let e = 0; e < this._textures.getSize(); e++)
+    for (let e = 0; e < this._textures.getSize(); e++) {
       if (this._textures.at(e).fileName == t) {
         this._textures.set(e, null), this._textures.remove(e);
         break;
       }
+    }
   }
 }
 class Qa {
@@ -8276,13 +8415,13 @@ class Xs extends A {
   }
   adjustTranslate(t, e) {
     this._tr[0] * this._maxLeft + (this._tr[12] + t) > this._screenLeft &&
-      (t = this._screenLeft - this._tr[0] * this._maxLeft - this._tr[12]),
+    (t = this._screenLeft - this._tr[0] * this._maxLeft - this._tr[12]),
       this._tr[0] * this._maxRight + (this._tr[12] + t) < this._screenRight &&
-        (t = this._screenRight - this._tr[0] * this._maxRight - this._tr[12]),
+      (t = this._screenRight - this._tr[0] * this._maxRight - this._tr[12]),
       this._tr[5] * this._maxTop + (this._tr[13] + e) < this._screenTop &&
-        (e = this._screenTop - this._tr[5] * this._maxTop - this._tr[13]),
+      (e = this._screenTop - this._tr[5] * this._maxTop - this._tr[13]),
       this._tr[5] * this._maxBottom + (this._tr[13] + e) > this._screenBottom &&
-        (e = this._screenBottom - this._tr[5] * this._maxBottom - this._tr[13]);
+      (e = this._screenBottom - this._tr[5] * this._maxBottom - this._tr[13]);
     const i = new Float32Array([
       1,
       0,
@@ -8449,8 +8588,7 @@ class ls {
             (this._rect.down - i * 0.5) / (i * 0.5),
             (this._rect.right - e * 0.5) / (e * 0.5),
             (this._rect.down - i * 0.5) / (i * 0.5),
-          ])),
-            (this._vertexBuffer = m.createBuffer());
+          ])), (this._vertexBuffer = m.createBuffer());
         }
         (this._indexArray = new Uint16Array([0, 1, 2, 3, 2, 0])),
           (this._indexBuffer = m.createBuffer()),
@@ -8602,9 +8740,9 @@ class sn {
       n = Zs;
     if (
       (this._viewMatrix.setScreenRect(s, a, o, n),
-      this._viewMatrix.scale(Ze, Ze),
-      this._deviceToScreen.loadIdentity(),
-      t > e)
+        this._viewMatrix.scale(Ze, Ze),
+        this._deviceToScreen.loadIdentity(),
+        t > e)
     ) {
       const l = Math.abs(a - s);
       this._deviceToScreen.scaleRelative(l / t, -l / t);
@@ -8659,7 +8797,7 @@ class sn {
     };
     i.createTextureFromPngFile(s + a, !1, n),
       this._programId == null &&
-        (this._programId = w.getInstance().createShader());
+      (this._programId = w.getInstance().createShader());
   }
   onTouchesBegan(t, e) {
     this._touchManager.touchesBegan(
@@ -8673,8 +8811,7 @@ class sn {
     this._touchManager.touchesMoved(
       t * window.devicePixelRatio,
       e * window.devicePixelRatio,
-    ),
-      mt.getInstance().onDrag(i, s);
+    ), mt.getInstance().onDrag(i, s);
   }
   onTouchesEnded(t, e) {
     const i = mt.getInstance();
@@ -8716,22 +8853,22 @@ class w {
   initialize() {
     return (
       document.body.appendChild(E),
-      E.setAttribute("id", "live2d-canvas"),
-      this._resizeCanvas(),
-      Re || (Re = m.getParameter(m.FRAMEBUFFER_BINDING)),
-      m.enable(m.BLEND),
-      m.blendFunc(m.SRC_ALPHA, m.ONE_MINUS_SRC_ALPHA),
-      "ontouchend" in E
-        ? (E.addEventListener("touchstart", on, { passive: !0 }),
-          E.addEventListener("touchmove", ln, { passive: !0 }),
-          E.addEventListener("touchend", un, { passive: !0 }),
-          E.addEventListener("touchcancel", hn, { passive: !0 }))
-        : (E.addEventListener("mousedown", rn, { passive: !0 }),
-          E.addEventListener("mousemove", an, { passive: !0 }),
-          E.addEventListener("mouseup", nn, { passive: !0 })),
-      this._view.initialize(),
-      this.initializeCubism(),
-      !0
+        E.setAttribute("id", "live2d-canvas"),
+        this._resizeCanvas(),
+        Re || (Re = m.getParameter(m.FRAMEBUFFER_BINDING)),
+        m.enable(m.BLEND),
+        m.blendFunc(m.SRC_ALPHA, m.ONE_MINUS_SRC_ALPHA),
+        "ontouchend" in E
+          ? (E.addEventListener("touchstart", on, { passive: !0 }),
+            E.addEventListener("touchmove", ln, { passive: !0 }),
+            E.addEventListener("touchend", un, { passive: !0 }),
+            E.addEventListener("touchcancel", hn, { passive: !0 }))
+          : (E.addEventListener("mousedown", rn, { passive: !0 }),
+            E.addEventListener("mousemove", an, { passive: !0 }),
+            E.addEventListener("mouseup", nn, { passive: !0 })),
+        this._view.initialize(),
+        this.initializeCubism(),
+        !0
     );
   }
   onResize() {
@@ -8751,15 +8888,15 @@ class w {
     const t = () => {
       gt != null &&
         (T.updateTime(),
-        m.clearColor(0, 0, 0, 0),
-        m.enable(m.DEPTH_TEST),
-        m.depthFunc(m.LEQUAL),
-        m.clear(m.COLOR_BUFFER_BIT | m.DEPTH_BUFFER_BIT),
-        m.clearDepth(1),
-        m.enable(m.BLEND),
-        m.blendFunc(m.SRC_ALPHA, m.ONE_MINUS_SRC_ALPHA),
-        this._view.render(),
-        requestAnimationFrame(t));
+          m.clearColor(0, 0, 0, 0),
+          m.enable(m.DEPTH_TEST),
+          m.depthFunc(m.LEQUAL),
+          m.clear(m.COLOR_BUFFER_BIT | m.DEPTH_BUFFER_BIT),
+          m.clearDepth(1),
+          m.enable(m.BLEND),
+          m.blendFunc(m.SRC_ALPHA, m.ONE_MINUS_SRC_ALPHA),
+          this._view.render(),
+          requestAnimationFrame(t));
     };
     t();
   }
@@ -8769,25 +8906,24 @@ class w {
     m.shaderSource(
       t,
       "precision mediump float;attribute vec3 position;attribute vec2 uv;varying vec2 vuv;void main(void){   gl_Position = vec4(position, 1.0);   vuv = uv;}",
-    ),
-      m.compileShader(t);
+    ), m.compileShader(t);
     const i = m.createShader(m.FRAGMENT_SHADER);
-    if (i == null)
+    if (i == null) {
       return T.printMessage("failed to create fragmentShader"), null;
+    }
     m.shaderSource(
       i,
       "precision mediump float;varying vec2 vuv;uniform sampler2D texture;void main(void){   gl_FragColor = texture2D(texture, vuv);}",
-    ),
-      m.compileShader(i);
+    ), m.compileShader(i);
     const a = m.createProgram();
     return (
       m.attachShader(a, t),
-      m.attachShader(a, i),
-      m.deleteShader(t),
-      m.deleteShader(i),
-      m.linkProgram(a),
-      m.useProgram(a),
-      a
+        m.attachShader(a, i),
+        m.deleteShader(t),
+        m.deleteShader(i),
+        m.linkProgram(a),
+        m.useProgram(a),
+        a
     );
   }
   getView() {

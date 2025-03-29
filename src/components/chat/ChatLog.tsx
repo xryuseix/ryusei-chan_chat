@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import type { Message } from "@api/api/chat";
+import { useEffect, useRef } from "npm:react@18.3.1";
+import type { Message } from "@api/api/chat.ts";
 
 export type MessageWithId = Message & { id: number };
 

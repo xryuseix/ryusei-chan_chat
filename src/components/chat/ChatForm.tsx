@@ -1,8 +1,8 @@
 "use client";
 
-import { Microphone, PaperPlaneTilt, StopCircle } from "@phosphor-icons/react";
-import { InputGroup } from "@rewind-ui/core";
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { Microphone, PaperPlaneTilt, StopCircle } from "npm:@phosphor-icons/react";
+import { InputGroup } from "npm:@rewind-ui/core";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "npm:react";
 
 export default function ChatForm({
   message,
@@ -80,14 +80,14 @@ export default function ChatForm({
             onClick={() => setIsRecording((prev) => !prev)}
             className=""
           >
-            {isRecording ? (
-              <span className="relative flex">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400/70 opacity-75" />
-                <StopCircle size={18} />
-              </span>
-            ) : (
-              <Microphone size={18} />
-            )}
+            {isRecording
+              ? (
+                <span className="relative flex">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400/70 opacity-75" />
+                  <StopCircle size={18} />
+                </span>
+              )
+              : <Microphone size={18} />}
           </InputGroup.Button>
         )}
         <InputGroup.Button

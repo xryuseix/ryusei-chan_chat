@@ -1,13 +1,13 @@
 "use client";
 
-import { X, Gear, Microphone, PencilSimple } from "@phosphor-icons/react";
+import { Gear, Microphone, PencilSimple, X } from "@phosphor-icons/react";
 import {
-  Modal,
   Button,
   Card,
   FormControl,
-  Selector,
+  Modal,
   Select,
+  Selector,
 } from "@rewind-ui/core";
 import { useEffect, useState } from "react";
 
